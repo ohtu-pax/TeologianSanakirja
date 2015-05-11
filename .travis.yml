@@ -1,6 +1,13 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "0.11"
-  - "iojs"
-  - "iojs-v1.0.4"
+- '0.12'
+- '0.11'
+- iojs
+- iojs-v1.0.4
+deploy:
+  provider: heroku
+  api_key:
+    secure: ETMlSyMTIKcPqiWuyevgBffaXIjwlu/P8pVKhFuCvX7vKutIRKqmTs4OXxmOU6i7zfknH/RKe8Tjd71iYDrNwhLPfU8hL8YvBzvZPZA6XH8zXdv2CpwGvuginajXT1cfhdIibLzhvULsYCSL7tMN47hOhaLZlNm9lXbBhcaqgfRHAoYBIwmbLug5fZtaw8wSoOIpPlpICiGEX8y8pXlW23KhWGvtBKMKRwG1Gn3tzdO8o7PLAfLHR3Og+fa0yvzjMyX+c/XALjYnGywjAiPA8MEy1rYYkHs+QQOm1RHhxC62CubbKmR5TIxDd/L69jZKOePL9WAiMi8iYVLuhd9bsvWk6RZ7f1WEorIHnHKHPtnebfFxMp+W2WtDzPa4JG38b1NewDuJXIwLRbGt/BIxHwp5RblOJeN7TtN0yric6rBHLn2qcDt3/fAANPo+LgW0e1JKgdwooSOsJ7kkY0soe8p9OioQCIAYphxOitXm3ZYgJMEmX6YAFq2ExNFOeX8/ZDp+qGNlObdYVQr7/t0arClZ7cEeHrJq19CLVIx5gU9ooPtuu8+bOMn7fEqAirVJYj1Ly8Z7eN0myKjK3z1k23Ol/W/AhlgAhiKG2OKWPTfVa2ztnXN/xQFVVkaUMpeoIQ4GSksoAdcHhWFdJQYQhRsVkKswAOLfXnjUPFkxy5s=
+  app: TeologianSanakirja
+  on:
+    repo: ohtu-pax/TeologianSanakirja
