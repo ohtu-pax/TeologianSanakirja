@@ -1,0 +1,9 @@
+Defenition of done
+
+Koodilla tulee olla automaattisesti suoritettavat yksikkö- ja integraatiotestit.
+Koodin testikattavuus tulee olla 100% (rivikattavuus).
+CI-palvelimella tulee olla kokoajan toimiva testattu versio koodista.
+CD-versio pitää olla kokoajan netissä toimimassa.
+Koodin ylläpitävyyden tulee olla mahdollisimman hyvä eli:
+järkevä nimiäminen, selkeä arkkitehtuuri ja oliosuunnittelun periaatteita on noudatettu.
+
