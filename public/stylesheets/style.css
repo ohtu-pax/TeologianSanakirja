@@ -6,3 +6,20 @@ body {
 a {
   color: #00B7FF;
 }
+
+#master {
+    width: 900px;
+}
+
+h1  {
+    border-top-color: #8B5A98;
+    border-top-style: solid;
+    border-top-width: 19px;
+    padding-left: 10px;
+}
+
+#hakukentta {
+    margin-top: 20px;
+    margin-left: 10px;
+    border-color: black;
+}
