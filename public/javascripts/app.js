@@ -1,0 +1,1 @@
+var sanakirjaApp = angular.module('sanakirjaApp', []);
