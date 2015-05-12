@@ -1,3 +1,3 @@
 sanakirjaApp.controller('testiController', function($scope){
-    $scope.hello = "Hei PAX-ryhmä";
+    $scope.title = "teologian sanakirja";
 });
