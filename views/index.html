@@ -12,12 +12,17 @@
     <!--Oman sovelluksen koodit -->
     <script src="javascripts/app.js"></script>
      <script src="javascripts/controller.js"></script>
+     <script src="javascripts/services.js"></script>
      
     </head>
     <body ng-app="sanakirjaApp">
         <div id="master" ng-controller="testiController">
             <h1>  {{title}} </h1>
-            <input id="hakukentta" type="text" ng-model="hakukentta">
+            <input id="hakukentta" type="text" ng-model="hakukentta" />
         </div>
+        
+        <div ng-controller="sanalistaController">
+            <p ng-repeat="(sana, selitys) in sanalista">{{sana}} {{selitys}}</p>
+        </div>     
     </body>
 </html>
