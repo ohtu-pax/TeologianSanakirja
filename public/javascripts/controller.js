@@ -1,11 +1,16 @@
 
-sanakirjaApp.controller('sanalistaController', function($scope, sanakirjaAPIservice) {
-    $scope.sanalista = [];
+sanakirjaApp.controller('sanalistaController', function($scope, $http, sanakirjaAPIservice) {
 
-    sanakirjaAPIservice.getSanat().success(function (response) {
-        $scope.sanalista = JSON.parse(response);
-    });
-  });
+    // Get all todos
+    $http.get('api/sanat')
+        .success(function(data) {
+            console.log(data);
+            $scope.sanalista = data;
+        })
+        .error(function(error) {
+            console.log('Error: ' + error);
+        });
+});
 
 
 sanakirjaApp.controller('testiController', function($scope){
