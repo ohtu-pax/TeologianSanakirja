@@ -18,11 +18,11 @@
     <body ng-app="sanakirjaApp">
         <div id="master" ng-controller="testiController">
             <h1>  {{title}} </h1>
-            <input id="hakukentta" type="text" ng-model="hakukentta" />
         </div>
-
+         <label>Etsi: <input ng-model="hakuKentta"></label>
         <div ng-controller="sanalistaController">
-            <p ng-repeat="sanat in sanalista">sana:  {{sanat.sana}} |||| Selitys: {{sanat.selitys}}</p>
+            <p ng-repeat="sanat in sanalista | filter:hakuKentta" >Sana:  {{sanat.sana}} <br/>
+                Selitys: {{sanat.selitys}}</p>
         </div>     
     </body>
 </html>
