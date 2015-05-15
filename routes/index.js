@@ -51,4 +51,35 @@ router.get('/api/sanat', function (req, res) {
 
     });
 });
+//hakee yksittäisin sanan sanan ID:n perusteella. 
+router.get('/api/sanat/:sana_id', function(req, res) {
+
+    var results = [];
+    var id = req.params.sana_id;
+
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+
+        var query =  client.query("SELECT * FROM sanat WHERE id=($1)", [id]);
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            client.end();
+            return res.json(results);
+        });
+
+        // Handle Errors
+        if(err) {
+          console.log(err);
+        }
+
+    });
+
+});
 module.exports = router;

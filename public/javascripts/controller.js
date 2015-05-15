@@ -1,9 +1,8 @@
 
 sanakirjaApp.controller('sanalistaController', function ($scope, $http, sanakirjaAPIservice) {
-
+ $scope.title = "Teologian sanakirja";
     $http.get('api/sanat')
             .success(function (data) {
-                console.log(data);
                 $scope.sanalista = data;
             })
             .error(function (error) {
@@ -12,6 +11,15 @@ sanakirjaApp.controller('sanalistaController', function ($scope, $http, sanakirj
 });
 
 
-sanakirjaApp.controller('testiController', function ($scope) {
-    $scope.title = "Teologian sanakirja";
+sanakirjaApp.controller('postController', function ($scope, sanakirjaAPIservice) {
+   
+
+    $scope.lisaaSana = function () {
+        sanakirjaAPIservice.postSana({
+            sana: $scope.formData.sana,
+            selitys: $scope.formData.selitys
+        });
+        $scope.formData.sana = '';
+        $scope.formData.selitys = '';
+    };
 });
