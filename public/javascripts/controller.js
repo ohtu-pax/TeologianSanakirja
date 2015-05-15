@@ -1,7 +1,6 @@
 
 sanakirjaApp.controller('sanalistaController', function ($scope, $http, sanakirjaAPIservice) {
 
-    // Get all todos
     $http.get('api/sanat')
             .success(function (data) {
                 console.log(data);
@@ -14,5 +13,5 @@ sanakirjaApp.controller('sanalistaController', function ($scope, $http, sanakirj
 
 
 sanakirjaApp.controller('testiController', function ($scope) {
-    $scope.title = "teologian sanakirja";
+    $scope.title = "Teologian sanakirja";
 });
