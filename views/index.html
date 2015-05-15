@@ -16,13 +16,24 @@
 
     </head>
     <body ng-app="sanakirjaApp">
-        <div id="master" ng-controller="testiController">
+        <div id="master" ng-controller="sanalistaController">
             <h1>  {{title}} </h1>
         </div>
-         <label>Etsi: <input ng-model="hakuKentta"></label>
+        <label>Etsi: <input ng-model="hakuKentta"></label>
         <div ng-controller="sanalistaController">
-            <p ng-repeat="sanat in sanalista | filter:hakuKentta" >Sana:  {{sanat.sana}} <br/>
+            <p ng-repeat="sanat in sanalista| filter:hakuKentta" >Sana:  {{sanat.sana}} <br/>
                 Selitys: {{sanat.selitys}}</p>
-        </div>     
+        </div>
+
+        <div ng-controller="postController">
+            <form>
+                <input type="text" placeholder="Lisää sana..." ng-model="formData.sana">
+                <input type="text" placeholder="Lisää selitys..." ng-model="formData.selitys">
+
+
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="lisaaSana()">Lisää Sana</button>
+
+            </form>
+        </div>
     </body>
 </html>
