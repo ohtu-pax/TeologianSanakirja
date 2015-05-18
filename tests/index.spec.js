@@ -27,9 +27,7 @@ describe('api/sanat', function () {
                 .expect(function (res) {
                     var results = JSON.parse(res.text);
                     var sana = results[0];
-                    if (!sana || !sana.id || !sana.sana || !sana.selitys) {
-                        throw new Error('Virheellinen sana');
-                    }
+                    tarkistaOlemassaOlo(sana);
                     return false;
                 })
                 .end(function (err, res) {
@@ -37,6 +35,48 @@ describe('api/sanat', function () {
                         return done(err);
                     }
                     done();
+                });
+    });
+    it('Tulisi palauttaa tietty sana sitä pyytäessä', function (done) {
+        function tarkistaOlemassaOlo(sana) {
+            if (!sana || !sana.id || !sana.sana || !sana.selitys) {
+                throw new Error('Virheellinen sana');
+            }
+        }
+
+        request(app)
+                .get('/api/sanat')
+                .set('Accept', 'application/json')
+                .end(function (err, res) {
+                    if (err) {
+                        return done(err);
+                    } else {
+                        var results = JSON.parse(res.text);
+                        var sana = results[results.length - 1];
+                        tarkistaOlemassaOlo(sana);
+                        request(app)
+                                .get('/api/sanat' + sana.id)
+                                .set('Accept', 'application/json')
+                                .expect(function (singleRes) {
+                                    var singleResult = JSON.parse(singleRes.text);
+                                    if (singleResult.lenght !== 1) {
+                                        throw new Error('Liikaa vastauksia');
+                                    }
+                                    var saatuSana = singleResult[0];
+                                    tarkistaOlemassaOlo(saatuSana);
+                                    if (sana.id !== saatuSana.id || sana.sana !== saatuSana.sana
+                                            || sana.selitys !== saatuSana.selitys) {
+                                        throw new Error('Sanat eivät täsmää');
+                                    }
+                                    return false;
+                                })
+                                .end(function (err, res) {
+                                    if (err) {
+                                        return done(err);
+                                    }
+                                    done();
+                                });
+                    }
                 });
     });
 });
