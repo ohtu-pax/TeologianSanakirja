@@ -1,6 +1,6 @@
 # TeologianSanakirja
 Travis CI
- [![Build Status](https://travis-ci.org/ohtu-pax/TeologianSanakirja.svg)](https://travis-ci.org/ohtu-pax/TeologianSanakirja)
+ [![Build Status](https://travis-ci.org/ohtu-pax/TeologianSanakirja.svg?branch=master)](https://travis-ci.org/ohtu-pax/TeologianSanakirja)
 
 
 * http://teologiansanakirja.herokuapp.com/

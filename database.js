@@ -13,10 +13,10 @@ module.exports.queryWithValues = function (queryString, values, onend) {
     });
 };
 
-module.exports.queryWithReturn = function (queryString, onend) {
+module.exports.queryWithValuesAndReturn = function (queryString, values, onend) {
     var results = [];
     pg.connect(connectionString, function (err, client) {
-        var query = client.query(queryString);
+        var query = values ? client.query(queryString, values) : client.query(queryString);
         query.on('row', function (row) {
             results.push(row);
         });
@@ -27,4 +27,8 @@ module.exports.queryWithReturn = function (queryString, onend) {
             console.log(err);
         }
     });
+};
+
+module.exports.queryWithReturn = function (queryString, onend) {
+    queryWithValuesAndReturn(queryString, null, onend);
 };

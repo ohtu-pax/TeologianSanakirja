@@ -23,4 +23,13 @@ router.get('/api/sanat', function (req, res) {
     });
 });
 
+//hakee yksittäisin sanan sanan ID:n perusteella. 
+router.get('/api/sanat/:sana_id', function (req, res) {
+    var id = req.params.sana_id;
+    database.queryWithValuesAndReturn('SELECT * FROM sanat WHERE id=($1)', [id], function (results) {
+        return res.json(results);
+        res.end();
+    });
+});
+
 module.exports = router;
