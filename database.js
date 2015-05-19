@@ -13,7 +13,7 @@ module.exports.queryWithValues = function (queryString, values, onend) {
     });
 };
 
-module.exports.queryWithValuesAndReturn = function (queryString, values, onend) {
+function queryWithValuesAndReturn(queryString, values, onend) {
     var results = [];
     pg.connect(connectionString, function (err, client) {
         var query = values ? client.query(queryString, values) : client.query(queryString);
@@ -27,7 +27,9 @@ module.exports.queryWithValuesAndReturn = function (queryString, values, onend) 
             console.log(err);
         }
     });
-};
+}
+
+module.exports.queryWithValuesAndReturn = queryWithValuesAndReturn;
 
 module.exports.queryWithReturn = function (queryString, onend) {
     queryWithValuesAndReturn(queryString, null, onend);

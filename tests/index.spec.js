@@ -20,6 +20,13 @@ describe('api/sanat', function () {
                     done();
                 });
     });
+
+    function tarkistaOlemassaOlo(sana) {
+        if (!sana || !sana.id || !sana.sana || !sana.selitys) {
+            throw new Error('Virheellinen sana');
+        }
+    }
+
     it('Tulisi palauttaa oikeita sanoja', function (done) {
         request(app)
                 .get('/api/sanat')
@@ -38,12 +45,6 @@ describe('api/sanat', function () {
                 });
     });
     it('Tulisi palauttaa tietty sana sitä pyytäessä', function (done) {
-        function tarkistaOlemassaOlo(sana) {
-            if (!sana || !sana.id || !sana.sana || !sana.selitys) {
-                throw new Error('Virheellinen sana');
-            }
-        }
-
         request(app)
                 .get('/api/sanat')
                 .set('Accept', 'application/json')
@@ -55,12 +56,13 @@ describe('api/sanat', function () {
                         var sana = results[results.length - 1];
                         tarkistaOlemassaOlo(sana);
                         request(app)
-                                .get('/api/sanat' + sana.id)
+                                .get('/api/sanat/' + sana.id)
                                 .set('Accept', 'application/json')
                                 .expect(function (singleRes) {
                                     var singleResult = JSON.parse(singleRes.text);
-                                    if (singleResult.lenght !== 1) {
-                                        throw new Error('Liikaa vastauksia');
+                                    var lenght = singleResult.length;
+                                    if (lenght !== 1) {
+                                        throw new Error('Liikaa vastauksia: ' + singleResult.length);
                                     }
                                     var saatuSana = singleResult[0];
                                     tarkistaOlemassaOlo(saatuSana);
