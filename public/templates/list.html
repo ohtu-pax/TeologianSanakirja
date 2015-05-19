@@ -1,6 +1,4 @@
 <label>Etsi: <input ng-model="hakuKentta"></label>
-<div ng-controller="sanalistaController"> 
+
     <p ng-repeat="sanat in sanalista| filter:hakuKentta" >Sana:  {{sanat.sana}} <br/>
         Selitys: {{sanat.selitys}}</p>
-
-</div>
