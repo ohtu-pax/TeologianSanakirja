@@ -8,8 +8,4 @@ sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
                     console.log('Error: ' + error);
                 });
     };
-    
-    this.randomSana = function (){
-      
-    };
 });
