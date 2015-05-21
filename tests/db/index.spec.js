@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('supertest');
-var routes = require('.././routes/index');
+var routes = require('../../routes/index');
 var express = require('express');
 
 var app = express();
