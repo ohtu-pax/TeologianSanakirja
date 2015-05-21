@@ -1,4 +1,13 @@
-<label>Etsi: <input ng-model="hakuKentta"></label>
+<div ng-controller="hakuKenttaController">
 
-    <p ng-repeat="sanat in sanalista| filter:hakuKentta" >Sana:  {{sanat.sana}} <br/>
-        Selitys: {{sanat.selitys}}</p>
+<label>Etsi: <input ng-model="hakuKentta"></label>
+<button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
+
+    
+    <p ng-repeat="sanat in sanalista| filter:hakuKentta | limitTo:10" ng-show="hakuKentta.length > 0">
+        
+        Sana:  {{sanat.sana}} <br/>
+        Selitys: {{sanat.selitys}}        
+    </p>
+
+</div>
