@@ -1,5 +1,5 @@
 sanakirjaApp.controller('getController', function ($scope, $http) {
-    var randID = Math.floor(Math.random() * 6) + 1;
+    var randID = Math.floor(Math.random() * 3663) + 1;
     $http.get('api/sanat/')
             .success(function (data) {
                 $scope.random = data[randID];

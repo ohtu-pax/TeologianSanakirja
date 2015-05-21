@@ -2,11 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
-var database = require('../database');
-var pg = require('pg');
-// var connectionString = "postgres://localhost:5432"; 
- var connectionString = "postgres://ackprmsigyevpu:Xr2OAYPV1l1GAVW6MMMtVWUhIF@ec2-23-23-81-221.compute-1.amazonaws.com:5432/d4lr4f1ndusjb?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-
+var database = require('../database'); //
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index');
@@ -24,9 +20,10 @@ router.post('/api/sanat', function (req, res) {
  * Hae kaikki sanat kannasta, GET ALL
  */
 router.get('/api/sanat', function (req, res) {
-    database.queryWithReturn('SELECT * FROM sanat', function (results) {
+    database.queryWithReturn('SELECT * FROM hakusanat, selitykset WHERE hakusanat.selitys = selitykset.id', function (results) {
         return res.json(results);
         res.end();
+        //n , selitykset WHERE hakusanat.selitys = selitykset.id
     });
 });
 
