@@ -91,7 +91,7 @@ public final class MainParser {
                     sb.append(",\n");
                 }
             }
-            sb.append("\n");
+            sb.append(";\n");
 
             sb.append("INSERT INTO linkit (linkkisana, selitys, hakusana) VALUES");
             for (int i = 0; i < linkit.size(); i++) {
@@ -118,5 +118,6 @@ public final class MainParser {
 
             fw.append(sb);
         }
+        System.out.println(hakusanat.size());
     }
 }
