@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '0.12'
 - '0.11'
-before install: npm install -g protractor@2.1.0
+before install: npm install -g protractor@1.0.0 mocha@1.18.2
 install:
 - webdriver-manager update --standalone
 before_script:
