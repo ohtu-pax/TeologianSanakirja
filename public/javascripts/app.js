@@ -9,12 +9,13 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'getController',
                 templateUrl: '/templates/random.html'
             })
-            .when('/post', {
+          /**  .when('/post', {
                 controller: 'postController',
                 templateUrl: '/templates/post.html'
             })
             .otherwise({
                 redirectTo: '/'
             });
+            */
     ;
 });
