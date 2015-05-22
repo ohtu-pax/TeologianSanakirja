@@ -7,33 +7,23 @@
         <link href="stylesheets/style.css" rel="stylesheet">
 
         <!-- Angularin lähdekoodit -->
-        <script src="javascripts/lib/angular.js"></script>
+        <script src="/components/angular/angular.js"></script>
+        <script src="/components/angular-route/angular-route.js"></script>
+
 
         <!--Oman sovelluksen koodit -->
         <script src="javascripts/app.js"></script>
-        <script src="javascripts/controller.js"></script>
+        <script src="javascripts/controllers/getController.js"></script>
+        <script src="javascripts/controllers/postController.js"></script>
+        <script src="javascripts/controllers/hakuKenttaController.js"></script>
         <script src="javascripts/services.js"></script>
 
     </head>
+
     <body ng-app="sanakirjaApp">
-        <div id="master" ng-controller="sanalistaController">
-            <h1>  {{title}} </h1>
-        </div>
-        <label>Etsi: <input ng-model="hakuKentta"></label>
-        <div ng-controller="sanalistaController">
-            <p ng-repeat="sanat in sanalista| filter:hakuKentta" >Sana:  {{sanat.sana}} <br/>
-                Selitys: {{sanat.selitys}}</p>
-        </div>
-
-        <div ng-controller="postController">
-            <form>
-                <input type="text" placeholder="Lisää sana..." ng-model="formData.sana">
-                <input type="text" placeholder="Lisää selitys..." ng-model="formData.selitys">
-
-
-                <button type="submit" class="btn btn-primary btn-lg" ng-click="lisaaSana()">Lisää Sana</button>
-
-            </form>
-        </div>
+        <h1>  Teologian Sanakirja </h1>
+        <header><a href ="/#/" >etusivu</a> <a href ="#/random" >random sana</a> <a href ="#/post" >Lisää sana</a></header>
+        <br/>
+        <div ng-view></div>
     </body>
 </html>
