@@ -1,7 +1,7 @@
 "use strict";
 
 exports.config = {
-  seleniumAddress: 'http://localhost:4444/',
+  seleniumAddress: 'http://www.localhost:4444/',
     capabilities: {
       'browserName': 'phantomjs'
   },
