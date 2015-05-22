@@ -1,6 +1,6 @@
-describe('hakukentta', function(){
+describe('tyhjenna hakukentta', function(){
   var controller, scope;
-
+  
   beforeEach(function(){
     module('sanakirjaApp');
 
@@ -12,13 +12,13 @@ describe('hakukentta', function(){
     });
   });
 
-  it('tulostaa vain sanat joissa esiintyy tekstikentän hakuteksti', function(){
+  it('tyhjentaa hakukentan kun painetaan tyhjenna hakukentta painiketta', function(){
       
-      scope.hakuKentta = "aamen";
-    
+      scope.hakuKentta = "aamen";    
       console.log(scope.hakuKentta);  
-      
-      //expect(teksti).toBe("aamen");
+      scope.tyhjennahaku();
+      console.log(scope.hakuKentta); 
+      expect(scope.hakuKentta).to.eql("");
   });
   
 });
