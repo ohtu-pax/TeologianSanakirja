@@ -10,9 +10,6 @@ install:
 before_script:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
-    - sleep 3
-    - rackup
-    - sleep 3
     - nohup bash -c "webdrriver-manager start 2>&1 &"
     - webdriver-manager start &
 deploy:
