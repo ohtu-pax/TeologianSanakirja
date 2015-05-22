@@ -31,15 +31,20 @@
     "karma-qunit": "^0.1.4",
     "karma-sinon-chai": "~0.2.0",
     "mocha": "*",
+    "protractor": "^2.1.0",
     "qunitjs": "^1.18.0",
     "should": ">= 0.0.1",
     "supertest": "^1.0.0"
   },
-    "config": {
-      "blanket": {
-        "pattern": [ "" ],
-        "data-cover-never": [ "node_modules", "tests" ]
-      }
+  "config": {
+    "blanket": {
+      "pattern": [
+        ""
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "tests"
+      ]
     }
+  }
 }
-
