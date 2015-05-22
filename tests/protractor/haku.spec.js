@@ -8,7 +8,7 @@ var ODOTETUT_SANAT = [
 
 describe('Haku testaus', function () {
     it('title oikein', function () {
-        browser.get('http://localhost:4444');
+        browser.get('http://localhost:4444/wb/hub');
         expect(browser.getTitle()).toEqual('Teologian Sanakirja');
     });
     it('aloittaa sanat oikein', function () {

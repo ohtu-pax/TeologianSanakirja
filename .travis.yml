@@ -8,7 +8,7 @@ install:
 - npm install
 - webdriver-manager update --standalone
 before_script:
-    - phantomjs --webdriver=4444 &
+    - phantomjs --webdriver=http://localhost:4444/wb/hub &
 deploy:
   provider: heroku
   api_key:
