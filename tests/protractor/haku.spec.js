@@ -6,13 +6,15 @@ var ODOTETUT_SANAT = [
     'Sana: abjuraatio\nSelitys: (lat abiuratio), jonkin valallinen kieltäminen, todistajain läsnäollessa suoritettu esim harhaopin hylkääminen.'
 ];
 
+var PALVELIN_OSOITE = 'http://localhost:3000';
+
 describe('Haku testaus', function () {
     it('title oikein', function () {
-        browser.get('http://localhost:3000');
+        browser.get(PALVELIN_OSOITE);
         expect(browser.getTitle()).toEqual('Teologian Sanakirja');
     });
     it('aloittaa sanat oikein', function () {
-        browser.get('http://localhost:3000');
+        browser.get(PALVELIN_OSOITE);
 
         element(by.model('hakuKentta')).sendKeys('aa');
 
