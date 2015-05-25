@@ -2,10 +2,15 @@ language: node_js
 node_js:
 - '0.12'
 - '0.11'
-- iojs
-- iojs-v1.0.4
+before install: 
+- npm install -g protractor@2.1.0 mocha@1.18.2
+install:
+- npm install
+- webdriver-manager update --standalone
 before_script:
-    - "npm install -g jasmine"
+- phantomjs --webdriver=http://localhost:4444/wb/hub &
+- npm start &
+- webdriver-manager start &
 deploy:
   provider: heroku
   api_key:
