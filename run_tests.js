@@ -1,11 +1,13 @@
-"use strict";
+'use strict';
 
 var spawn = require('child_process').spawn;
 var childprocess = require('child_process');
 var exit = process.exit;
 var kill = process.kill;
 
-console.log('STARTING TESTS');
+console.log('STARTING INTEGRATION TESTS');
+
+var ODOTUS_AIKA = 3000;
 
 var seleniumPID = 0;
 var server = spawn('node', ['./bin/www']);
@@ -18,7 +20,7 @@ setTimeout(function () {
     setTimeout(function () {
         var p = spawn('node_modules/protractor/bin/protractor', ['tests/protractor/conf.js']);
         p.on('close', function (code) {
-            console.log('ENDING TESTS with code ' + code);
+            console.log('ENDING INTEGRATION TESTS with code ' + code);
             server.kill();
             wdm.kill();
             exit(code);
@@ -26,8 +28,8 @@ setTimeout(function () {
         p.stdout.on('data', function (data) {
             console.log('PROTRACTOR: ' + data);
         });
-    }, 3000);
-}, 3000);
+    }, ODOTUS_AIKA);
+}, ODOTUS_AIKA);
 
 function log(proc, name) {
     proc.stdout.on('data', function (data) {
@@ -35,7 +37,7 @@ function log(proc, name) {
             return;
         }
         data = '' + data;
-        console.log(name + ':' + data);
+        console.log(name + ': ' + data);
         if (~data.indexOf('seleniumProcess.pid: ')) {
             var pid = data.replace('seleniumProcess.pid:', '');
             seleniumPID = parseInt(pid, 10);
