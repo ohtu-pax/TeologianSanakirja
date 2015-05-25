@@ -1,7 +1,9 @@
-sanakirjaApp.controller('getController', function ($scope, $http) {
+sanakirjaApp.controller('getController', function ($scope, $http, $route) {
     var randID = Math.floor(Math.random() * 3360) + 1;
-$http.get('api/sanat/')
+    var datalista;
+    $http.get('api/sanat/', {cache: true})
             .success(function (data) {
+                datalista = data;
                 $scope.sanalista = data;
                 $scope.random = data[randID];
             })
@@ -9,4 +11,7 @@ $http.get('api/sanat/')
                 console.log('Error: ' + error);
             });
 
+    $scope.reloadRoute = function () {
+        $route.reload();
+    };
 });

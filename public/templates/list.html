@@ -5,9 +5,8 @@
 
 
     <p class="sanaSelitys" ng-repeat="sanat in sanalista | filter:hakuKentta | limitTo:10" ng-show="hakuKentta.length > 0">
-        Sana:  {{sanat.hakusana}} <br/>
-        Selitys: {{sanat.selitys}}        
-
+       Sana:  {{sanat.hakusana}} <br/><br/>
+        Selitys: {{sanat.selitys}}
     </p>
 </div>
 
