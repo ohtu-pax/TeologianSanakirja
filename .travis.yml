@@ -6,10 +6,11 @@ before install:
 - npm install -g protractor@2.1.0 mocha@1.18.2
 install:
 - npm install
-# - webdriver-manager update --standalone
-- npm start &
+- webdriver-manager update --standalone
 before_script:
-    - phantomjs --webdriver=http://localhost:4444/wb/hub &
+- phantomjs --webdriver=http://localhost:4444/wb/hub &
+- npm start &
+- webdriver-manager start &
 deploy:
   provider: heroku
   api_key:
