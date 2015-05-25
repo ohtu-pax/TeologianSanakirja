@@ -8,11 +8,11 @@ var ODOTETUT_SANAT = [
 
 describe('Haku testaus', function () {
     it('title oikein', function () {
-        browser.get('http://localhost:4444/wb/hub');
+        browser.get('http://localhost:3000');
         expect(browser.getTitle()).toEqual('Teologian Sanakirja');
     });
     it('aloittaa sanat oikein', function () {
-        browser.get('http://localhost:4444');
+        browser.get('http://localhost:3000');
 
         element(by.model('hakuKentta')).sendKeys('aa');
 
