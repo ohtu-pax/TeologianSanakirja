@@ -29,4 +29,22 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
 
         expect(ekaSanaSelitys).not.toBe(tokasanaSelitys);
     });
+
+    it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function () {
+        browser.get(PALVELIN_OSOITE);
+        var random = element(by.linkText('random sana'));
+
+        random.click();
+        var ekaSanaSelitys = haeSana();
+
+        var uusiRandom = element(by.buttonText('Uusi random'));
+        uusiRandom.click();
+        var tokaSanaSelitys = haeSana();
+
+        uusiRandom.click();
+        var kolmasSanaSelitys = haeSana();
+
+        expect(ekaSanaSelitys).not.toBe(kolmasSanaSelitys);
+        expect(tokaSanaSelitys).not.toBe(kolmasSanaSelitys);
+    });
 });
