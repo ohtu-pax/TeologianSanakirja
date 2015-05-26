@@ -5,7 +5,7 @@ var childprocess = require('child_process');
 var exit = process.exit;
 var kill = process.kill;
 
-console.log('STARTING INTEGRATION TESTS');
+console.log('Aloitetaan integraatio testit');
 
 var ODOTUS_AIKA = 3000;
 
@@ -20,26 +20,23 @@ setTimeout(function () {
     setTimeout(function () {
         var p = spawn('node_modules/protractor/bin/protractor', ['tests/protractor/conf.js']);
         p.on('close', function (code) {
-            console.log('ENDING INTEGRATION TESTS with code ' + code);
+            console.log('Lopetetaan integraatio testit ' + (code ? 'EPÄONNISTUNEESTI' : 'ONNISTUNEESTI'));
             server.kill();
             wdm.kill();
             exit(code);
         });
         p.stdout.on('data', function (data) {
-            console.log('PROTRACTOR: ' + data);
+            process.stdout.write('PROTRACTOR: ' + data);
         });
     }, ODOTUS_AIKA);
 }, ODOTUS_AIKA);
 
 function log(proc, name) {
     proc.stdout.on('data', function (data) {
-        if (!data) {
-            return;
-        }
-        data = '' + data;
-        console.log(name + ': ' + data);
-        if (~data.indexOf('seleniumProcess.pid: ')) {
-            var pid = data.replace('seleniumProcess.pid:', '');
+        var str = String(data);
+        process.stdout.write(name + ': ' + str);
+        if (~str.indexOf('seleniumProcess.pid: ')) {
+            var pid = str.replace('seleniumProcess.pid:', '');
             seleniumPID = parseInt(pid, 10);
             console.log('TESTS: Selenium pid on ' + seleniumPID);
             process.on('exit', function () {
