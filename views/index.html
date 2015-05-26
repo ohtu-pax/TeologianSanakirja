@@ -13,6 +13,7 @@
 
         <!--Oman sovelluksen koodit -->
         <script src="javascripts/app.js"></script>
+         <script src="javascripts/controllers/reloadController.js"></script>
         <script src="javascripts/controllers/getController.js"></script>
         <script src="javascripts/controllers/postController.js"></script>
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
@@ -22,7 +23,11 @@
 
     <body ng-app="sanakirjaApp">
         <h1>  Teologian Sanakirja </h1>
-        <header><a href ="/#/" >etusivu</a> <a href ="#/random" >random sana</a> <a href ="#/post" >Lisää sana</a></header>
+                <header> <ul>
+                        <li class="etusivu" ><a href ="/#/">etusivu</a></li>
+                        <li class="random"> <a href ="#/random" >random sana</a>
+                        
+            </ul> <!-- <a href ="#/post" >Lisää sana</a> --></header>
         <br/>
         <div ng-view></div>
     </body>

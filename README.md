@@ -11,4 +11,4 @@ Travis CI
 
 * https://wiki.helsinki.fi/pages/viewpage.action?pageId=101286782
 
-
+* https://docs.google.com/spreadsheets/d/1R4lAlCDffSmIWqF6y9LJKEYn-uWiCOM4zU8quv8ixb4/edit?usp=sharing

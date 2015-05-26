@@ -10,12 +10,14 @@ router.get('/', function (req, res, next) {
 /*
  * Post dataa tietokantaan
  */
+/**
 router.post('/api/sanat', function (req, res) {
     var data = {sana: req.body.sana, selitys: req.body.selitys};
-    database.queryWithValues('INSERT INTO sanat(sana, selitys) VALUES ($1, $2)', [data.sana, data.selitys], function () {
+    database.queryWithValues('INSERT INTO (sana, selitys) VALUES ($1, $2)', [data.sana, data.selitys], function () {
         res.end();
     });
 });
+*/
 /*
  * Hae kaikki sanat kannasta, GET ALL
  */
@@ -27,6 +29,8 @@ router.get('/api/sanat', function (req, res) {
     });
 });
 
+
+/**
 //hakee yksittäisin sanan sanan ID:n perusteella. 
 router.get('/api/sanat/:sana_id', function (req, res) {
     var id = req.params.sana_id;
@@ -35,5 +39,5 @@ router.get('/api/sanat/:sana_id', function (req, res) {
         res.end();
     });
 });
-
+*/
 module.exports = router;
