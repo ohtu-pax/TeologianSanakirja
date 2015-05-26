@@ -23,3 +23,8 @@ h1  {
     margin-left: 10px;
     border-color: black;
 }
+
+#etusivu header .etusivu > a {
+       pointer-events: none;
+       cursor: default;
+}

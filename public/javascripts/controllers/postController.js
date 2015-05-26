@@ -1,4 +1,5 @@
 sanakirjaApp.controller('postController', function ($scope, sanakirjaAPIservice) {
+    $scope.formData = {};
 
     $scope.lisaaSana = function () {
         sanakirjaAPIservice.postSana({
