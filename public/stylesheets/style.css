@@ -1,21 +1,73 @@
+@font-face {
+    font-family: 'Kenyan Coffee';
+    local: 'Kenyan Coffee';
+    src: url('../fonts/kenyan coffee rg.ttf')
+         format('truetype');
+}
+
+html{
+    background: url('../images/flower.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1.2em "Lucida Grande", Helvetica, Arial, sans-serif;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 a {
-  color: #00B7FF;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+a:hover {
+    border: 2px solid #DEBA42;
+    background-color: #DF7A3C;
 }
 
-#master {
-    width: 900px;
+a:active    {
+    border: 2px solid #CF6A35;
 }
 
 h1  {
-    border-top-color: #8B5A98;
-    border-top-style: solid;
-    border-top-width: 19px;
-    padding-left: 10px;
+    font-family: 'Kenyan Coffee';
+    color: #40c456;
+    font-size: 4em;
+}
+
+//#header-container  {
+//    width: 100%;
+//    position: fixed;
+//    float: top;
+//    top: 0px; 
+//}
+
+header  {
+    width: 100%;
+    //position: fixed;
+    float: top;
+    top: 0px; 
+    height: 20%;
+    width: 70%;
+    margin: 0px auto;
+}
+
+li{
+    display: inline-block;
+}
+
+ul  {
+    padding-bottom: 20px; 
+    padding-top: 20px;
+    border-top: 2px solid #BDD284;
+    border-bottom: 2px solid #BDD284;  
 }
 
 #hakukentta {
@@ -27,4 +79,13 @@ h1  {
 #etusivu header .etusivu > a {
        pointer-events: none;
        cursor: default;
+}
+
+#templatewrapper  {
+    background-color: white;
+    width: 70%;
+    height: 55%;
+    margin: 0px auto;
+    overflow: auto;
+    border: 2px solid #BDD284; 
 }
