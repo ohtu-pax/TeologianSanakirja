@@ -1,3 +1,5 @@
+/**
+Tätä ei käytetä joten tämä on kommentoitu pois
 sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
     this.postSana = function (data) {
         $http.post('/api/sanat', data)
@@ -9,3 +11,4 @@ sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
                 });
     };
 });
+*/
