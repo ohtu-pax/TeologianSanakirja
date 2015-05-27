@@ -18,6 +18,10 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-flow: column;
+  margin: 0px;
+  padding: 0px;
 }
 
 a {
@@ -27,6 +31,7 @@ a {
     padding: 10px 20px 10px 20px;
     text-decoration: none;
 }
+
 a:hover {
     border: 2px solid #DEBA42;
     background-color: #DF7A3C;
@@ -39,24 +44,14 @@ a:active    {
 h1  {
     font-family: 'Kenyan Coffee';
     color: #40c456;
-    font-size: 4em;
+    font-size: 3.5em;
 }
-
-//#header-container  {
-//    width: 100%;
-//    position: fixed;
-//    float: top;
-//    top: 0px; 
-//}
 
 header  {
     width: 100%;
-    //position: fixed;
-    float: top;
     top: 0px; 
     height: 20%;
-    width: 70%;
-    margin: 0px auto;
+    width: 100%;
 }
 
 li{
@@ -64,8 +59,8 @@ li{
 }
 
 ul  {
-    padding-bottom: 20px; 
-    padding-top: 20px;
+    padding-bottom: 10px; 
+    padding-top: 10px;
     border-top: 2px solid #BDD284;
     border-bottom: 2px solid #BDD284;  
 }
@@ -83,9 +78,8 @@ ul  {
 
 #templatewrapper  {
     background-color: white;
-    width: 70%;
-    height: 55%;
-    margin: 0px auto;
+    width: 100%;
+    height: 60%;
     overflow: auto;
-    border: 2px solid #BDD284; 
+    border: 2px solid #BDD284;
 }
