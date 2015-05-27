@@ -5,7 +5,7 @@ CREATE TABLE selitykset (
 
 CREATE TABLE hakusanat (
     id              SERIAL PRIMARY KEY,
-    hakusana        TEXT NOT NULL CONSTRAINT epatyhja_hakusana  CHECK (length(hakusana) > 0),
+    hakusana        TEXT NOT NULL CONSTRAINT epatyhja_hakusana CHECK (length(hakusana) > 0),
     selitys         INTEGER NOT NULL REFERENCES selitykset ON DELETE CASCADE ON UPDATE CASCADE
 );
 
