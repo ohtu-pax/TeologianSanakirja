@@ -1,4 +1,4 @@
-var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute']);
+var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute','ngSanitize']);
 sanakirjaApp.config(function ($routeProvider) {
     $routeProvider
             .when('/', {

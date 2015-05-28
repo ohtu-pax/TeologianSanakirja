@@ -1,7 +1,8 @@
 <div ng-controller="reloadController">
 <button ng-click="reloadRoute()">Uusi random</button>
 </div>
-<p class="sanaSelitys">
-  Sana:  {{random.hakusana}} <br/><br/>
- Selitys: {{random.selitys}}
-</p>
+<div class="sanaSelitys">
+   <br/><br/>
+  Sana:  {{random.hakusana}} 
+    <p ng-bind-html="random.selitys">  Selitys: {{random.selitys}}</p>
+</div>
