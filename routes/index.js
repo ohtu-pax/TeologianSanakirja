@@ -22,7 +22,7 @@ router.post('/api/sanat', function (req, res) {
  * Hae kaikki sanat kannasta, GET ALL
  */
 router.get('/api/sanat', function (req, res) {
-    database.queryWithReturn('SELECT * FROM hakusanat, selitykset WHERE hakusanat.selitys = selitykset.id', function (results) {
+        database.queryWithReturn('SELECT * FROM hakusanat, selitykset WHERE hakusanat.selitys = selitykset.id', function (results) {
         return res.json(results);
         res.end();
         //n , selitykset WHERE hakusanat.selitys = selitykset.id
