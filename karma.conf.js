@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
         'public/components/angular/angular.js',
         'public/components/angular-route/angular-route.js',
+        'public/components/angular-sanitize/angular-sanitize.js',
         'public/components/angular-cookies/angular-cookies.js',
         'node_modules/angular-mocks/angular-mocks.js',
          './public/javascripts/*.js',

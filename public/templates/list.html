@@ -4,13 +4,24 @@
     <button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
 
 
-    <p class="sanaSelitys" ng-repeat="sanat in sanalista | filter:{hakusana:hakuKentta}:true" ng-show="hakuKentta.length > 0">
-        Sana: <span ng-model="parasSana">  {{sanat.hakusana}} </span><br/>
-        Selitys:  <span ng-model="paras.selitys">{{sanat.selitys}}   </span>     
-</p>
-<hr>
-    <p class="sanaSelitys" ng-repeat="sanat in sanalista | filter: hakuKentta | filter:{hakusana: '!'+hakuKentta}:true | limitTo:10 | orderBy: 'hakusana' " ng-show="hakuKentta.length > 2">
-        Sana:  {{sanat.hakusana}} <br/>
-        Selitys: {{sanat.selitys}}        
-</p>
+    <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter:{hakusana:hakuKentta}:true" 
+         ng-show="hakuKentta.length > 0">
+        <br/>
+        Sana:   {{sanat.hakusana}}
+        <p ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p>
+    </div>
+
+
+
+    <hr>
+
+
+
+    <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter: hakuKentta | filter:{hakusana: '!' + hakuKentta}:true
+               | limitTo:10 | orderBy: 'hakusana'" ng-show="hakuKentta.length > 2">    
+         <br/>
+        Sana:  {{sanat.hakusana}}
+        <p ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p> 
+    </div>
+
 </div>
