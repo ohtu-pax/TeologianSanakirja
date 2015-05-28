@@ -9,13 +9,19 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'getController',
                 templateUrl: '/templates/random.html'
             })
-          /**  .when('/post', {
-                controller: 'postController',
-                templateUrl: '/templates/post.html'
+            .when('/sanat/:sana', {
+                controller: 'getOneWordController',
+                templateUrl: '/templates/one_word.html'
             })
             .otherwise({
                 redirectTo: '/'
             });
-            */
+
+    /*  .when('/post', {
+     controller: 'postController',
+     templateUrl: '/templates/post.html'
+     })
+     
+     */
     ;
 });
