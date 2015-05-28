@@ -21,15 +21,32 @@ router.get('/', function (req, res, next) {
 
 var HAKUSANAT_KYSELY = 'SELECT * FROM hakusanat';
 var SELITYKSET_KYSELY = 'SELECT * FROM selitykset';
-//var SANAT_KYSELY = 'SELECT hakusanat.hakusana, selitykset.id, selitykset.selitys FROM hakusanat, selitykset WHERE hakusanat.selitys = selitykset.id';
 var LINKIT_KYSELY = 'SELECT * FROM linkit';
+
 var results = null;
 
+loadDatabase(function () {
+    console.log('Tietokanta ladattu muistiin');
+});
+
 router.get('/api/sanat', function (req, response) {
-    /*if (results !== null) {
-     return results;
-     response.end();
-     }*/
+
+    if (results === null) {
+        loadDatabase(function () {
+            end(response);
+        });
+    } else {
+        end(response);
+    }
+
+});
+
+function end(response) {
+    response.set('Content-Type', 'application/json');
+    response.send(results);
+}
+
+function loadDatabase(onEnd) {
     database.queryWithReturn(LINKIT_KYSELY, function (linkit) {
         var linkitSelitykseen = new Array(linkit.length);
         for (var i = 0; i < linkit.length; i++) {
@@ -56,13 +73,12 @@ router.get('/api/sanat', function (req, response) {
 
             database.queryWithReturn(SELITYKSET_KYSELY, function (selitykset) {
                 var selityksetMap = toMap(selitykset);
+                var res = new Array(hakusanat.length);
 
-                var res = [];
-                console.log(hakusanat.length);
                 for (var i = 0; i < hakusanat.length; i++) {
 
                     var sana = {};
-                     res.push(sana);
+                    res[i] = sana;
                     var hakusana = hakusanat[i];
                     sana.hakusana = hakusana.hakusana;
 
@@ -73,26 +89,23 @@ router.get('/api/sanat', function (req, response) {
                     if (!linkit) {
                         continue;
                     }
-                    var kaytetyt= [];
+                    var kaytetyt = [];
                     for (var k = 0; k < linkit.length; k++) {
                         var linkki = linkit[k];
-                        if(kaytetyt[linkki.linkkisana]){
+                        if (kaytetyt[linkki.linkkisana]) {
                             continue;
                         }
                         kaytetyt[linkki.linkkisana] = true;
-                        sana.selitys = sana.selitys.replace(linkki.linkkisana  ,
-                        ' <a href="/#/sanat/' + hakusanatMap[linkki.hakusana].hakusana + '">' 
+                        sana.selitys = sana.selitys.replace(linkki.linkkisana,
+                                ' <a href="/#/sanat/' + hakusanatMap[linkki.hakusana].hakusana + '">'
                                 + linkki.linkkisana + '</a> ');
                     }
-
-                   
                 }
-                results = response.json(res);
-                return results;
-                response.end();
+                results = JSON.stringify(res);
+                onEnd();
             });
         });
     });
-});
+}
 
 module.exports = router;
