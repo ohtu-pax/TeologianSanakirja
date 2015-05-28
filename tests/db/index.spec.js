@@ -7,9 +7,17 @@ var express = require('express');
 var app = express();
 app.use('/', routes);
 
-var TIMEOUT = 3000;
+var START_TIMEOUT = 6000;
+var TIMEOUT = 50;
 
 describe('api/sanat', function () {
+    before(function (done) {
+        this.timeout(START_TIMEOUT);
+        request(app)
+                .get('/api/sanat')
+                .set('Accept', 'application/json')
+                .end(done);
+    });
     it('Palautuu JSON muodossa', function (done) {
         this.timeout(TIMEOUT);
         request(app)
@@ -23,9 +31,10 @@ describe('api/sanat', function () {
                     done();
                 });
     });
-
     function tarkistaOlemassaOlo(sana) {
-        if (!sana || !sana.hakusana || !sana.selitys) {
+        var hakusana = sana.hakusana;
+        var selitys = sana.selitys;
+        if (!sana || !hakusana || !selitys || hakusana.length === 0 || selitys.length === 0) {
             throw new Error('Virheellinen sana');
         }
     }
