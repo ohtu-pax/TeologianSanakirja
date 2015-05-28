@@ -7,7 +7,7 @@
     <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter:{hakusana:hakuKentta}:true" 
          ng-show="hakuKentta.length > 0">
         <br/>
-        Sana:   {{sanat.hakusana}}
+        Sana:  <a href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
         <p ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p>
     </div>
 
@@ -16,7 +16,7 @@
     <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter: hakuKentta | filter:{hakusana: '!' + hakuKentta}:true
                | limitTo:10 | orderBy: 'hakusana'" ng-show="hakuKentta.length > 2">    
          <br/>
-        Sana:  {{sanat.hakusana}}
+         Sana:  <a href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
         <p ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p> 
     </div>
 </div>
