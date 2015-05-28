@@ -8,18 +8,20 @@ sanakirjaApp.config(function ($routeProvider) {
             .when('/random', {
                 controller: 'getController',
                 templateUrl: '/templates/random.html'
-            })           
-            .when('/:sana', {
-                controller: 'getController',
+            })
+            .when('/sanat/:sana', {
+                controller: 'getOneWordController',
                 templateUrl: '/templates/one_word.html'
-            });
-          /**  .when('/post', {
-                controller: 'postController',
-                templateUrl: '/templates/post.html'
             })
             .otherwise({
                 redirectTo: '/'
             });
-            */
+
+    /*  .when('/post', {
+     controller: 'postController',
+     templateUrl: '/templates/post.html'
+     })
+     
+     */
     ;
 });

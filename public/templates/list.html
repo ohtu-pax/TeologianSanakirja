@@ -5,7 +5,7 @@
 
 
     <p class="sanaSelitys" ng-repeat="sanat in sanalista | filter:hakuKentta | limitTo:10" ng-show="hakuKentta.length > 0">
-        Sana:  <a href="/#/{{sanat.hakusana}}">{{sanat.hakusana}}</a> <br/>
+        Sana:  <a href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a> <br/>
         Selitys: {{sanat.selitys}}        
 
     </p>
