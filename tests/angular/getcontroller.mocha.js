@@ -1,37 +1,45 @@
 
-describe('GetController', function () {
-   // var $httpBackend;
+describe('GetController: ', function () {
     var controller, scope;
 
-    // Set up the module
     beforeEach(module('sanakirjaApp'));
-    beforeEach(inject(function ($injector) {
-        $httpBackend = $injector.get('$httpBackend');
-        $httpBackend.whenGET('api/sanat/')
-                .respond([{hakusana: 'aamen', 'selitys': 'totta'}, {hakusana: 'öylätti', 'selitys': 'eteinen'}]);
 
-        inject(function ($controller, $rootScope) {
-            scope = $rootScope.$new();
-            controller = $controller('getController', {
-                $scope: scope
-            });
+    beforeEach(inject(function ($controller, $rootScope, _$q_) {
+        scope = $rootScope.$new();
+        $q = _$q_;
+
+        mockService = {};
+
+        mockService.getSanalista = function () {
+            var defer = $q.defer();
+            var sanalista = [{hakusana: 'koira', selitys: 'haukkuu'}]; 
+            defer.resolve(sanalista);
+            sessionStorage.setItem('sanalista', JSON.stringify(sanalista));
+            return defer.promise;
+        }
+
+        controller = $controller('getController', {
+            $scope: scope,
+            sanakirjaAPIservice: mockService
         });
     }));
-
-    afterEach(function () {
-        $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
+    
+    after(function () {
+        sessionStorage.clear();
     });
 
-
-    it('http request should work', function () {
+    it('should put sanalista into scope.sanalista', function () {
         scope.$apply();
-        $httpBackend.flush();
+        expect(scope.sanalista[0].hakusana).eql("koira");
+        expect(scope.sanalista[0].selitys).eql("haukkuu");
     });
-    it('should get word hakusana from list', function () {
-        scope.$apply();
-        $httpBackend.flush();
-        expect(scope.sanalista[0].hakusana).eql("aamen");
-        expect(scope.sanalista[0].selitys).eql("totta");
+
+    it('should put random sana into scope.random', function () {
+        scope.$apply(); 
+        
+        expect(scope.random.hakusana).eql("koira");   
+        expect(scope.random.selitys).eql("haukkuu");  
     });
+    
+
 });

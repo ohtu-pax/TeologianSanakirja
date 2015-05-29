@@ -1,8 +1,8 @@
 sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice) {
     var asetetaanSanalistaJaRandom = function (sanalista) {
-        var randID = Math.floor(Math.random() * sanalista.length) + 1;
-
-        $scope.sanalista = sanalista;
+        var randID = Math.floor(Math.random() * sanalista.length);
+ 
+        $scope.sanalista = sanalista; 
         $scope.random = sanalista[randID];
     };
 
