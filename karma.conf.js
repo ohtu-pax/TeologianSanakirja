@@ -28,7 +28,6 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-        './tests/angular/servicejs.mocha.js',
         './tests/angular/postController.mocha.js'
     ],
 

@@ -1,4 +1,4 @@
-// testing controller
+
 describe('GetController', function () {
    // var $httpBackend;
     var controller, scope;
