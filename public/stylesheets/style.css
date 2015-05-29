@@ -45,6 +45,7 @@ h1  {
     font-family: 'Kenyan Coffee';
     color: #40c456;
     font-size: 3.5em;
+    text-shadow: -1px 0 #e0fde4, 0 1px #e0fde4, 1px 0 #e0fde4, 0 -1px #e0fde4;
 }
 
 header  {
