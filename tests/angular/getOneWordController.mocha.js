@@ -23,9 +23,6 @@ describe('getOneWordController: ', function () {
         sessionStorage.clear();
     });
     
-    //+ kutsuu serviceä kun session storage tyhjä --> tarvitaan sinon?
-    // + ei kutsu serviceä kun session storagessa lista
-
     describe('with an existing word', function () {
 
         beforeEach(function () {
@@ -34,7 +31,7 @@ describe('getOneWordController: ', function () {
                 $routeParams: {sana: 'kissa'},
                 sanakirjaAPIservice: mockService
             });
-        }); 
+        });
 
         it('should find the word from sanalista', function () {
             scope.$apply();
@@ -42,9 +39,8 @@ describe('getOneWordController: ', function () {
             expect(scope.sana).eql("kissa");
             expect(scope.selitys).eql("maukuu");
         });
-        
     });
-    
+
     describe('with a non-existing word', function () {
 
         beforeEach(function () {
