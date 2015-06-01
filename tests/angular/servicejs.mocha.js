@@ -35,7 +35,7 @@ describe('Service: ', function () {
         expect(result[0].hakusana).to.eql('koira');
     }));
 
-    it('should save data to session storage', (function () {
+    it('should save data into session storage', (function () {
         service.getSanalista();
 
         $httpBackend.whenGET(url).respond([{hakusana: 'koira', selitys: 'haukkuu'}]);
@@ -46,18 +46,13 @@ describe('Service: ', function () {
         expect(sanalista[0].hakusana).to.eql('koira');
     }));
 
-
-//    it('should get error message', (function () {
-//        var result = {};
-//        
-//        var promise = service.getSanalista();      
-//        promise.then(function(respond) {
-//            result = respond;
-//        });
-//        
-//        $httpBackend.whenGET('api/kukkuu').respond([{hakusana: 'koira', selitys: 'haukkuu'}]);
-//        $httpBackend.flush();
-//        console.log($httpBackend.calls);
-//        //expect(result[0].hakusana).to.eql('koira');
-//    }));
+    it('should leave session storage empty on http error', (function () { 
+        
+        service.getSanalista();
+         
+        $httpBackend.whenGET(url).respond(400);
+        $httpBackend.flush();
+        
+        expect(sessionStorage.length).to.equal(0);
+    }));
 });

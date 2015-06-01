@@ -20,6 +20,7 @@ module.exports = function(config) {
         'public/components/angular-sanitize/angular-sanitize.js',
         'public/components/angular-cookies/angular-cookies.js',
         'node_modules/angular-mocks/angular-mocks.js',
+        'node_modules/karma-sinon-chai/bower_components/sinonjs/sinon.js',
          './public/javascripts/*.js',
          './public/javascripts/**/*.js',
          './tests/angular/*.js'
