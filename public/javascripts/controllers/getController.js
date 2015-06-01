@@ -1,11 +1,24 @@
- sanakirjaApp.controller('getController', function ($scope, $http) {
-    var randID = Math.floor(Math.random() * 3360) + 1;
-$http.get('api/sanat/',{cache: true})
-            .success(function (data) {
-                $scope.sanalista = data;
-                $scope.random = data[randID];
-            })
-            .error(function (error) {
-                console.log('Error: ' + error);
-            });        
+sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice) {
+    var asetetaanSanalistaJaRandom = function (sanalista) {
+        var randID = Math.floor(Math.random() * sanalista.length);
+ 
+        $scope.sanalista = sanalista; 
+        $scope.random = sanalista[randID];
+    };
+
+    if (sessionStorage.length === 0) {
+        var servicePromise = sanakirjaAPIservice.getSanalista();
+
+        servicePromise.then(function (result) {
+            asetetaanSanalistaJaRandom(result);
+        }).catch(function (error) {
+            console.log("Error at getController: " + error);
+        });
+    } else {
+        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
+        asetetaanSanalistaJaRandom(sanalista);
+    }
 });
+
+
+
