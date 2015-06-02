@@ -48,13 +48,14 @@ describe('Haku testaus', function () {
         });
     });
 
+    function tarkistaDisplay(elementit) {
+        elementit.each(function (element) {
+            expect(element.isDisplayed()).toBe(false);
+        });
+    }
+
     it('ei löydä mitään sanoja kahdella painalluksella', function (done) {
         element(by.model('hakuKentta')).sendKeys('aa').then(function () {
-            function tarkistaDisplay(elementit) {
-                elementit.each(function (element) {
-                    expect(element.isDisplayed()).toBe(false);
-                });
-            }
 
             tarkistaDisplay(hakusanat);
             tarkistaDisplay(selitykset);
@@ -63,16 +64,16 @@ describe('Haku testaus', function () {
         });
     });
 
-    function filteroiTeksti(elements, expected) {
-        return elements.filter(function (elem) {
-            return elem.getText().then(function (text) {
-                return text === expected;
-            });
-        });
-    }
-
     it('löytää täydellisellä osumalla vain yhden sanan', function (done) {
         element(by.model('hakuKentta')).sendKeys('aamen').then(function () {
+
+            function filteroiTeksti(elements, expected) {
+                return elements.filter(function (elem) {
+                    return elem.getText().then(function (text) {
+                        return text === expected;
+                    });
+                });
+            }
 
             var toivottuHakuSana = filteroiTeksti(hakusanat, AAMEN_HAKUSANA);
             var toivottuSelitys = filteroiTeksti(selitykset, AAMEN_SELITYS);
@@ -93,6 +94,18 @@ describe('Haku testaus', function () {
 
                 expect(hakusana.getText()).toBe(DEUS_ABSCONDITUS_HAKUSANA);
                 expect(selitys.getText()).toBe(DEUS_ABSCONDITUS_SELITYS);
+
+                done();
+            });
+        });
+    });
+
+    it('tyhjentää hakupalki oikein', function (done) {
+        element(by.model('hakuKentta')).sendKeys('aamen').then(function () {
+
+            element(by.buttonText('Tyhjennä haku')).click(function () {
+                tarkistaDisplay(hakusanat);
+                tarkistaDisplay(selitykset);
 
                 done();
             });
