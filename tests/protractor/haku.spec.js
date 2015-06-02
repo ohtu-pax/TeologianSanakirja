@@ -12,6 +12,10 @@ var ODOTETUT_SELITYKSET = [
     '(kr), vain kerran sanottu, (esim UT:ssa) vain kerran esiintyvä sana.'
 ];
 
+var ODOTETUT_HAKUSANA_EHDOTUKSET = [
+    'aamen', 'abjuraatio', 'abrenuntiaatio', 'adekvaatti', 'adoraatio', 'affirmaatio'
+];
+
 var AAMEN_HAKUSANA = 'aamen';
 var AAMEN_SELITYS = '(hepr totisesti, niin olkoon), sana, jolla seurakunta vahvistaa ja omaksuu rukouksen, kiitoksen t ylistyksen. Kristus, joka itse on Aamen (Ilm 3: 14), vahvistaa a-sanalla oman puheensa.';
 
@@ -109,6 +113,27 @@ describe('Haku testaus', function () {
                 tarkistaDisplay(selitykset);
 
                 done();
+            });
+        });
+    });
+
+    it('näyttää dropdownissa oikein sanat', function (done) {
+        element(by.model('hakuKentta')).sendKeys('aa').then(function () {
+            browser.sleep(500).then(function () {
+                element.all(by.css('.ng-binding')).filter(function (elem, index) {
+                    return elem.getAttribute('role').then(function (text) {
+                        return text === 'menuitem';
+                    });
+                }).then(function (results) {
+                    for (var i = 0, max = ODOTETUT_HAKUSANA_EHDOTUKSET.length; i < max; i++) {
+                        expect(
+                                results[i]
+                                .getText())
+                                .toBe(ODOTETUT_HAKUSANA_EHDOTUKSET[i]);
+                    }
+
+                    done();
+                });
             });
         });
     });
