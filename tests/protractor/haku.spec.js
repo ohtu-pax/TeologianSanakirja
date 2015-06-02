@@ -25,6 +25,7 @@ describe('Haku testaus', function () {
     var selitykset = element.all(by.css('.selitys'));
 
     beforeEach(function () {
+        browser.ignoreSynchronization = true;
         browser.get(PALVELIN_OSOITE);
     });
 
@@ -102,8 +103,8 @@ describe('Haku testaus', function () {
 
     it('tyhjentää hakupalki oikein', function (done) {
         element(by.model('hakuKentta')).sendKeys('aamen').then(function () {
+            element(by.buttonText('Tyhjennä haku')).click().then(function () {
 
-            element(by.buttonText('Tyhjennä haku')).click(function () {
                 tarkistaDisplay(hakusanat);
                 tarkistaDisplay(selitykset);
 
