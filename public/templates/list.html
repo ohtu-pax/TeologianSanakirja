@@ -10,7 +10,7 @@
         Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
         <p class="selitys" ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p>
     </div>
-
+   
     <hr>
 
     <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter: hakuKentta | filter:{hakusana: '!' + hakuKentta}:true
