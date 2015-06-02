@@ -1,7 +1,6 @@
 
 sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
 
-
     this.getSanalista = function () {
         return $q(function (resolve, reject) {
             $http.get('api/sanat/')

@@ -1,5 +1,5 @@
    sanakirjaApp.controller('reloadController', function ($scope, $route) {
-          $scope.reloadRoute = function () {
+        $scope.reloadRoute = function () {
         $route.reload();
     };
    });

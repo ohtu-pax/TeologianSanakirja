@@ -6355,6 +6355,9 @@ button.close {
 .show {
   display: block !important;
 }
+.up 
+{ bottom:100% !important; top:auto !important; }
+
 .invisible {
   visibility: hidden;
 }
