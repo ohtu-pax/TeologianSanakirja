@@ -31,6 +31,7 @@
         "karma-qunit": "^0.1.4",
         "karma-sinon-chai": "~0.2.0",
         "mocha": "*",
+        "phantomjs": "^1.9.17",
         "protractor": "^2.1.0",
         "qunitjs": "^1.18.0",
         "should": ">= 0.0.1",

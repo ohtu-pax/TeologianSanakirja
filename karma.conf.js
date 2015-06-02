@@ -17,8 +17,10 @@ module.exports = function(config) {
     files: [
         'public/components/angular/angular.js',
         'public/components/angular-route/angular-route.js',
+        'public/components/angular-sanitize/angular-sanitize.js',
         'public/components/angular-cookies/angular-cookies.js',
         'node_modules/angular-mocks/angular-mocks.js',
+        'node_modules/karma-sinon-chai/bower_components/sinonjs/sinon.js',
          './public/javascripts/*.js',
          './public/javascripts/**/*.js',
          './tests/angular/*.js'
@@ -27,7 +29,6 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-        './tests/angular/servicejs.mocha.js',
         './tests/angular/postController.mocha.js'
     ],
 
