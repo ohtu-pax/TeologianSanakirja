@@ -7,7 +7,8 @@ describe('tyhjenna hakukentta', function(){
     inject(function($controller, $rootScope) {
       scope = $rootScope.$new();
       controller = $controller('hakuKenttaController', {
-        $scope: scope
+        $scope: scope,
+        $routeParams: {sana: 'kissa'}
       });
     });
   });
@@ -17,6 +18,10 @@ describe('tyhjenna hakukentta', function(){
       scope.hakuKentta = "aamen";    
       scope.tyhjennahaku();
       expect(scope.hakuKentta).to.eql("");
+  });
+  
+  it('asettaa sanan hakukenttaan', function(){
+      expect(scope.hakuKentta).to.eql("kissa");
   });
   
 });
