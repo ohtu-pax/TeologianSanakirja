@@ -96,6 +96,8 @@ function log(proc, name) {
         }
     });
     proc.on('close', function (code) {
-        console.log(name + ' exited with code ' + code);
+        if (code) {
+            console.log(name + ' exited with code ' + code);
+        }
     });
 }

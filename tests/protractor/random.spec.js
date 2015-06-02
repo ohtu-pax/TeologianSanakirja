@@ -5,9 +5,10 @@ var PALVELIN_OSOITE = 'http://localhost:3000';
 describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
     var hakusana = element(by.css('.hakusana'));
     var selitys = element(by.css('.selitys'));
-    //var uusiRandom = element(by.buttonText('Uusi random'));
+    var uusiRandom = element(by.buttonText('Uusi random'));
 
     beforeEach(function () {
+        browser.ignoreSynchronization = true;
         browser.get(PALVELIN_OSOITE);
         element(by.linkText('random sana')).click();
     });
@@ -18,50 +19,40 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
         done();
     });
 
-    //phantomjs jumittuu click():iin, chrome ei koskaan lopeta.
+    it('Randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
+        var ekaHakusana = hakusana.getText();
+        var ekaSelitys = selitys.getText();
 
-    /*it('Randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
-     var ekaHakusana = hakusana.getText();
-     var ekaSelitys = selitys.getText();
-     
-     var uusiRandom = element(by.buttonText('Uusi random'));
-     console.log(1);
-     browser.sleep(2500).then(function () {
-     console.log(2);
-     uusiRandom.click().then(function () {
-     console.log(3);
-     browser.sleep(2500).then(function () {
-     console.log(4);
-     var tokaHakusana = hakusana.getText();
-     var tokaSelitys = selitys.getText();
-     expect(ekaHakusana).not.toBe(tokaHakusana);
-     console.log(5);
-     expect(ekaSelitys).not.toBe(tokaSelitys);
-     console.log(6);
-     done();
-     console.log(7);
-     });
-     });
-     });
-     });*/
+        uusiRandom.click().then(function () {
 
-    /*it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
-     var ekaHakusana = hakusana.getText();
-     var ekaSelitys = selitys.getText();
-     
-     uusiRandom.click();
-     var tokaHakusana = hakusana.getText();
-     var tokaSelitys = selitys.getText();
-     
-     uusiRandom.click();
-     var kolmasHakusana = hakusana.getText();
-     var kolmasSelitys = selitys.getText();
-     
-     expect(kolmasHakusana).not.toBe(ekaHakusana);
-     expect(kolmasSelitys).not.toBe(ekaSelitys);
-     expect(kolmasHakusana).not.toBe(tokaHakusana);
-     expect(kolmasSelitys).not.toBe(tokaSelitys);
-     
-     done();
-     });*/
+            var tokaHakusana = hakusana.getText();
+            var tokaSelitys = selitys.getText();
+            expect(ekaHakusana).not.toBe(tokaHakusana);
+            expect(ekaSelitys).not.toBe(tokaSelitys);
+            done();
+        });
+    });
+
+    it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
+        hakusana.getText().then(function (h1) {
+            selitys.getText().then(function (s1) {
+                uusiRandom.click().then(function () {
+                    hakusana.getText().then(function (h2) {
+                        selitys.getText().then(function (s2) {
+                            uusiRandom.click();
+                            var kolmasHakusana = hakusana.getText();
+                            var kolmasSelitys = selitys.getText();
+
+                            expect(kolmasHakusana).not.toBe(h1);
+                            expect(kolmasSelitys).not.toBe(s1);
+                            expect(kolmasHakusana).not.toBe(h2);
+                            expect(kolmasSelitys).not.toBe(s2);
+
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+    });
 });
