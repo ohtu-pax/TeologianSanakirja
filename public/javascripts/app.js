@@ -1,4 +1,4 @@
-var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute','ngSanitize']);
+var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute','ngSanitize','mgcrea.ngStrap','ngAnimate']);
 sanakirjaApp.config(function ($routeProvider) {
     $routeProvider
             .when('/', {
