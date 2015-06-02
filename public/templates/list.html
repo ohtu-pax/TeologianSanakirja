@@ -1,12 +1,22 @@
 <div ng-controller="hakuKenttaController">
 
-    <label>Etsi: <input ng-model="hakuKentta"></label>
+    <label>Etsi: <input ng-model="hakuKentta" placeholder="Etsi sanan perusteella"></label>
     <button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
 
 
-    <p class="sanaSelitys" ng-repeat="sanat in sanalista | filter:hakuKentta | limitTo:10" ng-show="hakuKentta.length > 0">
-        Sana:  {{sanat.hakusana}} <br/>
-        Selitys: {{sanat.selitys}}        
+    <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter:{hakusana:hakuKentta}:true" 
+         ng-show="hakuKentta.length > 0">
+        <br/>
+        Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
+        <p class="selitys" ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p>
+    </div>
 
-    </p>
+    <hr>
+
+    <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter: hakuKentta | filter:{hakusana: '!' + hakuKentta}:true
+               | limitTo:10 | orderBy: 'hakusana'" ng-show="hakuKentta.length > 2">    
+         <br/>
+         Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
+        <p class="selitys" ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p> 
+    </div>
 </div>

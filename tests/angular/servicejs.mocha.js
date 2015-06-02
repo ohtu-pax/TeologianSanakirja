@@ -1,34 +1,58 @@
-describe('http', function () {
-    var service;
-    var httpBackend;
+describe('Service: ', function () {
+    var service,
+            $httpBackend,
+            url = 'api/sanat/';
 
+    beforeEach(module('sanakirjaApp'));
 
-    beforeEach(function () {
-        module('sanakirjaApp');
+    beforeEach(inject(function (sanakirjaAPIservice, _$httpBackend_) {
+        $httpBackend = _$httpBackend_;
+        service = sanakirjaAPIservice;
+    }));
 
-        beforeEach(inject(function (_sanakirjaAPIservice_) {
-            service = _sanakirjaAPIservice_;
-        }));
-        inject(function (_$httpBackend_) {
-            httpBackend = _$httpBackend_;
-
-        });
+    afterEach(function () {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+        sessionStorage.clear();
     });
 
-    describe('when sending a message', function () {
-        beforeEach(function () {
-            httpBackend.expectPOST('/api/sanat', {sana: 'Aamen', selitys: 'totta'})
-                    .respond(200);
-            var data = {sana: 'Aamen', selitys: 'totta'};
-            service.postSana(data);
-            httpBackend.flush();
+    it("service should be defined", function () {
+        expect(service).to.not.be.undefined;
+    });
+
+    it('should make a get request', (function () {
+        var result = {};
+
+        var promise = service.getSanalista();
+
+        promise.then(function (respond) {
+            result = respond;
         });
 
-        it('should send an HTTP POST request', function () {
-            httpBackend.verifyNoOutstandingExpectation();
-            httpBackend.verifyNoOutstandingRequest();
-        });
-    });
+        $httpBackend.whenGET(url).respond([{hakusana: 'koira', selitys: 'haukkuu'}]);
+        $httpBackend.flush();
+
+        expect(result[0].hakusana).to.eql('koira');
+    }));
+
+    it('should save data into session storage', (function () {
+        service.getSanalista();
+
+        $httpBackend.whenGET(url).respond([{hakusana: 'koira', selitys: 'haukkuu'}]);
+        $httpBackend.flush();
+
+        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
+        expect(sessionStorage.length).to.equal(1);
+        expect(sanalista[0].hakusana).to.eql('koira');
+    }));
+
+    it('should leave session storage empty on http error', (function () { 
+        
+        service.getSanalista();
+         
+        $httpBackend.whenGET(url).respond(400);
+        $httpBackend.flush();
+        
+        expect(sessionStorage.length).to.equal(0);
+    }));
 });
-
-

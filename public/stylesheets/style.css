@@ -28,3 +28,14 @@ h1  {
        pointer-events: none;
        cursor: default;
 }
+
+.sanaSelitys {
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-drag: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    -o-user-select: none;
+}
