@@ -7,17 +7,6 @@ var database = require('../database'); //
 router.get('/', function (req, res, next) {
     res.render('index');
 });
-/*
- * Post dataa tietokantaan
- */
-/**
- router.post('/api/sanat', function (req, res) {
- var data = {sana: req.body.sana, selitys: req.body.selitys};
- database.queryWithValues('INSERT INTO (sana, selitys) VALUES ($1, $2)', [data.sana, data.selitys], function () {
- res.end();
- });
- });
- */
 
 var HAKUSANAT_KYSELY = 'SELECT * FROM hakusanat';
 var SELITYKSET_KYSELY = 'SELECT * FROM selitykset';
@@ -94,8 +83,7 @@ function loadDatabase(onEnd) {
                         var linkki = linkit[k];
                         if (kaytetyt[linkki.linkkisana]) {
                             continue;
-                        }
-                        kaytetyt[linkki.linkkisana] = true;
+                            kaytetyt[linkki.linkkisana] = true;}
                         sana.selitys = sana.selitys.replace(linkki.linkkisana,
                                 ' <a href="/#/sanat/' + hakusanatMap[linkki.hakusana].hakusana + '">'
                                 + linkki.linkkisana + '</a> ');
