@@ -84,9 +84,10 @@ function loadDatabase(onEnd) {
                         if (kaytetyt[linkki.linkkisana]) {
                             continue;
                             kaytetyt[linkki.linkkisana] = true;}
-                        sana.selitys = sana.selitys.replace(linkki.linkkisana,
-                                ' <a href="/#/sanat/' + hakusanatMap[linkki.hakusana].hakusana + '">'
-                                + linkki.linkkisana + '</a> ');
+                          sana.selitys = sana.selitys.replace(linkki.linkkisana,
+                                  ' <a href="/#/sanat/' + hakusanatMap[linkki.hakusana].hakusana + '">'
+                                  + linkki.linkkisana + '</a> ');
+                        
                     }
                 }
                 results = JSON.stringify(res);
