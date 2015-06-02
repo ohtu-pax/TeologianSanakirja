@@ -1,6 +1,4 @@
-<div ng-controller="hakuKenttaController">
-    <!--sana.hakusana for sana in sanalista -->
-  
+<div>    
     <label>Etsi: <input class="dropdown up" ng-model="hakuKentta" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
     <button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
 
