@@ -8,7 +8,7 @@ var app = express();
 app.use('/', routes);
 
 var START_TIMEOUT = 6000;
-var TIMEOUT = 50;
+var TIMEOUT = 1000;
 
 describe('api/sanat', function () {
     before(function (done) {

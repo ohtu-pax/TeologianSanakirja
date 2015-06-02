@@ -18,7 +18,7 @@ sanakirjaApp.controller('getOneWordController', function ($scope, $routeParams, 
             sanalista = result;
             asetaSanaJaSelitys($routeParams.sana, sanalista);
         }).catch(function (error) {
-            console.log("Error: " + error);
+            console.log("Error at getOneWordController, sanalistaPromise: " + error);
         });
 
     } else {
