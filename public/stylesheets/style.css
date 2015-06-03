@@ -95,3 +95,4 @@ ul  {
     -ms-user-select: none;
     -o-user-select: none;
 }
+input + .typeahead.ng-hide { display: block !important; visibility: hidden !important; overflow: hidden; opacity: 0; }
