@@ -19,9 +19,8 @@ sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice,$
         asetetaanSanalistaJaRandom(sanalista);
     }
         
-       var etsitalla = $routeParams.kirjain.toLowerCase();
       $scope.kirjainFilter = function(sanat) {
-        return sanat.hakusana.substring(0,1).match(etsitalla) || sanat.hakusana.substring(0,1).match($routeParams.kirjain);
+        return sanat.hakusana.substring(0,1).match($routeParams.kirjain.toLowerCase()) || sanat.hakusana.substring(0,1).match($routeParams.kirjain);
     };
 });
 
