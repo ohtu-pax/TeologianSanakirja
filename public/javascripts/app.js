@@ -25,3 +25,10 @@ sanakirjaApp.config(function ($routeProvider) {
      */
     ;
 });
+
+sanakirjaApp.filter('unsafe_html', ['$sce', function ($sce) {
+        return function (text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);
+

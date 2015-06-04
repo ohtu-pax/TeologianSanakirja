@@ -8,7 +8,7 @@
          ng-show="hakuKentta.length > 0">
         <br/>
         Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
-        <p class="selitys" ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p>
+        <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p>
     </div>
    
     <hr>
@@ -17,6 +17,6 @@
                | limitTo:10 | orderBy: 'hakusana'" ng-show="hakuKentta.length > 2">    
          <br/>
          Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
-        <p class="selitys" ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p> 
+        <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p> 
     </div>
 </div>

@@ -2,8 +2,10 @@
 
 var express = require('express');
 var router = express.Router();
-var database = require('../database'); //
-/* GET home page. */
+var database = require('../database');
+var lyhennysParser = require('../databaseParser');
+var linkittajaClass = require('../linkParser').linkittaja;
+
 router.get('/', function (req, res, next) {
     res.render('index');
 });
@@ -14,12 +16,8 @@ var LINKIT_KYSELY = 'SELECT * FROM linkit';
 
 var results = null;
 
-loadDatabase(function () {
-    console.log('Tietokanta ladattu muistiin');
-});
-
 router.get('/api/sanat', function (req, response) {
-
+    //Supertestia varten
     if (results === null) {
         loadDatabase(function () {
             end(response);
@@ -27,7 +25,6 @@ router.get('/api/sanat', function (req, response) {
     } else {
         end(response);
     }
-
 });
 
 function end(response) {
@@ -35,7 +32,7 @@ function end(response) {
     response.send(results);
 }
 
-function loadDatabase(onEnd) {
+function loadDatabase(onDone) {
     database.queryWithReturn(LINKIT_KYSELY, function (linkit) {
         var linkitSelitykseen = new Array(linkit.length);
         for (var i = 0; i < linkit.length; i++) {
@@ -72,29 +69,21 @@ function loadDatabase(onEnd) {
                     sana.hakusana = hakusana.hakusana;
 
                     var selitys = selityksetMap[hakusana.selitys];
-                    sana.selitys = selitys.selitys;
-
+                    sana.selitys = lyhennysParser.lisaaLyhenne(selitys.selitys);
                     var linkit = linkitSelitykseen[selitys.id];
                     if (!linkit) {
                         continue;
                     }
-                    var kaytetyt = [];
-                    for (var k = 0; k < linkit.length; k++) {
-                        var linkki = linkit[k];
-                        if (kaytetyt[linkki.linkkisana]) {
-                            continue;
-                            kaytetyt[linkki.linkkisana] = true;}
-                          sana.selitys = sana.selitys.replace(linkki.linkkisana,
-                                  ' <a href="/#/sanat/' + hakusanatMap[linkki.hakusana].hakusana + '">'
-                                  + linkki.linkkisana + '</a> ');
-                        
-                    }
+                    var linkittaja = new linkittajaClass(linkit, hakusanatMap);
+                    sana.selitys = linkittaja.linkita(sana.selitys);
                 }
                 results = JSON.stringify(res);
-                onEnd();
+                console.log('Tietokanta ladattu muistiin');
+                onDone();
             });
         });
     });
 }
 
 module.exports = router;
+module.exports.loadDatabase = loadDatabase;
