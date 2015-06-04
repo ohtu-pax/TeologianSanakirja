@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var database = require('../database');
 var lyhennysParser = require('../databaseParser');
+var linkittajaClass = require('../linkParser').linkittaja;
 
 router.get('/', function (req, res, next) {
     res.render('index');
@@ -73,17 +74,8 @@ function loadDatabase(onDone) {
                     if (!linkit) {
                         continue;
                     }
-                    var kaytetyt = [];
-                    for (var k = 0; k < linkit.length; k++) {
-                        var linkki = linkit[k];
-                        if (kaytetyt[linkki.linkkisana]) {
-                            continue;
-                            kaytetyt[linkki.linkkisana] = true;
-                        }
-                        sana.selitys = sana.selitys.replace(linkki.linkkisana,
-                                ' <a href="/#/sanat/' + hakusanatMap[linkki.hakusana].hakusana + '">'
-                                + linkki.linkkisana + '</a> ');
-                    }
+                    var linkittaja = new linkittajaClass(linkit, hakusanatMap);
+                    sana.selitys = linkittaja.linkita(sana.selitys);
                 }
                 results = JSON.stringify(res);
                 console.log('Tietokanta ladattu muistiin');
