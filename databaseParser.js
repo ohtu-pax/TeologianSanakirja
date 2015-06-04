@@ -165,7 +165,7 @@ for (var i = 0; i < lyhenteet.length; i += 2) {
 
 var LISA_PITUUS = toSpan('', '').length;
 
-var isAlphanumeric = /^[a-z]+$/i;
+var isAlphanumeric = /^[a-zäåö]+$/i;
 
 function replaceString(origin, start, end, what) {
     return origin.substring(0, start) + what + origin.substring(end);
