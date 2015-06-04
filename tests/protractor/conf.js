@@ -7,7 +7,7 @@ exports.config = {
         'phantomjs.binary.path': require('phantomjs').path,
     },
     jasmineNodeOpts: {
-        defaultTimeoutInterval: 40000
+        defaultTimeoutInterval: 42000
     },
   specs: [ 'random.spec.js','kirjaimet.spec.js','haku.spec.js'],
 };
