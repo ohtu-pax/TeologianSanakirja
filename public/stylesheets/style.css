@@ -54,7 +54,7 @@ h1  {
 header  {
     top: 0px; 
     height: 20%;
-    width: 91.2%;
+    width: 91%;
     //background-color: rgba(18,153,243,0.3);
     background-image: -webkit-linear-gradient(top, #143374 2%, rgba(18,153,243,0.3));
     background-image: -moz-linear-gradient(top, #143374 2%, rgba(18,153,243,0.3));
@@ -63,6 +63,13 @@ header  {
     margin-left: 3%;
     margin-top: 3%;
     padding-left: 3%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border: solid;
+    border-top-color: rgba(255,255,255,0.3);
+    border-left-color: rgba(255,255,255,0.3);
+    border-style: outset;
+    border-bottom: none;
 }
 
 li{
@@ -72,6 +79,7 @@ li{
 ul  {
     padding-bottom: 10px; 
     padding-top: 10px;
+    padding-left: 0px;
     //border-top: 2px solid #BDD284;
     //border-bottom: 2px solid #BDD284;  
     //background-color: rgba(27,65,138,0.4);
@@ -96,9 +104,10 @@ ul  {
     overflow-x: hidden;
     border: solid;
     border-style: outset;
+    border-left-color: rgba(255,255,255,0.3);
+    border-top: none;
     margin-left: 3%;
     margin-bottom: 3%;
-    border-top: none;
 }
 
 .sanaSelitys {
