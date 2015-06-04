@@ -17,15 +17,13 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'getController',
                 templateUrl: '/templates/kirjaimet.html'
             })
+            .when('/history', {
+                controller: 'historyController',
+                templateUrl: '/templates/history.html'
+
+            })
             .otherwise({
                 redirectTo: '/'
             });
 
-    /*  .when('/post', {
-     controller: 'postController',
-     templateUrl: '/templates/post.html'
-     })
-     
-     */
-    ;
 });
