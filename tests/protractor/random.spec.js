@@ -23,14 +23,15 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
         var ekaHakusana = hakusana.getText();
         var ekaSelitys = selitys.getText();
 
-        uusiRandom.click().then(function (done) {
+        uusiRandom.click().then(function () {
 
             var tokaHakusana = hakusana.getText();
             var tokaSelitys = selitys.getText();
             expect(ekaHakusana).not.toBe(tokaHakusana);
             expect(ekaSelitys).not.toBe(tokaSelitys);
-            done();
+           // done();
         });
+        done();
     });
 
     it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
