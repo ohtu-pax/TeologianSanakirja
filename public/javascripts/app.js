@@ -1,4 +1,4 @@
-var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute','ngSanitize','mgcrea.ngStrap','ngAnimate']);
+var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute', 'ngSanitize', 'mgcrea.ngStrap', 'ngAnimate']);
 sanakirjaApp.config(function ($routeProvider) {
     $routeProvider
             .when('/', {
@@ -12,6 +12,10 @@ sanakirjaApp.config(function ($routeProvider) {
             .when('/sanat/:sana', {
                 controller: 'getController',
                 templateUrl: '/templates/list.html'
+            })
+            .when('/lista/:kirjain', {
+                controller: 'getController',
+                templateUrl: '/templates/kirjaimet.html'
             })
             .otherwise({
                 redirectTo: '/'

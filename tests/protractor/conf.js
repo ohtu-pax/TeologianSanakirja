@@ -9,5 +9,5 @@ exports.config = {
     jasmineNodeOpts: {
         defaultTimeoutInterval: 12000
     },
-    specs: ['haku.spec.js', 'random.spec.js'],
+  specs: ['haku.spec.js', 'random.spec.js','kirjaimet.spec.js'],
 };
