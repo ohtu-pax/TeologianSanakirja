@@ -18,7 +18,7 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
         expect(hakusana.getText()).not.toBe('');
         done();
     });
-/**
+
     it('Randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
         var ekaHakusana = hakusana.getText();
         var ekaSelitys = selitys.getText();
@@ -29,7 +29,7 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
             var tokaSelitys = selitys.getText();
             expect(ekaHakusana).not.toBe(tokaHakusana);
             expect(ekaSelitys).not.toBe(tokaSelitys);
-           // done();
+            
         });
         done();
     });
@@ -56,5 +56,4 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
             });
         });
     });
-    */
 });
