@@ -172,7 +172,7 @@ function replaceString(origin, start, end, what) {
 }
 
 function toSpan(lyhenne, selitys) {
-    return '<span title="' + selitys + '">' + lyhenne + '</span>';
+    return '<span class="lyhenne" title="' + selitys + '">' + lyhenne + '</span>';
 }
 
 module.exports.lisaaLyhenne = function (str) {
@@ -183,19 +183,19 @@ module.exports.lisaaLyhenne = function (str) {
         var curr = str.charAt(realPosition);
         currentString += curr;
         var selitys = map[currentString.toLowerCase()];
-        if (typeof selitys === 'string') {
-            var nextCharacter = str.charAt(realPosition + 1);
-            if (isAlphanumeric.test(nextCharacter) === true) {
-                continue;
+        if (selitys !== true) {
+            if (typeof selitys === 'string') {
+                var nextCharacter = str.charAt(realPosition + 1);
+                if (isAlphanumeric.test(nextCharacter) === true) {
+                    continue;
+                }
+                var alku = realPosition - currentString.length + 1;
+                var loppu = realPosition + 1;
+                var lyhenne = currentString;
+                str = replaceString(str, alku, loppu, toSpan(lyhenne, selitys));
+                var pituusKasvu = LISA_PITUUS + selitys.length;
+                extraLength += pituusKasvu;
             }
-            var alku = realPosition - currentString.length + 1;
-            var loppu = realPosition + 1;
-            var lyhenne = currentString;
-            str = replaceString(str, alku, loppu, toSpan(lyhenne, selitys));
-            var pituusKasvu = LISA_PITUUS + selitys.length;
-            extraLength += pituusKasvu;
-            currentString = '';
-        } else if (selitys === undefined) {
             currentString = '';
         }
     }
