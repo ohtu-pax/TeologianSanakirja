@@ -55,7 +55,11 @@ header  {
     top: 0px; 
     height: 20%;
     width: 91.2%;
-    background-color: rgba(18,153,243,0.3);
+    //background-color: rgba(18,153,243,0.3);
+    background-image: -webkit-linear-gradient(top, #143374 2%, rgba(18,153,243,0.3));
+    background-image: -moz-linear-gradient(top, #143374 2%, rgba(18,153,243,0.3));
+    background-image: -o-linear-gradient(top, #143374 2%, rgba(18,153,243,0.3));
+    background-image: -ms-linear-gradient(top, #143374 2%, rgba(18,153,243,0.3));
     margin-left: 3%;
     margin-top: 3%;
     padding-left: 3%;
