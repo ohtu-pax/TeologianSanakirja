@@ -33,7 +33,7 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
         });
         done();
     });
-*/
+
     it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
         hakusana.getText().then(function (h1) {
             selitys.getText().then(function (s1) {
@@ -56,4 +56,5 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
             });
         });
     });
+    */
 });
