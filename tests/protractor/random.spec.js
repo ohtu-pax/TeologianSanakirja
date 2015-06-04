@@ -23,7 +23,7 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
         var ekaHakusana = hakusana.getText();
         var ekaSelitys = selitys.getText();
 
-        uusiRandom.click().then(function () {
+        uusiRandom.click().then(function (done) {
 
             var tokaHakusana = hakusana.getText();
             var tokaSelitys = selitys.getText();

@@ -8,7 +8,7 @@ var kill = process.kill;
 console.log('Aloitetaan integraatio testit');
 
 var ODOTUS_AIKA = 3000;
-var TIMEOUT = ODOTUS_AIKA * 20;
+var TIMEOUT = ODOTUS_AIKA * 15;
 var vastauksiaOnTullut = true;
 
 
