@@ -7,15 +7,15 @@
     <div class="sanaSelitys" ng-controller="historyController" ng-repeat="sanat in sanalista| filter:{hakusana:hakuKentta}:true" ng-show="hakuKentta.length > 0">
         <br/>
         Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
-        <p class="selitys" ng-bind-html="sanat.selitys">Selitys: {{sanat.selitys}}</p>
+        <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p>
     </div>
 
     <hr>
 
     <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter: hakuKentta | filter:{hakusana: '!' + hakuKentta}:true
                | limitTo:10 | orderBy: 'hakusana'" ng-show="hakuKentta.length > 2">    
-        <br/>
-        Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
-        <p class="selitys" ng-bind-html="sanat.selitys">Selitys: {{sanat.selitys}}</p> 
+         <br/>
+         Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
+        <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p> 
     </div>
 </div>
