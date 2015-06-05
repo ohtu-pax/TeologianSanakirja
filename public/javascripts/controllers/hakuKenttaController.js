@@ -12,6 +12,7 @@ sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, 
     
     $scope.getRandom = function () {
         var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
+        
         var randID = Math.floor(Math.random() * sanalista.length);
         $location.path('/sanat/' + sanalista[randID].hakusana);
     };    

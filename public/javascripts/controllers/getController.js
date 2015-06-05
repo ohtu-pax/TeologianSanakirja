@@ -1,5 +1,5 @@
 sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice,$routeParams) {
-    if (sessionStorage.length === 0) {
+    if (sessionStorage.getItem('sanalista') === null) {
         var servicePromise = sanakirjaAPIservice.getSanalista();
 
         servicePromise.then(function (result) {

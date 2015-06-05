@@ -1,12 +1,11 @@
-sanakirjaApp.controller('randomController', function ($location) {
+sanakirjaApp.controller('randomController', function ($location, sanakirjaAPIservice) {
     var getRandom = function (sanalista) {
         var randID = Math.floor(Math.random() * sanalista.length);
         $location.path('/sanat/' + sanalista[randID].hakusana);
     }
 
-    if (sessionStorage.length === 0) {
+    if (sessionStorage.getItem('sanalista') === null) {
         var servicePromise = sanakirjaAPIservice.getSanalista();
-
         servicePromise.then(function (result) {
             getRandom(result);
         }).catch(function (error) {
