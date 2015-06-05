@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var database = require('../database/database');
-var lyhennysParser = require('../database/databaseParser');
+var lyhennysParser = require('../database/lyhenneParser').lyhentaja;
 var linkittajaClass = require('../database/linkParser').linkittaja;
 
 router.get('/', function (req, res, next) {
@@ -60,7 +60,7 @@ function loadDatabase(onDone) {
             database.queryWithReturn(SELITYKSET_KYSELY, function (selitykset) {
                 var selityksetMap = toMap(selitykset);
                 var res = new Array(hakusanat.length);
-
+                var lyhentaja = new lyhennysParser();
                 for (var i = 0; i < hakusanat.length; i++) {
 
                     var sana = {};
@@ -69,7 +69,7 @@ function loadDatabase(onDone) {
                     sana.hakusana = hakusana.hakusana;
 
                     var selitys = selityksetMap[hakusana.selitys];
-                    sana.selitys = lyhennysParser.lisaaLyhenne(selitys.selitys);
+                    sana.selitys = lyhentaja.lisaaLyhenne(selitys.selitys);
                     var linkit = linkitSelitykseen[selitys.id];
                     if (!linkit) {
                         continue;
