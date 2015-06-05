@@ -1,4 +1,4 @@
-sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice) {
+sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice,$routeParams) {
     var asetetaanSanalistaJaRandom = function (sanalista) {
         var randID = Math.floor(Math.random() * sanalista.length);
  
@@ -18,6 +18,10 @@ sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice) 
         var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
         asetetaanSanalistaJaRandom(sanalista);
     }
+        
+      $scope.kirjainFilter = function(sanat) {
+        return sanat.hakusana.substring(0,1).match($routeParams.kirjain.toLowerCase()) || sanat.hakusana.substring(0,1).match($routeParams.kirjain);
+    };
 });
 
 

@@ -7,7 +7,7 @@ var kill = process.kill;
 
 console.log('Aloitetaan integraatio testit');
 
-var ODOTUS_AIKA = 3000;
+var ODOTUS_AIKA = 8000;
 var TIMEOUT = ODOTUS_AIKA * 15;
 var vastauksiaOnTullut = true;
 
@@ -24,10 +24,22 @@ var wdm = null;
 var p = null;
 var server = null;
 
-server = spawn('node', ['./bin/www']);
-log(server, 'SERVER');
+process.stdout.on('data', function (data) {
+    var str = String(data);
+    if (~str.indexOf('seleniumProcess.pid: ')) {
+        var pid = str.replace('seleniumProcess.pid:', '');
+        seleniumPID = parseInt(pid, 10);
+        console.log('TESTS: Selenium pid on ' + seleniumPID);
+    }
+});
 
-aikaKatkaisu();
+server = spawn('node', ['./bin/www'], {
+    detached: true,
+    stdio: 'inherit'
+});
+//log(server, 'SERVER');
+
+//aikaKatkaisu();
 
 function aikaKatkaisu() {
     if (vastauksiaOnTullut === false) {
@@ -39,19 +51,25 @@ function aikaKatkaisu() {
 }
 
 setTimeout(function () {
-    wdm = spawn('node_modules/protractor/bin/webdriver-manager', ['start']);
-    log(wdm, 'WEB_DRIVER');
+    wdm = spawn('node_modules/protractor/bin/webdriver-manager', ['start', '--standalone'], {
+        detached: true,
+        stdio: 'inherit'
+    });
+    //log(wdm, 'WEB_DRIVER');
 
     setTimeout(function () {
-        p = spawn('node_modules/protractor/bin/protractor', ['tests/protractor/conf.js']);
+        p = spawn('node_modules/protractor/bin/protractor', ['tests/protractor/conf.js'], {
+            detached: true,
+            stdio: 'inherit'
+        });
         p.on('exit', quit);
         p.on('SIGINT', quit);
         p.on('uncaughtException', quit);
         p.on('close', quit);
-        p.stdout.on('data', function (data) {
-            vastauksiaOnTullut = true;
-            process.stdout.write('PROTRACTOR: ' + data);
-        });
+        /*p.stdout.on('data', function (data) {
+         vastauksiaOnTullut = true;
+         process.stdout.write('PROTRACTOR: ' + data);
+         });*/
     }, ODOTUS_AIKA);
 }, ODOTUS_AIKA);
 

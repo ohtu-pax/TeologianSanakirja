@@ -10,7 +10,7 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
     beforeEach(function () {
         browser.ignoreSynchronization = true;
         browser.get(PALVELIN_OSOITE);
-        element(by.linkText('random sana')).click();
+        element(by.linkText('Satunnainen sana')).click();
     });
 
     it('Randomin tulisi palauttaa jokin sana, kun sitä painetaan', function (done) {
@@ -29,8 +29,9 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
             var tokaSelitys = selitys.getText();
             expect(ekaHakusana).not.toBe(tokaHakusana);
             expect(ekaSelitys).not.toBe(tokaSelitys);
-            done();
+            
         });
+        done();
     });
 
     it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
