@@ -21,7 +21,7 @@ describe('lyhenne parseri', function () {
         done();
     });
     it('Ei lisää lyhenteiden selityksiä keskelle sanoja', function (done) {
-        var alkuPerainen = 'krTässä on selityskr, krja slatiinä tulisi okrlla lyhennekr';
+        var alkuPerainen = 'tkrTässä on selityskr, vika, krja slatiinä tulisi okrlla lyhennekr';
         var odotettu = alkuPerainen;
         var tulos = parser.lisaaLyhenne(alkuPerainen);
 

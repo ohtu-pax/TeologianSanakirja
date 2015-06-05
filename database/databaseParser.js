@@ -178,6 +178,7 @@ function toSpan(lyhenne, selitys) {
 module.exports.lisaaLyhenne = function (str) {
     var currentString = '';
     var extraLength = 0;
+    var beforeStartCharacter = '';
     for (var i = 0, max = str.length; i < max; i++) {
         var realPosition = i + extraLength;
         var curr = str.charAt(realPosition);
@@ -186,7 +187,8 @@ module.exports.lisaaLyhenne = function (str) {
         if (selitys !== true) {
             if (typeof selitys === 'string') {
                 var nextCharacter = str.charAt(realPosition + 1);
-                if (isAlphanumeric.test(nextCharacter) === true) {
+                if (isAlphanumeric.test(nextCharacter) === true
+                        || isAlphanumeric.test(beforeStartCharacter) === true) {
                     continue;
                 }
                 var alku = realPosition - currentString.length + 1;
@@ -197,6 +199,7 @@ module.exports.lisaaLyhenne = function (str) {
                 extraLength += pituusKasvu;
             }
             currentString = '';
+            beforeStartCharacter = curr;
         }
     }
     return str;
