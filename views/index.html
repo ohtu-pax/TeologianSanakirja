@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="stylesheets/style.css" rel="stylesheet">
         <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.css"> 
-     
+
 
 
         <!-- Angularin lähdekoodit -->
@@ -30,16 +30,18 @@
 
     </head>
 
-    <body ng-app="sanakirjaApp">
+    <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
         <h1>  Teologian Sanakirja </h1>
-        <header> <ul>
-                <li class="etusivu" ><a href ="/#/">etusivu</a></li>
-                <li class="random"> <a href ="#/random" >random sana</a>
+            <header> 
+                <ul>
+                    <li class="etusivu" ><a href ="/#/">etusivu</a></li>
+                    <li class="random"> <a href="" ng-click="getRandom()">random sana</a></li>
 
-            </ul> <!-- <a href ="#/post" >Lisää sana</a> --></header>
-        <br/>
-        <div>
-            <div ng-view></div>
-        </div>
+                </ul> <!-- <a href ="#/post" >Lisää sana</a> -->
+            </header>
+            <br/>
+            <div>
+                <div ng-view></div>
+            </div>
     </body>
 </html>
