@@ -29,9 +29,8 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
             var tokaSelitys = selitys.getText();
             expect(ekaHakusana).not.toBe(tokaHakusana);
             expect(ekaSelitys).not.toBe(tokaSelitys);
-            
+            done();
         });
-        done();
     });
 
     it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {

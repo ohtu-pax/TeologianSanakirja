@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha tests/db && ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS && node run_tests.js"
+    "test": "mocha tests/db && ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS && node tests/protractor/run_tests.js"
   },
   "dependencies": {
     "angular": "^1.4.0",

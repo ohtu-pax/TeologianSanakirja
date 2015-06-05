@@ -2,9 +2,9 @@
 
 var express = require('express');
 var router = express.Router();
-var database = require('../database');
-var lyhennysParser = require('../databaseParser');
-var linkittajaClass = require('../linkParser').linkittaja;
+var database = require('../database/database');
+var lyhennysParser = require('../database/databaseParser');
+var linkittajaClass = require('../database/linkParser').linkittaja;
 
 router.get('/', function (req, res, next) {
     res.render('index');
