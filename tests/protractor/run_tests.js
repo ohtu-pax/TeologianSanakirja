@@ -8,9 +8,6 @@ var kill = process.kill;
 console.log('Aloitetaan integraatio testit');
 
 var ODOTUS_AIKA = 3000;
-var TIMEOUT = ODOTUS_AIKA * 15;
-var vastauksiaOnTullut = true;
-
 
 process.exitCode = 1;
 process.on('exit', cleanup);
@@ -78,7 +75,6 @@ function cleanup() {
         p.kill();
     }
     var seleniumPID = childprocess.execSync('lsof -i:4444 -t');
-    console.log('PID: ' + seleniumPID);
     childprocess.execSync('kill -9 ' + seleniumPID);
     console.log("Lopetetaan Selenium");
 }
