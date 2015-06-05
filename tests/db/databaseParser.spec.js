@@ -1,6 +1,6 @@
 'use strict';
 
-var parser = require('../../databaseParser');
+var parser = require('../../database/databaseParser');
 var assert = require('assert');
 
 describe('lyhenne parseri', function () {
