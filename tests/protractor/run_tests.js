@@ -77,7 +77,8 @@ function cleanup() {
     if (p !== null) {
         p.kill();
     }
-    var seleniumPID = childprocess.execSync('kill -9 $(lsof -i:4444 -t)');
-    childprocess.execSync('kill', ['-9', seleniumPID]);
+    var seleniumPID = childprocess.execSync('lsof -i:4444 -t');
+    console.log('PID: ' + seleniumPID);
+    childprocess.execSync('kill -9 ' + seleniumPID);
     console.log("Lopetetaan Selenium");
 }
