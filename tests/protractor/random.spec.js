@@ -3,57 +3,32 @@
 var PALVELIN_OSOITE = 'http://localhost:3000';
 
 describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
-    var hakusana = element(by.css('.hakusana'));
-    var selitys = element(by.css('.selitys'));
-    var uusiRandom = element(by.buttonText('Uusi random'));
+    var hakukentta = element(by.model('hakuKentta'));
 
     beforeEach(function () {
         browser.ignoreSynchronization = true;
         browser.get(PALVELIN_OSOITE);
-        element(by.linkText('Satunnainen sana')).click();
     });
 
     it('Randomin tulisi palauttaa jokin sana, kun sitä painetaan', function (done) {
-        expect(selitys.getText()).not.toBe('');
-        expect(hakusana.getText()).not.toBe('');
+        element(by.linkText('Satunnainen sana')).click().then(function () {
+            expect(hakukentta.getAttribute('value')).not.toBe('');
+        });
         done();
     });
 
     it('Randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
-        var ekaHakusana = hakusana.getText();
-        var ekaSelitys = selitys.getText();
+        var ekaHakusana = '';
 
-        uusiRandom.click().then(function () {
+        element(by.linkText('Satunnainen sana')).click().then(function () {
+            ekaHakusana = hakukentta.getAttribute('value');
+        });
 
-            var tokaHakusana = hakusana.getText();
-            var tokaSelitys = selitys.getText();
+        element(by.linkText('Satunnainen sana')).click().then(function () {
+            var tokaHakusana = hakukentta.getAttribute('value');
+            expect(tokaHakusana).not.toBe('');
             expect(ekaHakusana).not.toBe(tokaHakusana);
-            expect(ekaSelitys).not.toBe(tokaSelitys);
-            
         });
         done();
-    });
-
-    it('Uuden randomin tulisi palauttaa uusi sana, kun sitä painetaan', function (done) {
-        hakusana.getText().then(function (h1) {
-            selitys.getText().then(function (s1) {
-                uusiRandom.click().then(function () {
-                    hakusana.getText().then(function (h2) {
-                        selitys.getText().then(function (s2) {
-                            uusiRandom.click();
-                            var kolmasHakusana = hakusana.getText();
-                            var kolmasSelitys = selitys.getText();
-
-                            expect(kolmasHakusana).not.toBe(h1);
-                            expect(kolmasSelitys).not.toBe(s1);
-                            expect(kolmasHakusana).not.toBe(h2);
-                            expect(kolmasSelitys).not.toBe(s2);
-
-                            done();
-                        });
-                    });
-                });
-            });
-        });
     });
 });
