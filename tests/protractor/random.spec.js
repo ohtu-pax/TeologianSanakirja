@@ -28,7 +28,7 @@ describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
             var tokaHakusana = hakukentta.getAttribute('value');
             expect(tokaHakusana).not.toBe('');
             expect(ekaHakusana).not.toBe(tokaHakusana);
+            done();
         });
-        done();
     });
 });

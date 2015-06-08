@@ -21,8 +21,7 @@ describe('Haku testaus', function () {
 
     });
 
-    it('Olemme oikeall sivulla', function (done) {
-        expect(browser.getTitle()).toEqual('Teologian Sanakirja');
+    it('Olemme oikealla sivulla', function (done) {
         expect(browser.getCurrentUrl())
                 .toBe(PALVELIN_OSOITE + '/#/lista/B');
         done();

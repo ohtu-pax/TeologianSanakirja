@@ -1,6 +1,6 @@
 'use strict';
 
-var linkittajaClass = require('../../linkParser').linkittaja;
+var linkittajaClass = require('../../database/linkParser').linkittaja;
 var assert = require('assert');
 
 describe('Linkki parseri', function () {
