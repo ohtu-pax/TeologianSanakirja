@@ -25,6 +25,7 @@
         <script src="javascripts/controllers/reloadController.js"></script>
         <script src="javascripts/controllers/getController.js"></script>
         <script src="javascripts/controllers/kirjainController.js"></script> 
+        <script src="javascripts/controllers/randomController.js"></script> 
        <!-- <script src="javascripts/controllers/postController.js"></script> -->
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
         <script src="javascripts/controllers/historyController.js"></script>
@@ -32,11 +33,11 @@
 
     </head>
 
-    <body ng-app="sanakirjaApp">
+    <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
         <h1>  Teologian Sanakirja </h1>
         <header> <ul>
                 <li class="etusivu" ><a href ="/#/">Etusivu</a></li>
-                <li class="random"> <a href ="#/random" >Satunnainen sana</a>
+                <li class="random"> <a href ="" ng-click="getRandom()">Satunnainen sana</a>
                 <li class="historia"><a href="/#/history">Hakuhistoria</a>
 
             </ul> <!-- <a href ="#/post" >Lisää sana</a> --></header>
