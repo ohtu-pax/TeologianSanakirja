@@ -31,12 +31,21 @@ describe('api/sanat', function () {
                     done();
                 });
     });
+
+    function kenttaOlemassa(kentta) {
+        return kentta !== undefined && kentta !== null && kentta.length > 0;
+    }
+
     function tarkistaOlemassaOlo(sana) {
-        var hakusana = sana.hakusana;
-        var selitys = sana.selitys;
-        if (!sana || !hakusana || !selitys || hakusana.length === 0 || selitys.length === 0) {
-            throw new Error('Virheellinen sana');
+        var sanaOnOlemassa = sana !== undefined && sana !== null;
+        if (sanaOnOlemassa) {
+            var hakusana = sana.hakusana;
+            var selitys = sana.selitys;
+            if (kenttaOlemassa(hakusana) && kenttaOlemassa(selitys)) {
+                return;
+            }
         }
+        throw new Error('Virheellinen sana');
     }
 
     it('Tulisi palauttaa oikeita sanoja', function (done) {

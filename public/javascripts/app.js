@@ -5,10 +5,6 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'getController',
                 templateUrl: '/templates/list.html'
             })
-            .when('/random', {
-                controller: 'getController',
-                templateUrl: '/templates/random.html'
-            })
             .when('/sanat/:sana', {
                 controller: 'getController',
                 templateUrl: '/templates/list.html'
@@ -21,6 +17,10 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'historyController',
                 templateUrl: '/templates/history.html'
 
+            })
+            .when('/random', {
+                controller: 'randomController',
+                templateUrl: '/templates/list.html'
             })
             .otherwise({
                 redirectTo: '/'

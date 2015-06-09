@@ -36,13 +36,6 @@ describe('GetController: ', function () {
         expect(scope.sanalista[0].selitys).eql("haukkuu");
     });
 
-    it('should put random sana into scope.random', function () {
-        scope.$apply();
-
-        expect(scope.random.hakusana).eql("koira");
-        expect(scope.random.selitys).eql("haukkuu");
-    });
-
     it('should find k When routeParams is K and hakusana is Koira', function () {
         routeParams.kirjain = "K";
         scope.$apply();
