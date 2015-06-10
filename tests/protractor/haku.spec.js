@@ -131,8 +131,8 @@ describe('Haku testaus', function () {
                                 .getText())
                                 .toBe(ODOTETUT_HAKUSANA_EHDOTUKSET[i]);
                     }
-
                     done();
+                   
                 });
             });
         });

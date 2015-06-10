@@ -6,39 +6,63 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.css">
         <link href="stylesheets/style.css" rel="stylesheet">
-     
+        
         <!-- Angularin lähdekoodit -->
-        <script src="/components/angular/angular.js"></script>
-        <script src="/components/angular-route/angular-route.js"></script>
-        <script src="/components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="/components/angular-animate/angular-animate.js"></script>
+        <script src="/components/angular/angular.min.js"></script>
+        <script src="/components/angular-route/angular-route.min.js"></script>
+        <script src="/components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="/components/angular-animate/angular-animate.min.js"></script>
+        <script src="/components/cheet.js/cheet.js" type="text/javascript"></script>
 
         <!--AngularStrapin lähdekoodit!-->
-        <script src="/components/angular-strap/dist/angular-strap.js"></script>
-        <script src="/components/angular-strap/dist/angular-strap.tpl.js"></script>
+        <script src="/components/angular-strap/dist/angular-strap.min.js"></script>
+        <script src="/components/angular-strap/dist/angular-strap.tpl.min.js"></script>
         <script src="/components/jquery/dist/jquery.js"></script>
 
         <!--Oman sovelluksen koodit -->
         <script src="javascripts/app.js"></script>
-        <script src="javascripts/controllers/reloadController.js"></script>
         <script src="javascripts/controllers/getController.js"></script>
-        <script src="javascripts/controllers/postController.js"></script>
+        <script src="javascripts/controllers/kirjainController.js"></script> 
+
+        <script src="javascripts/controllers/randomController.js"></script> 
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
+        <script src="javascripts/controllers/historyController.js"></script>
         <script src="javascripts/services.js"></script>
 
     </head>
 
-    <body ng-app="sanakirjaApp">
+    <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
         
-            <header>
-                <h1>  Teologian Sanakirja </h1>
-                <nav>
-                    <a href ="/#/">etusivu</a>
-                    <a href ="#/random" >random sana</a>
-                        
-                </nav> <!-- <a href ="#/post" >Lisää sana</a> -->
-            </header>
-        
-        <div id="templatewrapper" ng-view></div>
+        <header>
+            <h1>  Teologian Sanakirja </h1>
+            <nav>
+                <li class="etusivu" ><a href ="/#/">Etusivu</a></li>
+                <li class="random"> <a href ="" ng-click="getRandom()">Satunnainen sana</a></li>
+                <li class="historia"><a href="/#/history">Hakuhistoria</a>/li>
+                <li><a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform" 
+                        title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>/li>
+
+            </nav> <!-- <a href ="#/post" >Lisää sana</a> -->
+        </header>
+
+        <div id="templatewrapper">
+            <div ng-controller="kirjainController">
+                <a ng-repeat="kirjain in AAKKOSET" href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a> 
+            </div>
+
+            <div>
+                <div ng-view></div>
+            </div>
+        </div>
+        <script>
+            cheet("o h t u p a x", function () {
+                $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
+            });</script>
+        <script>
+            cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
+                
+                $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
+            });
+        </script>
     </body>
 </html>

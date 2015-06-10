@@ -135,3 +135,7 @@ nav  {
     -o-user-select: none;
 }
 input + .typeahead.ng-hide { display: block !important; visibility: hidden !important; overflow: hidden; opacity: 0; }
+
+.lyhenne {
+     border-bottom: dotted 1px;
+}
