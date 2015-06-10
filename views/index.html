@@ -36,16 +36,16 @@
         <header>
             <h1>  Teologian Sanakirja </h1>
             <nav>
-                <li class="etusivu" ><a href ="/#/">Etusivu</a></li>
-                <li class="random"> <a href ="" ng-click="getRandom()">Satunnainen sana</a></li>
-                <li class="historia"><a href="/#/history">Hakuhistoria</a>/li>
-                <li><a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform" 
-                        title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>/li>
+                <a href ="/#/">Etusivu</a>
+                <a href ="" ng-click="getRandom()">Satunnainen sana</a>
+                <a href="/#/history">Hakuhistoria</a>
+                <a id="palaute" href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform" 
+                        title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
 
             </nav> <!-- <a href ="#/post" >Lisää sana</a> -->
         </header>
 
-        <div id="templatewrapper">
+        <section id="templatewrapper">
             <div ng-controller="kirjainController">
                 <a ng-repeat="kirjain in AAKKOSET" href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a> 
             </div>
@@ -53,7 +53,7 @@
             <div>
                 <div ng-view></div>
             </div>
-        </div>
+        </section>
         <script>
             cheet("o h t u p a x", function () {
                 $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));

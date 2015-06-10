@@ -24,11 +24,12 @@ body {
 nav a:link {
     border-right-style: solid;
     border-right-width: 1px;
+    border-right-color: rgba(18,153,243,0.3);
     color: #ffffff;
     font-weight: bold;
     font-size: 1.1em;
     text-decoration: none;
-    padding: 1% 1% 2% 2%;
+    padding: 1% 1% 1% 1%;
 }
 
 nav a:visited {
@@ -36,7 +37,7 @@ nav a:visited {
     color: #ffffff;
     font-weight: bold;
     font-size: 1.1em;
-    padding: 1% 1% 2% 2%;
+    padding: 1% 1% 1% 1%;
     text-decoration: none;
 }
 
@@ -53,6 +54,10 @@ nav a:active {
 nav a:focus {
     text-decoration: none;
     color: #40C456;
+}
+
+#palaute    {
+    border-right: none;
 }
 
 h1  {
