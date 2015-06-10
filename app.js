@@ -2,6 +2,7 @@
  * 
  * Moduulit
  */
+'use strict';
 
 var express = require('express');
 var path = require('path');
@@ -9,8 +10,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser'); //turha 
 var bodyParser = require('body-parser'); //turha 
+var passport = require('passport');
+var localStrategy = require('passport-local').Strategy;
+var expressSession = require('express-session');
 
 var routes = require('./routes/index');
+var login = require('./routes/login');
 
 var app = express();
 
@@ -24,9 +29,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(expressSession({
+    secret: 'tätäKäytetäänHashinLaskentaan',
+    saveUninitialized: false,
+    resave: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api/admin', login);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -35,6 +48,28 @@ app.use(function (req, res, next) {
     err.status = 404;
     next(err);
 });
+
+passport.serializeUser(function (user, done) {
+    done(null, !!user);
+});
+
+passport.deserializeUser(function (ser, done) {
+    if (ser === true) {
+        done(null, true);
+    }
+    done(null, false);
+});
+
+passport.use(new localStrategy({},
+        function (user, password, done) {
+            console.log('Yritetään kirjautua, tunnus: ' + user + ' salasana : ' + password);
+            if (user !== 'admin' || password !== 'admin') {
+                return done(null, false, 'Tunnus tai salasana on väärä.');
+            }
+            return done(null, true);
+        }
+));
+
 
 // error handlers
 
