@@ -1,9 +1,14 @@
-<div id="admin">
-    <form novalidate>
+
+    
+    <form name="novalidate" ng-model="ansku">
         <label id="adminSanaLabel">Sana: </label>
-        <fieldset id="adminSanaSet">
-            <input ng-repeat="adminSana in adminSanaInputs" class="adminSana" type="text" name="adminSana.name" />
-        </fieldset>
+        <input ng-repeat="hsana in hsanat" type='text' id="{{hsana.id}}" ng-change="onc({{hsana.id}})" ng-model='hsana.hakusana' value="{{hsana.hakusana}}" placeholder='SANA' name="adminSana.name">
+        <!--<fieldset id="adminSanaSet">
+              <input type='text' ng-model='moi' placeholder='SANA' value="kaarihässäkkä">
+             <input ng-repeat="adminSana in adminSanaInputs" type='text' ng-model='adminSanakentta' placeholder='SANA' name="adminSana.name">
+           <input ng-repeat="adminSana in adminSanaInputs" class="adminSana" ng-model="adminSanat" type="text" name="adminSana.name">
+      </fieldset>-->
+
         <input id="lisaaRivi" type="button" ng-click="lisaaSanarivi()" value="Lisää sana" />
         <br/>
         <label id="adminSelitysLabel">Selitys: </label><textarea id="adminSelitys" ng-model="adminSelitys"></textarea>
@@ -13,4 +18,3 @@
         <input id="adminTyhjenna" type="button" ng-click="" value="Tyhjennä kentät" />
 
     </form>
-</div>

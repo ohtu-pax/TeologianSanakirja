@@ -56,7 +56,7 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
 }
 
 .adminSana {
-    width: 50%;
+    width: 20em;
     display: list-item;
 }
 
