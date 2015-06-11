@@ -34,17 +34,18 @@ app.use(expressSession({
     saveUninitialized: false,
     resave: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/api/admin', login);
 app.use('/', routes);
+app.use('/api/admin', login);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
+    err.eurl = req.url;
     err.status = 404;
     next(err);
 });
@@ -56,8 +57,9 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (ser, done) {
     if (ser === true) {
         done(null, true);
+    } else {
+        done(null, false);
     }
-    done(null, false);
 });
 
 passport.use(new localStrategy({},
@@ -70,29 +72,22 @@ passport.use(new localStrategy({},
         }
 ));
 
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
+//app.get('env') === 'development'
+app.use(function (err, req, res, next) {
+    console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);
+    if (res.headersSent) {
+        console.log('Viesti lähetetty, ei yritetä uudestaan...');
+        if (next) {
+            next();
+        }
+    } else {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: {}
+            //error: err
         });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+    }
 });
 
 

@@ -5,22 +5,23 @@ var router = express.Router();
 var passport = require('passport');
 
 router.get('/loggedin', function (req, res) {
-    console.log('Logged in ' + req.user);
     res.send(req.isAuthenticated() ? '1' : '0');
+    res.end();
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-    console.log('Now: ' + req.user);
     res.send(req.user);
+    res.end();
 });
 
 router.post('/logout', function (req, res) {
     if (req.isAuthenticated()) {
-        req.logOut();
         res.sendStatus(200);
+        req.logOut();
     } else {
         res.sendStatus(401);
     }
+    res.end();
 });
 
 module.exports = router;
