@@ -41,4 +41,16 @@ sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
                     });
         });
     };
+
+    this.logout = function () {
+        return $q(function (resolve, reject) {
+            $http.post('api/admin/logout')
+                    .success(function (data) {
+                        resolve(data);
+                    })
+                    .error(function (error) {
+                        reject(error);
+                    });
+        });
+    };
 });

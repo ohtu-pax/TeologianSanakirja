@@ -40,7 +40,7 @@
                 <li class="etusivu" ><a href ="/#/">Etusivu</a></li>
                 <li class="random"> <a href ="" ng-click="getRandom()">Satunnainen sana</a>
                 <li class="historia"><a href="/#/history">Hakuhistoria</a>
-
+                <li ng-show="tila.sisalla" class="logout"><a href ="" ng-click="logout()">Kirjaudu ulos</a>
             </ul> <!-- <a href ="#/post" >Lisää sana</a> --></header>
         
         <div ng-controller="kirjainController">

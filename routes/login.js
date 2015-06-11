@@ -10,14 +10,14 @@ router.get('/loggedin', function (req, res) {
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-    res.send(req.user);
+    res.send(req.user ? '1' : '0');
     res.end();
 });
 
 router.post('/logout', function (req, res) {
     if (req.isAuthenticated()) {
         res.sendStatus(200);
-        req.logOut();
+        req.session.destroy();
     } else {
         res.sendStatus(401);
     }
