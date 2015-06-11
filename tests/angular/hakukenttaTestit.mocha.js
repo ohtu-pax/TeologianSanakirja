@@ -1,16 +1,25 @@
+'use strict';
+
 describe('hakuKenttaController: ', function () {
     var controller, scope, location;
 
     beforeEach(function () {
         module('sanakirjaApp');
 
-        inject(function ($controller, $rootScope, $location) {
+        inject(function ($controller, $rootScope, $location, _$q_) {
             location = $location,
                     scope = $rootScope.$new();
+            var api = {};
+            api.isLoggedIn = function () {
+                var defer = _$q_.defer();
+                defer.resolve('0');
+                return defer.promise;
+            };
             controller = $controller('hakuKenttaController', {
                 $scope: scope,
                 location: location,
-                $routeParams: {sana: 'kissa'}
+                $routeParams: {sana: 'kissa'},
+                sanakirjaAPIservice: api
             });
         });
 
