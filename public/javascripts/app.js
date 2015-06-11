@@ -22,6 +22,10 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'randomController',
                 templateUrl: '/templates/list.html'
             })
+            .when('/kuukkeli', {
+                controller: 'getController',
+                templateUrl: '/templates/admin.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });

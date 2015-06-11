@@ -44,3 +44,45 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
 .lyhenne {
      border-bottom: dotted 1px;
 }
+
+#admin {
+    margin-top: 2em;
+}
+
+#adminSanaLabel {
+    margin-right: 2.7em;
+}
+
+#adminSana {
+    width: 20em;
+}
+
+#adminSelitysLabel {
+    margin-top: 2em;
+    margin-right: 2em;
+}
+
+#adminSelitys {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    width: 80em;
+    height: 30em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#adminTallenna {
+    margin-left: 5.5em;
+}
+
+#admin input[type="button"] {
+    margin-right: 1em;
+}
+
+#adminSanaDiv {
+    display: inline-block;
+}
+
+#lisaaRivi {
+    margin-left: 2em;
+}
