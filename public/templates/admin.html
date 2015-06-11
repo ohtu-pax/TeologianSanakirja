@@ -1,10 +1,10 @@
 <div id="admin">
     <form novalidate>
         <label id="adminSanaLabel">Sana: </label>
-        <div id="adminSanaDiv">
-            <input id="adminSana" type="text" autofocus="true" placeholder="hae sanaa tai kirjoita uusi sana" ng-model="adminSana" />
-        </div>
-        <input id="lisaaRivi" type="button" ng-click="" value="Lisää sana" />
+        <fieldset id="adminSanaSet">
+            <input ng-repeat="adminSana in adminSanaInputs" class="adminSana" type="text" name="adminSana.name" />
+        </fieldset>
+        <input id="lisaaRivi" type="button" ng-click="lisaaSanarivi()" value="Lisää sana" />
         <br/>
         <label id="adminSelitysLabel">Selitys: </label><textarea id="adminSelitys" ng-model="adminSelitys"></textarea>
         <br/>
