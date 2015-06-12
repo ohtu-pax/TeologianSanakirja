@@ -13,6 +13,7 @@ var bodyParser = require('body-parser'); //turha
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var expressSession = require('express-session');
+var conf = require('./config.js').conf;
 
 var routes = require('./routes/index');
 var login = require('./routes/login');
@@ -64,7 +65,7 @@ passport.deserializeUser(function (ser, done) {
 
 passport.use(new localStrategy({},
         function (user, password, done) {
-            if (user !== 'admin' || password !== 'admin') {
+            if (user !== conf.adminName || password !== conf.adminPassword) {
                 return done(null, false, 'Tunnus tai salasana on väärä.');
             }
             return done(null, true);
