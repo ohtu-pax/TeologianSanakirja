@@ -22,7 +22,7 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'randomController',
                 templateUrl: '/templates/list.html'
             })
-            .when('/kuukkeli', {
+            .when('/admin', {
                 controller: 'adminController',
                 templateUrl: '/templates/admin.html'
             })

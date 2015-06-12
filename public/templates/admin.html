@@ -1,8 +1,10 @@
 <div id="admin">
     <form novalidate>
         <label id="adminSanaLabel">Sana: </label>
+        
         <fieldset id="adminSanaSet">
-            <input ng-repeat="adminSana in adminSanat" type='text' class="adminSana" ng-change="hallinnoiRiveja({{adminSana.id}})" ng-model='adminSana.hakusana' value="{{adminSana.hakusana}}" placeholder='Lisää hakusana'>
+            <input class="dropdown up" ng-change="hallinnoiRiveja({{ekaIndeksi}})" ng-model="adminSanahaku" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta} " placeholder="Etsi sanan perusteella" bs-typeahead>
+            <input ng-repeat="adminSana in adminSanat" type='text' class="adminSana" ng-model="adminSana.hakusana" ng-change="hallinnoiRiveja({{adminSana.id}})" placeholder='Lisää hakusana'>
         </fieldset>
         <br/>
         <label id="adminSelitysLabel">Selitys: </label><textarea id="adminSelitys" ng-model="adminSelitys"></textarea>
