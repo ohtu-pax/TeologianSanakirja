@@ -26,7 +26,6 @@ sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice
         }else if (id === 1 && $scope.adminSanat.length === 1 && $scope.adminSanahaku === '') {
             $scope.adminSanat = [];                       
         }else if (id !== 1 && id === $scope.adminSanat.length) {
-            console.log("ID: " + id);
             if ($scope.adminSanat[id-2].hakusana === '') {
                 $scope.adminSanat.splice(id-2, 1);
             }

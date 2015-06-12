@@ -3,11 +3,19 @@
         <label id="adminSanaLabel">Sana: </label>
         
         <fieldset id="adminSanaSet">
-            <input class="dropdown up" ng-change="hallinnoiRiveja({{ekaIndeksi}})" ng-model="adminSanahaku" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta} " placeholder="Etsi sanan perusteella" bs-typeahead>
+            <input class="dropdown up" ng-change="hallinnoiRiveja({{ekaIndeksi}})" ng-model="adminSanahaku" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:adminSanahaku} " placeholder="Etsi sanan perusteella" bs-typeahead>
             <input ng-repeat="adminSana in adminSanat" type='text' class="adminSana" ng-model="adminSana.hakusana" ng-change="hallinnoiRiveja({{adminSana.id}})" placeholder='Lisää hakusana'>
         </fieldset>
         <br/>
-        <label id="adminSelitysLabel">Selitys: </label><textarea id="adminSelitys" ng-model="adminSelitys"></textarea>
+        
+            <!--<p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p>-->
+        
+        <label id="adminSelitysLabel">Selitys: </label>
+        <div ng-repeat="sanat in sanalista| filter:{hakusana:adminSanahaku}:true" ng-show="adminSanahaku.length > 0">
+            <textarea id="adminSelitys">
+                {{sanat.selitys}}
+            </textarea>
+        </div>
         <br/>
         <input id="adminTallenna" type="button" ng-click="" value="Tallenna" />
         <input id="adminPoista" type="button" ng-click="" value="Poista" />
