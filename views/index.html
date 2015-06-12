@@ -14,6 +14,7 @@
         <script src="/components/angular-route/angular-route.min.js"></script>
         <script src="/components/angular-sanitize/angular-sanitize.min.js"></script>
         <script src="/components/angular-animate/angular-animate.min.js"></script>
+        <script src="/components/cheet.js/cheet.js" type="text/javascript"></script>
 
         <!--AngularStrapin lähdekoodit!-->
         <script src="/components/angular-strap/dist/angular-strap.min.js"></script>
@@ -24,8 +25,8 @@
         <script src="javascripts/app.js"></script>
         <script src="javascripts/controllers/getController.js"></script>
         <script src="javascripts/controllers/kirjainController.js"></script> 
+
         <script src="javascripts/controllers/randomController.js"></script> 
-       <!-- <script src="javascripts/controllers/postController.js"></script> -->
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
         <script src="javascripts/controllers/historyController.js"></script>
         <script src="javascripts/controllers/loginController.js"></script>
@@ -38,10 +39,22 @@
         <p class="sisallaViesti" ng-show="tila.sisalla">Pääkäyttäjä</p>
         <header>
             <ul>
-                <li class="etusivu" ><a href ="/#/">Etusivu</a></li>
-                <li class="random"> <a href ="" ng-click="getRandom()">Satunnainen sana</a>
-                <li class="historia"><a href="/#/history">Hakuhistoria</a>
-                <li ng-show="tila.sisalla" class="logout"><a href ="" ng-click="logout()">Kirjaudu ulos</a></li>
+                <li class="etusivu" >
+                    <a href ="/#/">Etusivu</a>
+                </li>
+                <li class="random">
+                    <a href ="" ng-click="getRandom()">Satunnainen sana</a>
+                </li>
+                <li class="historia">
+                    <a href="/#/history">Hakuhistoria</a>
+                </li>
+                <li>
+                    <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
+                        title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
+                </li>
+                <li ng-show="tila.sisalla" class="logout">
+                    <a href ="" ng-click="logout()">Kirjaudu ulos</a>
+                </li>
             </ul>
             <!-- <a href ="#/post" >Lisää sana</a> -->
         </header>
@@ -52,5 +65,15 @@
         <div>
             <div ng-view></div>
         </div>
+        <script>
+            cheet("o h t u p a x", function () {
+                $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
+            });</script>
+        <script>
+            cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
+                
+                $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
+            });
+        </script>
     </body>
 </html>
