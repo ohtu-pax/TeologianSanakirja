@@ -45,11 +45,8 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
     border-bottom: dotted 1px;
 }
 
-#admin {
-    margin-top: 2em;
-}
-
 #adminSanaLabel {
+    margin-top: 3%;
     margin-right: 2.7em;
     vertical-align: top;
     //    display: inline-block;
@@ -79,13 +76,10 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
 }
 
 #admin input[type="button"] {
-    margin-right: 1em;
+    margin-right: 1%;
 }
 
 #adminSanaSet {
     display: inline;
-}
-
-#lisaaRivi {
-    margin-left: 2em;
+    margin-top: 3%;
 }
