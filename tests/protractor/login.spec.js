@@ -10,6 +10,7 @@ describe('Kirjatumis testaus: ', function () {
     var sisallaViesti = element(by.css('.sisallaViesti'));
 
     beforeEach(function () {
+        browser.ignoreSynchronization = false;
         browser.driver.manage().deleteAllCookies();
         browser.get(PALVELIN_OSOITE);
     });
