@@ -64,7 +64,6 @@ passport.deserializeUser(function (ser, done) {
 
 passport.use(new localStrategy({},
         function (user, password, done) {
-            console.log('Yritetään kirjautua, tunnus: ' + user + ' salasana : ' + password);
             if (user !== 'admin' || password !== 'admin') {
                 return done(null, false, 'Tunnus tai salasana on väärä.');
             }
@@ -74,7 +73,9 @@ passport.use(new localStrategy({},
 
 //app.get('env') === 'development'
 app.use(function (err, req, res, next) {
-    console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);
+    if (err.eurl.indexOf('favicon') === -1) {
+        console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);
+    }
     if (res.headersSent) {
         console.log('Viesti lähetetty, ei yritetä uudestaan...');
         if (next) {
