@@ -28,7 +28,7 @@ sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice
     };
 
     $scope.sanaSelitys = function () {
-        var tulos = $filter('filter')($scope.sanalista, $scope.adminSanahaku, true);
+        var tulos = $filter('filter')($scope.sanalista, $scope.adminSanat[0].hakusana, true);
 
         if (tulos.length === 1) {
               $scope.adminSelitys =  tulos[0].selitys;
@@ -37,6 +37,3 @@ sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice
         }
     };
 });
-
-
-
