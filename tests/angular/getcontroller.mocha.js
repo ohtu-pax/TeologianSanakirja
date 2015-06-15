@@ -1,6 +1,7 @@
+'use strict';
 
 describe('GetController: ', function () {
-    var controller, scope, routeParams;
+    var controller, scope, routeParams, $q, mockService;
 
     beforeEach(module('sanakirjaApp'));
 

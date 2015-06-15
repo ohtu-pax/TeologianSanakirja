@@ -6,13 +6,13 @@ var BAASIS_HAKUSANA = 'baasis';
 var BAASIS_SELITYS ='(kr basis), perusta, (esim Kirkkojen Maailmanneuvoston) jäsenyyspohja, -edellytykset.';
 var PALVELIN_OSOITE = 'http://localhost:3000';
 
-describe('Haku testaus', function () {
+describe('Kirjaimet testaus', function () {
     var hakusanat = element.all(by.css('.hakusana'));
     var selitykset = element.all(by.css('.selitys'));
 
     beforeEach(function () {
-        browser.get(PALVELIN_OSOITE);
         browser.ignoreSynchronization = true;
+        browser.get(PALVELIN_OSOITE);
         //alle oleva rivi hakee 'B':n AAKKOSET listasta ja clickkaa sitä, vaadittu koska ng-repeat. 
         element.all(by.repeater('kirjain in AAKKOSET')).then(function (kirjain) {
             kirjain[1].click();
