@@ -5,7 +5,8 @@ CREATE TABLE tekijat (
 
 CREATE TABLE selitykset (
     id              SERIAL PRIMARY KEY,
-    selitys         TEXT NOT NULL
+    selitys         TEXT NOT NULL,
+    tekija          INTEGER NOT NULL REFERENCES tekijat ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE hakusanat (
