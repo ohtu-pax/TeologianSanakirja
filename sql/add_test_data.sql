@@ -1,9 +1,12 @@
-INSERT INTO selitykset (selitys) VALUES 
-('Test 123'),
-('asdasd'),
-('dddd 2222222222222222222222222'),
-('fsdsd totest'),
-('qwewqe');
+INSERT INTO tekijat (nimi) VALUES
+('Ahkera testaaja');
+
+INSERT INTO selitykset (selitys, tekija) VALUES
+('Test 123', '1'),
+('asdasd', '1'),
+('dddd 2222222222222222222222222', '1'),
+('fsdsd totest', '1'),
+('qwewqe', '1');
 
 INSERT INTO hakusanat (hakusana, selitys) VALUES
 ('Test',1),

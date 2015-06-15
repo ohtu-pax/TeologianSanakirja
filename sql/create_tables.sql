@@ -1,3 +1,8 @@
+CREATE TABLE tekijat (
+    id              SERIAL PRIMARY KEY,
+    nimi            TEXT NOT NULL CONSTRAINT epatyhja_tekijan_nimi CHECK (length(nimi) > 0)
+);
+
 CREATE TABLE selitykset (
     id              SERIAL PRIMARY KEY,
     selitys         TEXT NOT NULL

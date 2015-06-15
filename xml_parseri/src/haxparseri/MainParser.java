@@ -68,54 +68,65 @@ public final class MainParser {
         Collections.sort(hakusanatJarjestyksesa);
         List<Selitys> selityksetJarjestyksesa = new ArrayList<>(selitykset.values());
         Collections.sort(selityksetJarjestyksesa);
-        StringBuilder sb = new StringBuilder(400000);
+        StringBuilder sb = new StringBuilder(750000);
+
+        sb.append("INSERT INTO tekijat (nimi) VALUES ('Seppo A. Teinonen');\n");
+
+        sb.append("INSERT INTO selitykset (selitys) VALUES \n");
+        for (int i = 0; i < selityksetJarjestyksesa.size(); i++) {
+            Selitys s = selityksetJarjestyksesa.get(i);
+            sb.append("('")
+                    .append(s.getSelitys())
+                    .append("','1')");
+            if (i != selitykset.size() - 1) {
+                sb.append(",\n");
+            }
+        }
+        sb.append(";\n");
+
+        sb.append("INSERT INTO hakusanat (hakusana, selitys) VALUES");
+        for (int i = 0; i < hakusanatJarjestyksesa.size(); i++) {
+            Hakusana hs = hakusanatJarjestyksesa.get(i);
+            sb.append("('")
+                    .append(hs.getSana())
+                    .append("',")
+                    .append(hs.getViitattu())
+                    .append(")");
+            if (i != hakusanatJarjestyksesa.size() - 1) {
+                sb.append(",\n");
+            }
+        }
+        sb.append(";\n");
+
+        sb.append("INSERT INTO linkit (linkkisana, selitys, hakusana) VALUES");
+        for (int i = 0; i < linkit.size(); i++) {
+            Linkki l = linkit.get(i);
+            //System.out.println("Haetaan " + l.getSanaan());
+            Hakusana hakusana = hakusanat.get(l.getSanaan());
+            if (hakusana == null) {
+                hakusana = hakusanat.get(l.getSanaan().toLowerCase());
+            }
+            if (hakusana == null) {
+                continue;
+            }
+            int sanaan = hakusana.getId();
+            if (sanaan == hakusana.getViitattu()) {
+                continue;
+            }
+            sb.append("('")
+                    .append(l.getKorvattava())
+                    .append("',")
+                    .append(l.getAlkupera())
+                    .append(",")
+                    .append(sanaan)
+                    .append(")");
+            if (i != linkit.size() - 1) {
+                sb.append(",\n");
+            }
+        }
+        sb.append(";\n");
 
         try (FileWriter fw = new FileWriter("sanat.sql")) {
-
-            sb.append("INSERT INTO selitykset (selitys) VALUES \n");
-            for (int i = 0; i < selityksetJarjestyksesa.size(); i++) {
-                Selitys s = selityksetJarjestyksesa.get(i);
-                sb.append("('").append(s.getSelitys()).append("')");
-                if (i != selitykset.size() - 1) {
-                    sb.append(",\n");
-                }
-            }
-            sb.append(";\n");
-
-            sb.append("INSERT INTO hakusanat (hakusana, selitys) VALUES");
-            for (int i = 0; i < hakusanatJarjestyksesa.size(); i++) {
-                Hakusana hs = hakusanatJarjestyksesa.get(i);
-                sb.append("('").append(hs.getSana())
-                        .append("',").append(hs.getViitattu()).append(")");
-                if (i != hakusanatJarjestyksesa.size() - 1) {
-                    sb.append(",\n");
-                }
-            }
-            sb.append(";\n");
-
-            sb.append("INSERT INTO linkit (linkkisana, selitys, hakusana) VALUES");
-            for (int i = 0; i < linkit.size(); i++) {
-                Linkki l = linkit.get(i);
-                System.out.println("Haetaan " + l.getSanaan());
-                Hakusana hakusana = hakusanat.get(l.getSanaan());
-                if (hakusana == null) {
-                    hakusana = hakusanat.get(l.getSanaan().toLowerCase());
-                }
-                if (hakusana == null) {
-                    continue;
-                }
-                int sanaan = hakusana.getId();
-                if (sanaan == hakusana.getViitattu()) {
-                    continue;
-                }
-                sb.append("('").append(l.getKorvattava())
-                        .append("',").append(l.getAlkupera()).append(",").append(sanaan).append(")");
-                if (i != linkit.size() - 1) {
-                    sb.append(",\n");
-                }
-            }
-            sb.append(";\n");
-
             fw.append(sb);
         }
         System.out.println(hakusanat.size());
