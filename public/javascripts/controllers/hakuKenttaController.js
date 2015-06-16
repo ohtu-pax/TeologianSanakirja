@@ -1,4 +1,4 @@
-sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, $location, sanakirjaAPIservice) {
+sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, $location, sanakirjaAPIservice, sanatService) {
 
     //Funktio filtterin putsaamiseen
     $scope.tyhjennahaku = function () {
@@ -11,14 +11,15 @@ sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, 
     }
 
     $scope.getRandom = function () {
-        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
-
-        var randID = Math.floor(Math.random() * sanalista.length);
-        $location.path('/sanat/' + sanalista[randID].hakusana);
+        sanatService.sanalista().then(function (sanalista) {
+            var randID = Math.floor(Math.random() * sanalista.length);
+            $location.path('/sanat/' + sanalista[randID].hakusana);
+        });
     };
 
     if ($scope.tila === undefined) {
         $scope.tila = {};
+        $scope.tila.sisalla = false;
     }
 
     sanakirjaAPIservice.isLoggedIn().then(function (data) {
@@ -29,9 +30,9 @@ sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, 
 
     $scope.logout = function () {
         sanakirjaAPIservice.logout().then(function (data) {
-            var success = !!data;
-            console.log('Uloskirjautuminen onnistui: ' + success);
-            if (success === true) {
+            var kirjauduttuUlos = !!data;
+            console.log('Uloskirjautuminen onnistui: ' + kirjauduttuUlos);
+            if (kirjauduttuUlos === true) {
                 $scope.tila.sisalla = false;
             }
         });
