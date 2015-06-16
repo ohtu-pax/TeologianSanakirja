@@ -53,7 +53,6 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
 }
 
 .adminSana {
-    width: 20em;
     display: list-item;
 }
 
@@ -71,15 +70,25 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
     vertical-align: top;
 }
 
+#tekijaLabel   {
+    margin-right: 2.4em;
+    vertical-align: top;
+}
+
 #adminTallenna {
-    margin-left: 5.5em;
+    margin-left: 5.7em;
 }
 
 #admin input[type="button"] {
-    margin-right: 1%;
+    margin-right: 1.6em;
+    margin-top: 2em;
 }
 
 #adminSanaSet {
     display: inline;
     margin-top: 3%;
+}
+
+fieldset input, #tekijaInput  {
+    width: 25em;
 }

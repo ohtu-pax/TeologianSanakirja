@@ -36,4 +36,10 @@ sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice
              $scope.adminSelitys = '';
         }
     };
+    
+    $scope.tyhjenna = function ()   {
+        $scope.adminSanat = [{id: '1', hakusana: ''}];
+        $scope.adminSelitys = '';
+        $scope.tekijaInput = '';
+    };
 });

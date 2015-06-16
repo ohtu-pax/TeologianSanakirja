@@ -18,11 +18,6 @@ sanakirjaApp.config(function ($routeProvider) {
                 templateUrl: '/templates/history.html'
 
             })
-            .when('/random', {
-                controller: 'randomController',
-                templateUrl: '/templates/list.html'
-            })
-
             .when('/admin', {
                 controller: 'adminController',
                 templateUrl: '/templates/admin.html'
