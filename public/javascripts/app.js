@@ -22,9 +22,14 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'randomController',
                 templateUrl: '/templates/list.html'
             })
+
             .when('/admin', {
                 controller: 'adminController',
                 templateUrl: '/templates/admin.html'
+            })
+            .when('/login', {
+                controller: 'loginController',
+                templateUrl: '/templates/login.html'
             })
             .otherwise({
                 redirectTo: '/'

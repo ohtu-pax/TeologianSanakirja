@@ -13,9 +13,12 @@
     "coveralls": "^2.11.2",
     "debug": "~2.1.1",
     "express": "~4.12.2",
+    "express-session": "^1.11.2",
     "jade": "~1.9.2",
     "mocha-lcov-reporter": "0.0.2",
     "morgan": "~1.5.1",
+    "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
     "pg": "^4.3.0",
     "serve-favicon": "~2.2.0"
   },

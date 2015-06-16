@@ -30,21 +30,35 @@
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
         <script src="javascripts/controllers/historyController.js"></script>
         <script  src="javascripts/controllers/adminController.js"></script> 
+        <script src="javascripts/controllers/loginController.js"></script>
         <script src="javascripts/services.js"></script>
 
     </head>
 
     <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
         <h1>  Teologian Sanakirja </h1>
-        <header> 
-            <ul>
-                <li class="etusivu" ><a href ="/#/">Etusivu</a></li>
-                <li class="random"> <a href ="" ng-click="getRandom()">Satunnainen sana</a>
-                <li class="historia"><a href="/#/history">Hakuhistoria</a>
-                <li><a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform" 
-                       title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
 
-            </ul> <!-- <a href ="#/post" >Lisää sana</a> -->      
+        <p class="sisallaViesti" ng-show="tila.sisalla">Pääkäyttäjä</p>
+        <header>
+            <ul>
+                <li class="etusivu" >
+                    <a href ="/#/">Etusivu</a>
+                </li>
+                <li class="random">
+                    <a href ="" ng-click="getRandom()">Satunnainen sana</a>
+                </li>
+                <li class="historia">
+                    <a href="/#/history">Hakuhistoria</a>
+                </li>
+                <li>
+                    <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
+                        title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
+                </li>
+                <li ng-show="tila.sisalla" class="logout">
+                    <a href ="" ng-click="logout()">Kirjaudu ulos</a>
+                </li>
+            </ul>
+            <!-- <a href ="#/post" >Lisää sana</a> -->
         </header>
 
         <div ng-controller="kirjainController">
