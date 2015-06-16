@@ -10,6 +10,7 @@ exports.config = {
         defaultTimeoutInterval: 25000
     },
     //olettavasti historian tulee olla esimmäinen, testit eivät nulla historiaa välissä
+
     specs: [
         'historia.spec.js',
         'haku.spec.js',
@@ -17,4 +18,5 @@ exports.config = {
         'random.spec.js',
         'login.spec.js'
     ]
+
 };

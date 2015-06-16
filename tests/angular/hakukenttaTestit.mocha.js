@@ -46,7 +46,6 @@ describe('hakuKenttaController: ', function () {
     it('lisää sanat-urliin satunnaisen sanan', function () {
         scope.getRandom();
         scope.$apply();
-        console.log("URL " + location.url());
         expect(location.url()).to.eql('/sanat/lammas');
     });
 });

@@ -10,7 +10,7 @@
 
 
         <!-- Angularin lähdekoodit -->
-        <script src="/components/angular/angular.min.js"></script>
+        <script src="/components/angular/angular.js"></script>
         <script src="/components/angular-route/angular-route.min.js"></script>
         <script src="/components/angular-sanitize/angular-sanitize.min.js"></script>
         <script src="/components/angular-animate/angular-animate.min.js"></script>
@@ -29,6 +29,7 @@
         <script src="javascripts/controllers/randomController.js"></script> 
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
         <script src="javascripts/controllers/historyController.js"></script>
+        <script  src="javascripts/controllers/adminController.js"></script> 
         <script src="javascripts/controllers/loginController.js"></script>
         <script src="javascripts/services.js"></script>
 
@@ -36,6 +37,7 @@
 
     <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
         <h1>  Teologian Sanakirja </h1>
+
         <p class="sisallaViesti" ng-show="tila.sisalla">Pääkäyttäjä</p>
         <header>
             <ul>
@@ -58,6 +60,7 @@
             </ul>
             <!-- <a href ="#/post" >Lisää sana</a> -->
         </header>
+
         <div ng-controller="kirjainController">
             <a ng-repeat="kirjain in AAKKOSET" href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a> 
         </div>
@@ -66,14 +69,14 @@
             <div ng-view></div>
         </div>
         <script>
-            cheet("o h t u p a x", function () {
-                $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
-            });</script>
+                    cheet("o h t u p a x", function () {
+                        $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
+                    });</script>
         <script>
-            cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
-                
-                $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
-            });
+                    cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
+
+                        $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
+                    });
         </script>
     </body>
 </html>
