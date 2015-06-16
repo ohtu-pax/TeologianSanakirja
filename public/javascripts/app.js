@@ -1,4 +1,4 @@
-var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute', 'ngSanitize', 'mgcrea.ngStrap', 'ngAnimate']);
+var sanakirjaApp = angular.module('sanakirjaApp', ['ngRoute', 'ngSanitize', 'mgcrea.ngStrap', 'ngAnimate','xeditable']);
 sanakirjaApp.config(function ($routeProvider) {
     $routeProvider
             .when('/', {
@@ -31,6 +31,10 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'loginController',
                 templateUrl: '/templates/login.html'
             })
+             .when('/esipuhe', {
+                controller: 'esipuheController',
+                templateUrl: '/templates/esipuhe.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -40,5 +44,8 @@ sanakirjaApp.filter('unsafe_html', ['$sce', function ($sce) {
             return $sce.trustAsHtml(text);
         };
     }]);
+sanakirjaApp.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 
 
