@@ -1,17 +1,8 @@
-sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice, $filter) {
+sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice, $filter, sanatService) {
 
-    if (sessionStorage.getItem('sanalista') === null) {
-        var servicePromise = sanakirjaAPIservice.getSanalista();
-
-        servicePromise.then(function (result) {
-            $scope.sanalista = result;
-        }).catch(function (error) {
-            console.log("Error at getController: " + error);
-        });
-    } else {
-        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
-        $scope.sanalista = sanalista;
-    }
+    sanatService.sanalista().then(function(result) {
+        $scope.sanalista = result;
+    });
 
     $scope.adminSanat = [{id: '1', hakusana: ''}];
 
