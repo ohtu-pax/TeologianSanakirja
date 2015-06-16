@@ -1,10 +1,10 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 #master {
@@ -25,8 +25,8 @@ h1  {
 }
 
 #etusivu header .etusivu > a {
-       pointer-events: none;
-       cursor: default;
+    pointer-events: none;
+    cursor: default;
 }
 
 .sanaSelitys {
@@ -42,5 +42,53 @@ h1  {
 input + .typeahead.ng-hide { display: block !important; visibility: hidden !important; overflow: hidden; opacity: 0; }
 
 .lyhenne {
-     border-bottom: dotted 1px;
+    border-bottom: dotted 1px;
+}
+
+#adminSanaLabel {
+    margin-top: 3%;
+    margin-right: 2.7em;
+    vertical-align: top;
+    //    display: inline-block;
+}
+
+.adminSana {
+    display: list-item;
+}
+
+#adminSelitysLabel {
+    margin-top: 2em;
+    margin-right: 2em;
+}
+
+#adminSelitys {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    width: 80em;
+    height: 30em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#tekijaLabel   {
+    margin-right: 2.4em;
+    vertical-align: top;
+}
+
+#adminTallenna {
+    margin-left: 5.7em;
+}
+
+#admin input[type="button"] {
+    margin-right: 1.6em;
+    margin-top: 2em;
+}
+
+#adminSanaSet {
+    display: inline;
+    margin-top: 3%;
+}
+
+fieldset input, #tekijaInput  {
+    width: 25em;
 }
