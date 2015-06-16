@@ -15,7 +15,7 @@ describe('Admin: ', function () {
         var adminSanahaku = element(by.css('#adminSanahaku'));
 
         adminSanahaku.sendKeys('a').then(function () {
-            expect(element(by.css('#2'))).not.toBe(undefined);
+            expect(element(by.css('#adminSana2')).isPresent()).toBe(true);
         });
         done();
     });
@@ -23,8 +23,11 @@ describe('Admin: ', function () {
     it('Kun toiseksi viimeisen kentän tyhjentää, niin viimeinen tyhjä kenttä poistetaan', function (done) {
         var adminSanahaku = element(by.css('#adminSanahaku'));
 
-        adminSanahaku.clear().then(function () {
-            expect(element(by.css('#2'))).toBe(undefined);
+        adminSanahaku.sendKeys('a').then(function () {
+            adminSanahaku.clear().then(function () {
+                expect(element(by.css('#adminSana2')).isPresent()).toBe(false);
+            });
+
         });
         done();
     });
