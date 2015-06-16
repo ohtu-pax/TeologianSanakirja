@@ -3,10 +3,10 @@
         <label id="adminSanaLabel">Sana: </label>
 
         <fieldset id="adminSanaSet">
-            <input class="dropdown up" ng-change="hallinnoiRiveja({{adminSanat[0].id}}); sanaSelitys()" ng-model="adminSanat[0].hakusana" 
+            <input id="adminSanahaku" class="dropdown up" ng-change="hallinnoiRiveja({{adminSanat[0].id}}); sanaSelitys()" ng-model="adminSanat[0].hakusana" 
                    bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:adminSanahaku} "
                    placeholder="Etsi sanan perusteella" bs-typeahead>
-            <input ng-repeat="adminSana in adminSanat" type='text' class="adminSana" ng-show="!$first" ng-model="adminSana.hakusana" ng-change="hallinnoiRiveja({{adminSana.id}})" placeholder='Lisää hakusana'>
+            <input ng-repeat="adminSana in adminSanat" id = "{{adminSana.id}}" type='text' class="adminSana" ng-show="!$first" ng-model="adminSana.hakusana" ng-change="hallinnoiRiveja({{adminSana.id}})" placeholder='Lisää hakusana'>
         </fieldset>
         <br/>
 
