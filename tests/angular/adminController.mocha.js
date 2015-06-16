@@ -53,7 +53,16 @@ describe('adminController: ', function () {
        scope.adminSanat[0].hakusana = 'koira';
        scope.sanaSelitys();
        expect(scope.adminSelitys).eql('haukkuu');
-    });    
+    }); 
+    
+    it('lomake tyhjenee kun kutsutaan tyhjenna funktiota', function() {
+       scope.adminSanat[0].hakusana = 'koira';
+       scope.tekijaInput = 'Seppo Teppo';
+       scope.tyhjenna();
+       expect(scope.adminSanat[0].hakusana).eql('');
+       expect(scope.adminSelitys).eql('');
+       expect(scope.tekijaInput).eql('');
+    }); 
 });
 
 
