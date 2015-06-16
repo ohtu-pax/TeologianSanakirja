@@ -3,7 +3,7 @@
 var PALVELIN_OSOITE = 'http://localhost:3000/#/login';
 var conf = require('../../config.js').conf;
 
-describe('Kirjatumis testaus: ', function () {
+describe('Kirjautumistestaus: ', function () {
 
     var name = element(by.css('.loginName'));
     var password = element(by.css('.loginPassword'));
@@ -56,7 +56,13 @@ describe('Kirjatumis testaus: ', function () {
                 loginInput.click().then(function () {
                     element(by.linkText('Kirjaudu ulos')).click().then(function () {
                         expect(sisallaViesti.getText()).toEqual('');
+                            browser.getCurrentUrl().then(function (url) {
+                                //var kaksiVikaaMerkkia = url.substr(url.length - 3)
+                                console.log("URLI: " + url);
+                                expect(url).toEqual('/#/');
                         done();
+                        });
+                       
                     });
                 });
             });

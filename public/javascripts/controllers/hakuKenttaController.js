@@ -33,6 +33,7 @@ sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, 
             console.log('Uloskirjautuminen onnistui: ' + success);
             if (success === true) {
                 $scope.tila.sisalla = false;
+                $location.path('/');
             }
         });
     };
