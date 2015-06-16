@@ -4,7 +4,7 @@
     <label>Etsi: <input class="dropdown up" ng-model="hakuKentta" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
     <button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
 
-    <div class="sanaSelitys" ng-controller="historyController" ng-repeat="sanat in sanalista| filter:{hakusana:hakuKentta}:true" ng-show="hakuKentta.length > 0">
+    <div class="sanaSelitys" ng-controller="historyController" ng-repeat="sanat in sanalista | filter:{hakusana:hakuKentta}:true | limitTo:1" ng-show="hakuKentta.length > 0">
         <br/>
         Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
         <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p>
