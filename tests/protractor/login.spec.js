@@ -56,13 +56,12 @@ describe('Kirjautumistestaus: ', function () {
                 loginInput.click().then(function () {
                     element(by.linkText('Kirjaudu ulos')).click().then(function () {
                         expect(sisallaViesti.getText()).toEqual('');
-                            browser.getCurrentUrl().then(function (url) {
-                                //var kaksiVikaaMerkkia = url.substr(url.length - 3)
-                                console.log("URLI: " + url);
-                                expect(url).toEqual('/#/');
-                        done();
+                        browser.getCurrentUrl().then(function (url) {
+                            var kolmeVikaaMerkkia = url.substr(url.length - 3)
+                            expect(kolmeVikaaMerkkia).toEqual('/#/');
+                            done();
                         });
-                       
+
                     });
                 });
             });

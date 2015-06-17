@@ -5,6 +5,7 @@ sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice
     }
     else {
         $location.path('/');
+        return;
     }
 
     if (sessionStorage.getItem('sanalista') === null) {

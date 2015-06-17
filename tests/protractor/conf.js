@@ -11,14 +11,12 @@ exports.config = {
     },
     //olettavasti historian tulee olla esimmäinen, testit eivät nulla historiaa välissä
 
-//    specs: [
-//        'historia.spec.js',
-//        'haku.spec.js',
-//        'kirjaimet.spec.js',
-//        'random.spec.js',
-//        'login.spec.js',
-//        'admin.spec.js'
-//    ]
-    
-    specs: ['login.spec.js']
+    specs: [
+        'historia.spec.js',
+        'haku.spec.js',
+        'kirjaimet.spec.js',
+        'random.spec.js',
+        'login.spec.js',
+        'admin.spec.js'
+    ]
 };
