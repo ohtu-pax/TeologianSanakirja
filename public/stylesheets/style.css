@@ -1,24 +1,96 @@
+@font-face {
+    font-family: 'Kenyan Coffee';
+    local: 'Kenyan Coffee';
+    src: url('../fonts/kenyan coffee rg.ttf')
+         format('truetype');
+}
+
+@media (min-width: 768px)   {
+    html    {
+        background-color: #f7ecb5;
+    }
+}
+
+@media (min-width: 992px)   {
+    html    {
+    background: url('/images/ruskea.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #f7ecb5;
+}
+}
+
 body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 3%;
 }
 
-a {
-    color: #00B7FF;
+.page-header{
+    margin: 3% 3% 3% 3%;
+    background-image: -webkit-linear-gradient(bottom, #d4c68b 2%, rgba(212,198,139,0.4));
+    background-image: -moz-linear-gradient(bottom, #d4c68b 2%, rgba(212,198,139,0.4));
+    background-image: -o-linear-gradient(bottom, #d4c68b 2%, rgba(212,198,139,0.4));
+    background-image: -ms-linear-gradient(bottom, #d4c68b 2%, rgba(212,198,139,0.4));
+    border-bottom-style: none;
+    display: block;
 }
 
-#master {
-    width: 900px;
+.navbar  {
+    padding-left: 2.5%;
+    margin-bottom: 0px;
+    background: none;
+    border: none;
+    color: #000;
 }
 
-h1  {
-    border-top-color: #8B5A98;
-    border-top-style: solid;
-    border-top-width: 19px;
-    padding-left: 10px;
+.navbar .nav li a   {
+    color: #000;
 }
 
-#hakukentta {
+.navbar .nav li a:hover   {
+    color: #424242;
+}
+
+.navbar .nav li    {
+    border-right: solid;
+    border-right-width: 1px;
+    border-right-color: rgba(212,198,139,0.3);
+}
+
+.navbar .nav .ei-oikeaa-reunaa   {
+    border-right-style: none;
+}
+
+.sisallaViesti  {
+    text-align: right;
+}
+
+.page-header h1  {
+    padding-left: 3%;
+    font-family: 'Kenyan Coffee';
+    font-size: 4.3em;
+    font-weight: lighter;
+    display: inline-block;
+}
+
+.aakkoset a{
+    color: #000;
+    padding-right: 0.4em;
+}
+
+.aakkoset   {
+   display: inline-block;
+   padding-left: 3%;
+}
+
+.sisalto    {
+    overflow: scroll;
+    height: 800px;
+    margin-top: 170px;
+}
+
+#hooakukentta {
     margin-top: 20px;
     margin-left: 10px;
     border-color: black;
