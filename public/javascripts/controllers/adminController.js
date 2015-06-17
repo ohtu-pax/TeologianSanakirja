@@ -1,4 +1,12 @@
-sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice, $filter) {
+sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice, $filter, $location) {
+
+    if ($scope.tila.sisalla) {
+        $location.path('/admin');
+    }
+    else {
+        $location.path('/');
+        return;
+    }
 
     if (sessionStorage.getItem('sanalista') === null) {
         var servicePromise = sanakirjaAPIservice.getSanalista();

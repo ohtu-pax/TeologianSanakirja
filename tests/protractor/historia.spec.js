@@ -60,7 +60,6 @@ describe('Käyttäjä haluaa nähdä hakuhistorian', function () {
                 historiaLinkit = element.all(by.css('.historiaLinkit'));
                 historiaLinkit.first().click().then(function () {
                     browser.getCurrentUrl().then(function (url) {
-                        console.log("URL: " + url);
                         expect(url).toContain(['/#/sanat/aamen']);
                         done();
                     });
