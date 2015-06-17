@@ -1,4 +1,4 @@
-sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice, $filter, sanatService) {
+sanakirjaApp.controller('adminController', function ($scope, $filter, sanatService) {
 
     sanatService.sanalista().then(function(result) {
         $scope.sanalista = result;

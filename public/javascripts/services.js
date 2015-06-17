@@ -1,5 +1,5 @@
 
-sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q, sanatService) {
+sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
 
     this.isLoggedIn = function () {
         return $q(function (resolve, reject) {

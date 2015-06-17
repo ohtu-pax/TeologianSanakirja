@@ -1,19 +1,21 @@
+'use strict';
+
 describe('Service: ', function () {
-    var service,
-            $httpBackend,
-            url = 'api/sanat/';
+    var service = null;
+    var $httpBackend = null;
+    var url = 'api/sanatuusi';
 
-    beforeEach(module('sanakirjaApp'));
-
-    beforeEach(inject(function (sanakirjaAPIservice, _$httpBackend_) {
-        $httpBackend = _$httpBackend_;
-        service = sanakirjaAPIservice;
-    }));
+    beforeEach(function () {
+        module('sanakirjaApp');
+        inject(function (sanatService, _$httpBackend_) {
+            $httpBackend = _$httpBackend_;
+            service = sanatService;
+        });
+    });
 
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
-        sessionStorage.clear();
     });
 
     it("service should be defined", function () {
@@ -21,38 +23,48 @@ describe('Service: ', function () {
     });
 
     it('should make a get request', (function () {
-        var result = {};
+        var results = {};
+        results.hakusanat = [{hakusana: 'koira', selitys: 0}];
+        results.linkit = {};
+        results.selitykset = [{id: 0, selitys: 'haukkuu'}];
 
-        var promise = service.getSanalista();
+        $httpBackend.whenGET(url).respond(results);
 
-        promise.then(function (respond) {
-            result = respond;
+        service.sanalista().then(function (respond) {
+            var eka = respond[0];
+            expect(eka.hakusana).to.eql('koira');
+            expect(eka.selitys).to.eql('haukkuu');
         });
 
-        $httpBackend.whenGET(url).respond([{hakusana: 'koira', selitys: 'haukkuu'}]);
         $httpBackend.flush();
-
-        expect(result[0].hakusana).to.eql('koira');
     }));
 
-    it('should save data into session storage', (function () {
-        service.getSanalista();
+    it('should stack promises', (function () {
+        var results = {};
+        results.hakusanat = [{hakusana: 'koira', selitys: 0}];
+        results.linkit = {};
+        results.selitykset = [{id: 0, selitys: 'haukkuu'}];
 
-        $httpBackend.whenGET(url).respond([{hakusana: 'koira', selitys: 'haukkuu'}]);
+        $httpBackend.whenGET(url).respond(results);
+
+        var res = 0;
+        var max = 100;
+
+        for (var i = 0; i < max; i++) {
+            service.sanalista().then(function (respond) {
+                res += respond.length;
+            });
+        }
+
+        service.sanalista().then(function (respond) {
+            var eka = respond[0];
+            expect(eka.hakusana).to.eql('koira');
+            expect(eka.selitys).to.eql('haukkuu');
+        });
+
         $httpBackend.flush();
 
-        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
-        expect(sessionStorage.length).to.equal(1);
-        expect(sanalista[0].hakusana).to.eql('koira');
+        expect(res).to.eql(max * results.hakusanat.length);
     }));
 
-    it('should leave session storage empty on http error', (function () { 
-        
-        service.getSanalista();
-         
-        $httpBackend.whenGET(url).respond(400);
-        $httpBackend.flush();
-        
-        expect(sessionStorage.length).to.equal(0);
-    }));
 });

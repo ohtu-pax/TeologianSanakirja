@@ -285,7 +285,7 @@ function lyhentajaClass() {
         return '<span class="lyhenne" title="' + selitys + '">' + lyhenne + '</span>';
     }
 
-    this.lisaaLyhenne = function (str) {
+    lyhentajaClass.prototype.lisaaLyhenne = function (str) {
         var currentString = '';
         var extraLength = 0;
         var beforeStartCharacter = '';
@@ -345,7 +345,7 @@ function linkittajaClass(linkit, hakusanat) {
         return origin.substring(0, start) + what + origin.substring(end);
     }
 
-    this.linkita = function (selitys) {
+    linkittajaClass.prototype.linkita = function (selitys) {
 
         var openTag = false;
         var closeTag = false;
