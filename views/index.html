@@ -24,8 +24,6 @@
         <script src="javascripts/app.js"></script>
         <script src="javascripts/controllers/getController.js"></script>
         <script src="javascripts/controllers/kirjainController.js"></script> 
-
-        <script src="javascripts/controllers/randomController.js"></script> 
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
         <script src="javascripts/controllers/historyController.js"></script>
         <script  src="javascripts/controllers/adminController.js"></script> 
@@ -50,6 +48,9 @@
                             <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
                                title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
                         </li>
+                        <li ng-show="tila.sisalla" id="adminLinkki">
+                            <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
+                        </li>
                         <li ng-show="tila.sisalla" class="logout">
                             <a href ="" ng-click="logout()">Kirjaudu ulos</a>
                         </li>
@@ -73,7 +74,6 @@
                             });</script>
                 <script>
                             cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
-
                                 $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
                             });
                 </script>
