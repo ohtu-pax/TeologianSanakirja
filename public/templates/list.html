@@ -1,6 +1,6 @@
 <div ng-controller="hakuKenttaController">
     <!--sana.hakusana for sana in sanalista -->
-    <div class="sanaSelitys" ng-controller="historyController" ng-repeat="sanat in sanalista | filter:{hakusana:hakuKentta}:true | limitTo:1" ng-show="hakuKentta.length > 0">
+    <div class="sanaSelitys" ng-controller="historyController" ng-repeat="sanat in sanalista | filter:{hakusana:hakuKentta.sana}:true | limitTo:1" ng-show="hakuKentta.sana.length > 0">
         <br/>
         Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
         <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p>
@@ -8,8 +8,8 @@
 
     <hr>
 
-    <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter: hakuKentta | filter:{hakusana: '!' + hakuKentta}:true
-               | limitTo:10 | orderBy: 'hakusana'" ng-show="hakuKentta.length > 2">    
+    <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter: hakuKentta.sana | filter:{hakusana: '!' + hakuKentta.sana}:true
+               | limitTo:10 | orderBy: 'hakusana'" ng-show="hakuKentta.sana.length > 2">    
          <br/>
          Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
         <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p> 

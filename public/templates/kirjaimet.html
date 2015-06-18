@@ -2,7 +2,7 @@
 <label>Etsi: <input class="dropdown up" ng-model="kirjainHakuKentta" 
                     bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:kirjainFilter "
                     placeholder="Etsi kirjaimella alkavista sanoista" bs-typeahead></label>
-<button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
+<button type="button" ng-click="tyhjennaKirjainHaku()">Tyhjennä haku</button>
 <div class="sanaSelitys" ng-repeat="sanat in sanalista| filter:kirjainFilter | filter: {hakusana:kirjainHakuKentta}:true"
      ng-show="kirjainHakuKentta.length > 0">
     <br/>
