@@ -1,9 +1,9 @@
 'use strict';
 
-var linkittajaClass = require('../../database/linkParser').linkittaja;
-var assert = require('assert');
+describe('Linkittäjä: ', function () {
 
-describe('Linkki parseri', function () {
+    beforeEach(module('sanakirjaApp'));
+
     it('Lisää linkin selitykseen', function (done) {
 
         var l1 = new Object();
@@ -123,4 +123,5 @@ describe('Linkki parseri', function () {
         assert.strictEqual(tulos, odotettu);
         done();
     });
+
 });

@@ -13,8 +13,12 @@ sanakirjaApp.controller('historyController', function ($scope) {
             sessionStorage.setItem('historia', JSON.stringify(historia));
         }
     });
-    
-    if (sessionStorage.getItem('historia')) {
-        $scope.historia = JSON.parse(sessionStorage.getItem('historia')).reverse();
-    }
+
+    $scope.historia = function () {
+        if (sessionStorage.getItem('historia')) {
+            return JSON.parse(sessionStorage.getItem('historia')).reverse();
+        }
+        return null;
+    };
+
 });
