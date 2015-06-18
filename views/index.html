@@ -34,34 +34,33 @@
 
     </head>
     <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
-        <div class="container-fluid">
             <header class="page-header navbar-fixed-top">
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <ul class="nav navbar-nav">
-                            <li class="etusivu" >
-                                <a href ="/#/">Etusivu</a>
-                            </li>
-                            <li class="random">
-                                <a href ="" ng-click="getRandom()">Satunnainen sana</a>
-                            </li>
-                            <li class="historia">
-                                <a href="/#/history">Hakuhistoria</a>
-                            </li>
-                            <li class="palaute">
-                                <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
-                                   title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
-                            </li>
-                            <li ng-show="tila.sisalla" class="logout">
-                                <a href ="" ng-click="logout()">Kirjaudu ulos</a>
-                            </li>
-                        </ul>
-                    </div>
+                <nav class="navbar navbar-default">             
+                    <ul class="nav navbar-nav">
+                        <li class="etusivu" >
+                            <a href ="/#/">Etusivu</a>
+                        </li>
+                        <li class="random">
+                            <a href ="" ng-click="getRandom()">Satunnainen sana</a>
+                        </li>
+                        <li class="historia">
+                            <a href="/#/history">Hakuhistoria</a>
+                        </li>
+                        <li class="palaute">
+                            <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
+                               title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
+                        </li>
+                        <li ng-show="tila.sisalla" class="logout">
+                            <a href ="" ng-click="logout()">Kirjaudu ulos</a>
+                        </li>
+                    </ul>
                 </nav>    
                 <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
                 <h1>  Teologian Sanakirja </h1>
-                <div class="aakkoset container-fluid" ng-controller="kirjainController">
-                    <a ng-repeat="kirjain in AAKKOSET" href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a> 
+                <div class="aakkoset" ng-controller="kirjainController">
+                    <ul class="nav navbar-nav">
+                        <li class="kirjaimet" ng-repeat="kirjain in AAKKOSET"><a href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a></li>
+                    </ul>
                 </div>
             </header>
             <div class="container-fluid sisalto">
@@ -79,7 +78,6 @@
                             });
                 </script>
             </div>
-        </div>
         <!--tyyleihin liittyvät scriptit-->
         <script src="javascripts/tyyliskriptit.js"></script>
     </body>
