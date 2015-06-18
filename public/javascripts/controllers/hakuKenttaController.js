@@ -34,6 +34,7 @@ sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, 
             console.log('Uloskirjautuminen onnistui: ' + kirjauduttuUlos);
             if (kirjauduttuUlos === true) {
                 $scope.tila.sisalla = false;
+                $location.path('/');
             }
         });
     };

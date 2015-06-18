@@ -1,4 +1,12 @@
-sanakirjaApp.controller('adminController', function ($scope, $filter, sanatService) {
+sanakirjaApp.controller('adminController', function ($scope, sanatService, $filter, $location) {
+
+    if ($scope.tila.sisalla) {
+        $location.path('/admin');
+    }
+    else {
+        $location.path('/');
+        return;
+    }
 
     sanatService.sanalista().then(function(result) {
         $scope.sanalista = result;

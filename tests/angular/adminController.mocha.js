@@ -1,22 +1,26 @@
 'use strict';
 
-describe('adminController: ', function () {
-    var scope = null, routeParams = null, $q = null, mockService = null;
+describe('adminController - sisaan kirjautunut kayttaja: ', function () {
+
+    var scope = null, routeParams = null, $q = null, mockService = null, location = null;
 
     beforeEach(module('sanakirjaApp'));
 
-    beforeEach(inject(function ($controller, $rootScope, _$q_, $routeParams) {
+    beforeEach(inject(function ($controller, $rootScope, _$q_, $routeParams, $location) {
         scope = $rootScope.$new();
         $q = _$q_;
         routeParams = $routeParams;
+        location = $location;
 
         mockService = {};
+        scope.tila = {sisalla: true};
 
         mockService.sanalista = function () {
             return init($q);
         };
 
         $controller('adminController', {
+            $location: location,
             $scope: scope,
             sanatService: mockService,
             $routeParams: routeParams
@@ -58,7 +62,34 @@ describe('adminController: ', function () {
         expect(scope.adminSelitys).eql('');
         expect(scope.tekijaInput).eql('');
     });
+
+    it('kun ollaan kirjauduttu sisään ja osoiteriville kirjoitetaan /admin, näytetään admin-template', function () {
+        expect(location.url()).to.eql('/admin');
+    });
+
 });
 
+describe('adminController - kirjautumaton kayttaja: ', function () {
+
+    var location = null;
+
+    beforeEach(module('sanakirjaApp'));
+
+    beforeEach(inject(function ($controller, $rootScope, $location) {
+        var scope = $rootScope.$new();
+        location = $location;
+
+        scope.tila = {sisalla: false};
+
+        $controller('adminController', {
+            $location: location,
+            $scope: scope
+        });
+    }));
+
+    it('kun osoiteriville kirjoitetaan /admin, ohjataan etusivulle', function () {
+        expect(location.url()).to.eql('/');
+    });
+});
 
 

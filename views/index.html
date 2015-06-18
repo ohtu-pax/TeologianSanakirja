@@ -54,6 +54,9 @@
                     <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
                         title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
                 </li>
+                <li ng-show="tila.sisalla" id="adminLinkki">
+                    <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
+                </li>
                 <li ng-show="tila.sisalla" class="logout">
                     <a href ="" ng-click="logout()">Kirjaudu ulos</a>
                 </li>

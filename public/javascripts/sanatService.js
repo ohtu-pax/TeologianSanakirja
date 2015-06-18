@@ -18,7 +18,6 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
         if (mainPromise !== null) {
             var promise = $q(function (resolve, reject) {
                 mainPromise.then(function () {
-                    console.log('Resolving jono lupaus');
                     resolve(sanatEsiteltava);
                 });
             });
