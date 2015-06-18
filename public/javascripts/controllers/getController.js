@@ -1,4 +1,5 @@
 sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice,$routeParams) {
+    console.log("KUTSUTAAN GETCONTROLLERIA");
     if (sessionStorage.getItem('sanalista') === null) {
         var servicePromise = sanakirjaAPIservice.getSanalista();
 

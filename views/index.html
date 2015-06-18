@@ -50,7 +50,7 @@
                 </li>
                 <li>
                     <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
-                        title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
+                       title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
                 </li>
                 <li ng-show="tila.sisalla" id="adminLinkki">
                     <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
@@ -64,6 +64,11 @@
 
         <div ng-controller="kirjainController">
             <a ng-repeat="kirjain in AAKKOSET" href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a> 
+        </div>
+        
+        <div id="haku">
+            <label>Etsi: <input class="dropdown up" ng-model="hakuKentta" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
+            <button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
         </div>
 
         <div>

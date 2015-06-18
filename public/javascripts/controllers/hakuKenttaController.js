@@ -1,13 +1,26 @@
-sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, $location, sanakirjaAPIservice) {
+sanakirjaApp.controller('hakuKenttaController', function ($rootScope, $scope, $routeParams, $location, sanakirjaAPIservice) {
+    if (sessionStorage.getItem('sanalista') === null) {
+        var servicePromise = sanakirjaAPIservice.getSanalista();
 
+        servicePromise.then(function (result) {
+            $scope.sanalista = result; 
+        }).catch(function (error) {
+            console.log("Error at getController: " + error);
+        });
+    } else {
+        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
+         $scope.sanalista = sanalista;
+    }
+    
+    console.log("KUSTUTAAN HAKUKENTTACONTROLLERIA");
     //Funktio filtterin putsaamiseen
-    $scope.tyhjennahaku = function () {
-        $scope.hakuKentta = "";
+    $rootScope.tyhjennahaku = function () {
+        $rootScope.hakuKentta = "";
     };
 
     //Asetetaan hakukenttaan sana jos sellainen on routeParamssissa
     if ($routeParams) {
-        $scope.hakuKentta = $routeParams.sana;
+        $rootScope.hakuKentta = $routeParams.sana;
     }
 
     $scope.getRandom = function () {
