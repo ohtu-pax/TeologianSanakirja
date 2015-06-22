@@ -1,5 +1,16 @@
-sanakirjaApp.controller('esipuheController', function ($scope, $filter, sanakirjaAPIservice) {
-    $scope.esipuhe = 'aamen';
+sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservice) {
+    if (sessionStorage.getItem('esipuhe') === null) {
+        var servicePromise = sanakirjaAPIservice.getEsipuhe();
+
+        servicePromise.then(function (result) {
+            $scope.esipuhe = result; 
+        }).catch(function (error) {
+            console.log("Error at getController: " + error);
+        });
+    } else {
+        var esipuhe = JSON.parse(sessionStorage.getItem('esipuhe'));
+         $scope.esipuhe = esipuhe; 
+    }
 
     if ($scope.tila === undefined) {
         $scope.tila = {};

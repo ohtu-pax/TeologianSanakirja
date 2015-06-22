@@ -1,6 +1,19 @@
 
 sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
-
+    this.getEsipuhe = function( ){
+         return $q(function (resolve, reject) {
+            $http.get('api/data/esipuhe')
+                    .success(function (data) {
+                        sessionStorage.setItem('esipuhe', JSON.stringify(data));
+                        resolve(data);
+                    })
+                    .error(function (error) {
+                        console.log('Error at services.js at getSanalista: ' + error);
+                        reject(error);
+                    });
+        });
+    };
+    
     this.getSanalista = function () {
         return $q(function (resolve, reject) {
             $http.get('api/sanat/')

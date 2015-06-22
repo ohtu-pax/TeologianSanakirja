@@ -13,6 +13,7 @@ router.get('/', function (req, res, next) {
 var HAKUSANAT_KYSELY = 'SELECT * FROM hakusanat';
 var SELITYKSET_KYSELY = 'SELECT * FROM selitykset';
 var LINKIT_KYSELY = 'SELECT * FROM linkit';
+var ESIPUHE_KYSELY = 'SELECT * FROM tekstit WHERE id=1';
 
 var results = null;
 
@@ -25,6 +26,9 @@ router.get('/api/sanat', function (req, response) {
     } else {
         end(response);
     }
+});
+router.get('/api/data/esipuhe', function () {
+database.queryWithValuesAndReturn(ESIPUHE_KYSELY);
 });
 
 function end(response) {
