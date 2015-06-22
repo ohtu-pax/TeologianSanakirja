@@ -45,7 +45,6 @@ describe('api/sanat', function () {
     }
 
     function hakusanaOnOlemasssa(hakusana) {
-        console.dir(hakusana);
         return maaritelty(hakusana.id) && kenttaOlemassa(hakusana.hakusana) && maaritelty(hakusana.selitys);
     }
 
