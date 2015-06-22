@@ -8,7 +8,7 @@ var app = express();
 app.use('/', routes);
 
 var START_TIMEOUT = 6000;
-var TIMEOUT = 1000;
+var TIMEOUT = 6000;
 
 describe('api/sanat', function () {
     before(function (done) {
@@ -32,36 +32,55 @@ describe('api/sanat', function () {
                 });
     });
 
-    function kenttaOlemassa(kentta) {
-        return kentta !== undefined && kentta !== null && kentta.length > 0;
+    function maaritelty(value) {
+        return value !== undefined && value !== null;
     }
 
-    function tarkistaOlemassaOlo(sana) {
-        var sanaOnOlemassa = sana !== undefined && sana !== null;
-        if (sanaOnOlemassa) {
-            var hakusana = sana.hakusana;
-            var selitys = sana.selitys;
-            if (kenttaOlemassa(hakusana) && kenttaOlemassa(selitys)) {
-                return;
-            }
-        }
-        throw new Error('Virheellinen sana');
+    function kenttaOlemassa(kentta) {
+        return maaritelty(kentta) && kentta.length > 0;
+    }
+
+    function selitysOnOlemasssa(selitys) {
+        return maaritelty(selitys.id) && kenttaOlemassa(selitys.selitys);// && kenttaOlemassa(selitys.tekija);
+    }
+
+    function hakusanaOnOlemasssa(hakusana) {
+        return maaritelty(hakusana.id) && kenttaOlemassa(hakusana.hakusana) && maaritelty(hakusana.selitys);
     }
 
     it('Tulisi palauttaa oikeita sanoja', function (done) {
         this.timeout(TIMEOUT);
         request(app)
-                .get('/api/sanat')
+                .get('/api/sanatuusi')
                 .set('Accept', 'application/json')
                 .expect(function (res) {
-                    var results = JSON.parse(res.text);
-                    var len = results.length;
-                    if (len === 0) {
-                        throw new Exception('Tulos tyhja');
+                    var tulos = JSON.parse(res.text);
+                    if (!maaritelty(tulos)) {
+                        throw new Error('Tulos tyhja');
                     }
-                    console.log('Tarkistetaan ' + len + ' sanaa');
-                    for (var i = 0; i < len; i++) {
-                        tarkistaOlemassaOlo(results[i]);
+
+                    var linkit = tulos.linkit;
+                    var hakusanat = tulos.hakusanat;
+                    var selitykset = tulos.selitykset;
+
+                    if (!kenttaOlemassa(linkit) || !kenttaOlemassa(hakusanat) || !kenttaOlemassa(selitykset)) {
+                        throw new Error('Tulos tyhja');
+                    }
+
+                    var lenh = hakusanat.length;
+                    console.log('Tarkistetaan ' + lenh + ' hakusanaa');
+                    for (var i = 0; i < lenh; i++) {
+                        if (!hakusanaOnOlemasssa(hakusanat[i])) {
+                            throw new Error('Virheellinen sana');
+                        }
+                    }
+
+                    var lens = selitykset.length;
+                    console.log('Tarkistetaan ' + lens + ' selitys');
+                    for (var i = 0; i < lens; i++) {
+                        if (!selitysOnOlemasssa(selitykset[i])) {
+                            throw new Error('Virheellinen sana ' + selitykset[i]);
+                        }
                     }
                     return false;
                 })

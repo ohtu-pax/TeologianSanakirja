@@ -4,9 +4,8 @@
         <title>Teologian Sanakirja</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="stylesheets/style.css" rel="stylesheet">
         <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css"> 
-
+        <link href="stylesheets/style.css" rel="stylesheet">
 
 
         <!-- Angularin lähdekoodit -->
@@ -25,59 +24,63 @@
         <script src="javascripts/app.js"></script>
         <script src="javascripts/controllers/getController.js"></script>
         <script src="javascripts/controllers/kirjainController.js"></script> 
+
         <script src="javascripts/controllers/hakuKenttaController.js"></script>
         <script src="javascripts/controllers/historyController.js"></script>
         <script  src="javascripts/controllers/adminController.js"></script> 
         <script src="javascripts/controllers/loginController.js"></script>
         <script src="javascripts/services.js"></script>
+        <script src="javascripts/sanatService.js"></script>
 
     </head>
-
     <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
-        <h1>  Teologian Sanakirja </h1>
-
-        <p class="sisallaViesti" ng-show="tila.sisalla">Pääkäyttäjä</p>
-        <header>
-            <ul>
-                <li class="etusivu" >
-                    <a href ="/#/">Etusivu</a>
-                </li>
-                <li class="random">
-                    <a href ="" ng-click="getRandom()">Satunnainen sana</a>
-                </li>
-                <li class="historia">
-                    <a href="/#/history">Hakuhistoria</a>
-                </li>
-                <li>
-                    <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
-                        title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
-                </li>
-                <li ng-show="tila.sisalla" id="adminLinkki">
-                    <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
-                </li>
-                <li ng-show="tila.sisalla" class="logout">
-                    <a href ="" ng-click="logout()">Kirjaudu ulos</a>
-                </li>
-            </ul>
-            <!-- <a href ="#/post" >Lisää sana</a> -->
-        </header>
-
-        <div ng-controller="kirjainController">
-            <a ng-repeat="kirjain in AAKKOSET" href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a> 
-        </div>
-
-        <div>
-            <div ng-view></div>
-        </div>
-        <script>
-                    cheet("o h t u p a x", function () {
-                        $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
-                    });</script>
-        <script>
-                    cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
-
-                        $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
-                    });
-        </script>
+            <header class="page-header navbar-fixed-top">
+                <nav class="navbar navbar-default">             
+                    <ul class="nav navbar-nav">
+                        <li class="etusivu" >
+                            <a href ="/#/">Etusivu</a>
+                        </li>
+                        <li class="random">
+                            <a href ="" ng-click="getRandom()">Satunnainen sana</a>
+                        </li>
+                        <li class="historia">
+                            <a href="/#/history">Hakuhistoria</a>
+                        </li>
+                        <li class="palaute">
+                            <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
+                               title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
+                        </li>
+                        <li ng-show="tila.sisalla" id="adminLinkki" class="adminLinkki">
+                            <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
+                        </li>
+                        <li ng-show="tila.sisalla" class="logout">
+                            <a href ="" ng-click="logout()">Kirjaudu ulos</a>
+                        </li>
+                    </ul>
+                </nav>    
+                <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
+                <h1>  Teologian Sanakirja </h1>
+                <div class="aakkoset" ng-controller="kirjainController">
+                    <ul class="nav navbar-nav">
+                        <li class="kirjaimet" ng-repeat="kirjain in AAKKOSET"><a href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a></li>
+                    </ul>
+                </div>
+            </header>
+            <div class="container-fluid sisalto">
+                <div>
+                    <div ng-view></div>
+                </div>
+                <script>
+                            cheet("o h t u p a x", function () {
+                                $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
+                            });</script>
+                <script>
+                            cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
+                                $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
+                            });
+                </script>
+            </div>
+        <!--tyyleihin liittyvät scriptit-->
+        <script src="javascripts/tyyliskriptit.js"></script>
     </body>
 </html>
