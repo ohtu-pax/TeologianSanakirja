@@ -27,8 +27,14 @@ router.get('/api/sanat', function (req, response) {
         end(response);
     }
 });
-router.get('/api/data/esipuhe', function () {
-database.queryWithValuesAndReturn(ESIPUHE_KYSELY);
+
+router.get('/api/data/esipuhe', function (req, response) {
+    database.queryWithReturn(ESIPUHE_KYSELY, function (data) {
+        console.log(data);
+        return data;
+
+    });
+    end(response);
 });
 
 function end(response) {
