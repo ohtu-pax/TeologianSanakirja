@@ -1,34 +1,31 @@
+'use strict';
 
-describe('adminController: ', function () {
-    var controller, scope, routeParams;
+describe('adminController - sisaan kirjautunut kayttaja: ', function () {
+
+    var scope = null, routeParams = null, $q = null, mockService = null, location = null;
 
     beforeEach(module('sanakirjaApp'));
 
-    beforeEach(inject(function ($controller, $rootScope, _$q_, $routeParams) {
+    beforeEach(inject(function ($controller, $rootScope, _$q_, $routeParams, $location) {
         scope = $rootScope.$new();
         $q = _$q_;
         routeParams = $routeParams;
+        location = $location;
 
         mockService = {};
+        scope.tila = {sisalla: true};
 
-        mockService.getSanalista = function () {
-            var defer = $q.defer();
-            var sanalista = [{hakusana: 'koira', selitys: 'haukkuu'}];
-            defer.resolve(sanalista);
-            sessionStorage.setItem('sanalista', JSON.stringify(sanalista));
-            return defer.promise;
-        }
+        mockService.sanalista = function () {
+            return init($q);
+        };
 
-        controller = $controller('adminController', {
+        $controller('adminController', {
+            $location: location,
             $scope: scope,
-            sanakirjaAPIservice: mockService,
+            sanatService: mockService,
             $routeParams: routeParams
         });
     }));
-
-    after(function () {
-        sessionStorage.clear();
-    });
 
     it('kun kirjoitetaan viimeiseen kenttään, lisätään uusi kenttä', function () {
         scope.hallinnoiRiveja(1);
@@ -43,18 +40,56 @@ describe('adminController: ', function () {
         expect(scope.adminSanat.length).eql(1);
     });
 
-    it('kun haetaan sanalla \'koi\', selitys on tyhjä', function() {
-       scope.adminSanat[0].hakusana = 'koi';
-       scope.sanaSelitys();
-       expect(scope.adminSelitys).eql('');
+    it('kun haetaan sanalla \'koi\', selitys on tyhjä', function () {
+        scope.$apply();
+        scope.adminSanat[0].hakusana = 'koi';
+        scope.sanaSelitys();
+        expect(scope.adminSelitys).eql('');
     });
-    
-    it('kun haetaan sanalla \'koira\', selitys on \'haukkuu\'', function() {
-       scope.adminSanat[0].hakusana = 'koira';
-       scope.sanaSelitys();
-       expect(scope.adminSelitys).eql('haukkuu');
-    });    
+
+    it('kun haetaan sanalla \'koira\', selitys on \'haukkuu\'', function () {
+        scope.$apply();
+        scope.adminSanat[0].hakusana = 'koira';
+        scope.sanaSelitys();
+        expect(scope.adminSelitys).eql('haukkuu');
+    });
+
+    it('lomake tyhjenee kun kutsutaan tyhjenna funktiota', function () {
+        scope.adminSanat[0].hakusana = 'koira';
+        scope.tekijaInput = 'Seppo Teppo';
+        scope.tyhjenna();
+        expect(scope.adminSanat[0].hakusana).eql('');
+        expect(scope.adminSelitys).eql('');
+        expect(scope.tekijaInput).eql('');
+    });
+
+    it('kun ollaan kirjauduttu sisään ja osoiteriville kirjoitetaan /admin, näytetään admin-template', function () {
+        expect(location.url()).to.eql('/admin');
+    });
+
 });
 
+describe('adminController - kirjautumaton kayttaja: ', function () {
+
+    var location = null;
+
+    beforeEach(module('sanakirjaApp'));
+
+    beforeEach(inject(function ($controller, $rootScope, $location) {
+        var scope = $rootScope.$new();
+        location = $location;
+
+        scope.tila = {sisalla: false};
+
+        $controller('adminController', {
+            $location: location,
+            $scope: scope
+        });
+    }));
+
+    it('kun osoiteriville kirjoitetaan /admin, ohjataan etusivulle', function () {
+        expect(location.url()).to.eql('/');
+    });
+});
 
 

@@ -1,17 +1,16 @@
-sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice, $filter) {
+sanakirjaApp.controller('adminController', function ($scope, sanatService, $filter, $location) {
 
-    if (sessionStorage.getItem('sanalista') === null) {
-        var servicePromise = sanakirjaAPIservice.getSanalista();
-
-        servicePromise.then(function (result) {
-            $scope.sanalista = result;
-        }).catch(function (error) {
-            console.log("Error at getController: " + error);
-        });
-    } else {
-        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
-        $scope.sanalista = sanalista;
+    if ($scope.tila.sisalla) {
+        $location.path('/admin');
     }
+    else {
+        $location.path('/');
+        return;
+    }
+
+    sanatService.sanalista().then(function(result) {
+        $scope.sanalista = result;
+    });
 
     $scope.adminSanat = [{id: '1', hakusana: ''}];
 
@@ -35,5 +34,11 @@ sanakirjaApp.controller('adminController', function ($scope, sanakirjaAPIservice
         } else {
              $scope.adminSelitys = '';
         }
+    };
+    
+    $scope.tyhjenna = function ()   {
+        $scope.adminSanat = [{id: '1', hakusana: ''}];
+        $scope.adminSelitys = '';
+        $scope.tekijaInput = '';
     };
 });

@@ -1,11 +1,10 @@
 'use strict';
 
-var parser = require('../../database/lyhenneParser').lyhentaja;
-var assert = require('assert');
-
 describe('lyhenne parseri', function () {
 
-    var lyhentaja = new parser();
+    beforeEach(module('sanakirjaApp'));
+
+    var lyhentaja = new lyhentajaClass();
 
     it('Lisää lyhenteiden selitykset', function (done) {
         var alkuPerainen = 'Tässä on selitys, kr, ja siinä tulisi olla lyhenne';
@@ -15,6 +14,7 @@ describe('lyhenne parseri', function () {
         assert.strictEqual(tulos, odotettu);
         done();
     });
+
     it('Lisää lyhenteiden selitykset rajoilla', function (done) {
         var alkuPerainen = 'kr Tässä on selitys, ja siinä tulisi olla lyhenne kr';
         var odotettu = '<span class="lyhenne" title="kreikka, kreikan">kr</span> Tässä on selitys, ja siinä tulisi olla lyhenne <span class="lyhenne" title="kreikka, kreikan">kr</span>';
@@ -23,6 +23,7 @@ describe('lyhenne parseri', function () {
         assert.strictEqual(tulos, odotettu);
         done();
     });
+
     it('Ei lisää lyhenteiden selityksiä keskelle sanoja', function (done) {
         var alkuPerainen = 'tkrTässä on selityskr, vika, krja slatiinä tulisi okrlla lyhennekr';
         var odotettu = alkuPerainen;
@@ -31,6 +32,7 @@ describe('lyhenne parseri', function () {
         assert.strictEqual(tulos, odotettu);
         done();
     });
+
     it('Lisää kun ainoa', function (done) {
         var alkuPerainen = 'lat';
         var odotettu = '<span class="lyhenne" title="latina, latinan">lat</span>';
@@ -39,6 +41,7 @@ describe('lyhenne parseri', function () {
         assert.strictEqual(tulos, odotettu);
         done();
     });
+
     it('Toimii tyhjällä', function (done) {
         var alkuPerainen = '';
         var odotettu = '';
@@ -47,4 +50,5 @@ describe('lyhenne parseri', function () {
         assert.strictEqual(tulos, odotettu);
         done();
     });
+
 });

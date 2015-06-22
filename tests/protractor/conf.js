@@ -16,7 +16,7 @@ exports.config = {
         'haku.spec.js',
         'kirjaimet.spec.js',
         'random.spec.js',
-        'login.spec.js'
+        'login.spec.js',
+        'admin.spec.js'
     ]
-
 };

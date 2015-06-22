@@ -9,7 +9,7 @@ sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservi
         });
     } else {
         var esipuhe = JSON.parse(sessionStorage.getItem('esipuhe'));
-         $scope.esipuhe = esipuhe; 
+         $scope.esipuhe = esipuhe[0].nimi; 
     }
 
     if ($scope.tila === undefined) {

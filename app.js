@@ -73,6 +73,7 @@ passport.use(new localStrategy({},
 ));
 
 //app.get('env') === 'development'
+
 app.use(function (err, req, res, next) {
     if (err.eurl.indexOf('favicon') === -1) {
         console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);

@@ -1,7 +1,7 @@
 'use strict';
 
 describe('GetController: ', function () {
-    var controller, scope, routeParams, $q, mockService;
+    var scope = null, routeParams = null, $q = null, mockService = null;
 
     beforeEach(module('sanakirjaApp'));
 
@@ -12,24 +12,16 @@ describe('GetController: ', function () {
 
         mockService = {};
 
-        mockService.getSanalista = function () {
-            var defer = $q.defer();
-            var sanalista = [{hakusana: 'koira', selitys: 'haukkuu'}];
-            defer.resolve(sanalista);
-            sessionStorage.setItem('sanalista', JSON.stringify(sanalista));
-            return defer.promise;
-        }
+        mockService.sanalista = function () {
+            return init($q);
+        };
 
-        controller = $controller('getController', {
+        $controller('getController', {
             $scope: scope,
-            sanakirjaAPIservice: mockService,
+            sanatService: mockService,
             $routeParams: routeParams
         });
     }));
-
-    after(function () {
-        sessionStorage.clear();
-    });
 
     it('should put sanalista into scope.sanalista', function () {
         scope.$apply();
