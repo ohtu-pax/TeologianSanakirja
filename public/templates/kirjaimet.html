@@ -3,7 +3,7 @@
                     bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:kirjainFilter "
                     placeholder="Etsi kirjaimella alkavista sanoista" bs-typeahead></label>
 <button type="button" ng-click="tyhjennaKirjainHaku()">Tyhjennä haku</button>
-<div class="sanaSelitys" ng-controller="historyController" ng-repeat="sanat in sanalista| filter:kirjainFilter | filter: {hakusana:kirjainHakuKentta}:true"
+<div class="sanaSelitys" ng-controller="kirjainHistoryController" ng-repeat="sanat in sanalista| filter:kirjainFilter | filter: {hakusana:kirjainHakuKentta}:true"
      ng-show="kirjainHakuKentta.length > 0">
     <br/>
     Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
