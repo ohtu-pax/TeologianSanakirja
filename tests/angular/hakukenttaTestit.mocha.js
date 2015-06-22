@@ -15,6 +15,11 @@ describe('hakuKenttaController: ', function () {
                 defer.resolve('0');
                 return defer.promise;
             };
+
+            api.getSanalista = function () {
+                return _$q_.defer().promise;
+            };
+
             controller = $controller('hakuKenttaController', {
                 $scope: scope,
                 location: location,
@@ -34,13 +39,13 @@ describe('hakuKenttaController: ', function () {
 
     it('tyhjentaa hakukentan kun painetaan tyhjenna hakukentta painiketta', function () {
 
-        scope.hakuKentta = "aamen";
+        scope.hakuKentta.sana = "aamen";
         scope.tyhjennahaku();
-        expect(scope.hakuKentta).to.eql("");
+        expect(scope.hakuKentta.sana).to.eql("");
     });
 
     it('asettaa sanan hakukenttaan', function () {
-        expect(scope.hakuKentta).to.eql("kissa");
+        expect(scope.hakuKentta.sana).to.eql("kissa");
     });
 
     it('lisää sanat-urliin satunnaisen sanan', function () {

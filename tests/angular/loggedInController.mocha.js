@@ -1,7 +1,7 @@
 'use strict';
 
 describe('loggedInController: ', function () {
-    
+
     beforeEach(module('sanakirjaApp'));
 
     var rootscope = null;
@@ -18,6 +18,9 @@ describe('loggedInController: ', function () {
                 return defer.promise;
             };
             api.isLoggedIn = loggednInf;
+            api.getSanalista = function () {
+                return _$q_.defer().promise;
+            };
             _$controller_('hakuKenttaController', {
                 $scope: localScope,
                 sanakirjaAPIservice: api

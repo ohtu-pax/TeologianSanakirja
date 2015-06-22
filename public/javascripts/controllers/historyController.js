@@ -13,5 +13,5 @@ sanakirjaApp.controller('historyController', function ($scope) {
             historia.push(newVal.sana);
             sessionStorage.setItem('historia', JSON.stringify(historia));
         }
-    });
+    }, true); 
 });

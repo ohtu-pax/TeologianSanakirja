@@ -10,27 +10,30 @@ describe('historyController: ', function () {
                 $scope: scope
             });
         });
+
+        if (scope.hakuKentta === undefined) {
+            scope.hakuKentta = {};
+        }
+    });
+    
+    after(function() {
+        sessionStorage.removeItem('historia');
     });
 
     it('tallentaa yhden sanan historiaan ', function () {
-        scope.hakuKentta = 'koira';
+        scope.hakuKentta.sana = 'koira';
         scope.$apply();
 
         expect(JSON.parse(sessionStorage.getItem('historia'))).to.deep.equal(["koira"]);
     });
 
     it('tallentaa kolme peräkkäistä hakusanaa historiaan', function () {
-        scope.hakuKentta = 'kissa';
+        scope.hakuKentta.sana = 'kissa';
         scope.$apply();
 
-        scope.hakuKentta = 'lehmä';
+        scope.hakuKentta.sana = 'lehmä';
         scope.$apply();
 
         expect(JSON.parse(sessionStorage.getItem('historia'))).to.deep.equal(["koira", "kissa", "lehmä"]);
     });
-
-    it('asettaa scope.historia-kentän arvoksi historian nurinpäin', function () {  
-        expect(scope.historia).to.deep.equal(["lehmä", "kissa", "koira"]);
-    });
 });
-

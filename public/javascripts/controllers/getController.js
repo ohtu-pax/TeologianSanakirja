@@ -1,5 +1,4 @@
 sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice, $routeParams) {
-    console.log("KUTSUTAAN GETCONTROLLERIA");
     if (sessionStorage.getItem('sanalista') === null) {
         var servicePromise = sanakirjaAPIservice.getSanalista();
 
@@ -12,12 +11,17 @@ sanakirjaApp.controller('getController', function ($scope, sanakirjaAPIservice, 
         var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
         $scope.sanalista = sanalista;
     }
-    
-    $scope.tyhjennaKirjainHaku = function() {
+
+    $scope.tyhjennaKirjainHaku = function () {
         $scope.kirjainHakuKentta = "";
     }
-    
-    $scope.hakuKentta.sana ="";
+
+    if ($scope.hakuKentta === undefined) {
+        $scope.hakuKentta = {};
+    }
+
+    //tyhjennetään hakukenttä aina, kun kutsutaan getControlleria, eli silloin kun siirrytään listausnäkymään
+    $scope.hakuKentta.sana = "";
 
     $scope.kirjainFilter = function (sanat) {
         return sanat.hakusana.substring(0, 1).match($routeParams.kirjain.toLowerCase()) || sanat.hakusana.substring(0, 1).match($routeParams.kirjain);

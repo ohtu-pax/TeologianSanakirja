@@ -27,7 +27,7 @@ describe('Kirjaimet testaus', function () {
         done();
     });
        it('Ei löydä mitään haettaessa täydelistä A:lla alkavaa sanaa', function (done) {
-        element(by.model('hakuKentta')).sendKeys('aamen').then(function () {
+        element(by.model('kirjainHakuKentta')).sendKeys('aamen').then(function () {
 
             function filteroiTeksti(elements, expected) {
                 return elements.filter(function (elem) {
@@ -47,7 +47,7 @@ describe('Kirjaimet testaus', function () {
         });
     });
            it('Löytää oikein yhden B:llä alkavan sanat', function (done) {
-        element(by.model('hakuKentta')).sendKeys('baasis').then(function () {
+        element(by.model('kirjainHakuKentta')).sendKeys('baasis').then(function () {
 
             function filteroiTeksti(elements, expected) {
                 return elements.filter(function (elem) {
