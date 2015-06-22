@@ -25,18 +25,6 @@ router.get('/api/sanatuusi', function (req, response) {
     }
 });
 
-router.get('/api/sanat', function (req, response) {
-    //Supertestia varten
-    /*if (results === null) {
-     loadDatabase(function () {
-     end(response);
-     });
-     } else {
-     end(response);
-     }*/
-    end(response);
-});
-
 function end(response) {
     response.set('Content-Type', 'application/json');
     response.send(res);
