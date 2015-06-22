@@ -1,6 +1,6 @@
 //Otetaan navin viimeisen linkin oikea reuna pois ja pienellä näytöllä kaikista
 var navLinkit = document.querySelectorAll("header>nav>ul>li");
-if(document.querySelector(".logout").className.includes("ng-hide"))   {
+if(document.querySelector(".logout").className.indexOf("ng-hide") > -1) {
     navLinkit[navLinkit.length-1].className = "ei-oikeaa-reunaa";
 }
 else if(window.innerWidth < 768){
