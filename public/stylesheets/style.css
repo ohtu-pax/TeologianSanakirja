@@ -6,7 +6,7 @@
 }
 
 html    {
-    background-color: rgb(223,211,129);
+    background-color: rgb(242,229,178);
 }
 
 @media (min-width: 992px)   {
@@ -16,7 +16,7 @@ html    {
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-        background-color: rgb(223,211,129);
+        background-color: rgb(242,229,178);
     }
 }
 
@@ -42,10 +42,10 @@ body {
         padding-top: 5px;
         padding-left: 5px;
         padding-right: 5px;
-        background-image: -webkit-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
-        background-image: -moz-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
-        background-image: -o-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
-        background-image: -ms-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
+        background-image: -webkit-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -moz-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -o-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -ms-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
         border-bottom-style: none;
         position: relative;
         z-index: 10;
@@ -63,10 +63,10 @@ body {
     .page-header{
         margin-bottom: 0px;
         padding-top: 5px;
-        background-image: -webkit-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
-        background-image: -moz-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
-        background-image: -o-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
-        background-image: -ms-linear-gradient(bottom, #dfd381 2%, rgba(212,198,139,0.3));
+        background-image: -webkit-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -moz-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -o-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -ms-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
         border-bottom-style: none;
         position: relative;
         z-index: 10;
@@ -169,10 +169,20 @@ body {
 .aakkoset .navbar-nav li a  {
     color: #000;
     padding: 5px 5px 0px 5px;
+    background: none;
+    background-color: transparent;
+}
+
+.aakkoset .navbar-nav li a:visited   {
+    text-decoration: underline;
 }
 
 .aakkoset .navbar-nav li a:hover {
     background: none;
+    text-decoration: underline;
+}
+
+.aakkoset .navbar-nav li a:active   {
     text-decoration: underline;
 }
 
