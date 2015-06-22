@@ -22,10 +22,6 @@ describe('historyController: ', function () {
         sessionStorage.removeItem('historia');
     });
 
-    afterEach(function () {
-        sessionStorage.clear();
-    });
-
     it('tallentaa yhden sanan historiaan ', function () {
         scope.hakuKentta.sana = 'koira';
         scope.$apply();
