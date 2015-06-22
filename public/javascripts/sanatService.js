@@ -1,6 +1,113 @@
 'use strict';
 
-function lyhentaja() {
+sanakirjaApp.service('sanatService', function ($http, $q) {
+
+    var jsonres = null;
+
+    var mainPromise = null;
+
+    var sanatEsiteltava = null;
+
+    var selitysLinkit = null;
+
+    var tekijat = null;
+    var hakusanat = null;
+    var selitykset = null;
+
+    this.sanalista = function () {
+        if (mainPromise !== null) {
+            var promise = $q(function (resolve, reject) {
+                mainPromise.then(function () {
+                    resolve(sanatEsiteltava);
+                });
+            });
+            return promise;
+        } else {
+            var resolved = false;
+            var main = $q(function (resolve, reject) {
+                if (sanatEsiteltava !== null) {
+                    resolved = true;
+                    resolve(sanatEsiteltava);
+                } else {
+                    $http.get('api/sanatuusi')
+                            .success(function (data) {
+                                console.time('linkitys');
+                                selitysLinkit = data.linkit;
+                                hakusanat = data.hakusanat;
+                                tekijat = data.tekijat;
+                                selitykset = data.selitykset;
+
+
+                                var linkitSelitykseen = new Array(selitysLinkit.length);
+                                for (var i = 0; i < selitysLinkit.length; i++) {
+                                    var curr = selitysLinkit[i];
+                                    var linkitSelityksessa = linkitSelitykseen[curr.selitys];
+                                    if (!linkitSelityksessa) {
+                                        linkitSelityksessa = [];
+                                        linkitSelitykseen[curr.selitys] = linkitSelityksessa;
+                                    }
+                                    linkitSelityksessa.push(curr);
+                                }
+
+                                function toMap(objects) {
+                                    var map = new Array(objects.length);
+                                    for (var i = 0; i < objects.length; i++) {
+                                        var curr = objects[i];
+                                        map[curr.id] = curr;
+                                    }
+                                    return map;
+                                }
+
+
+                                var hakusanatMap = toMap(hakusanat);
+
+                                var selityksetMap = toMap(selitykset);
+                                var res = new Array(hakusanat.length);
+                                var lyhentaja = new lyhentajaClass();
+                                for (var i = 0; i < hakusanat.length; i++) {
+
+                                    var sana = {};
+                                    res[i] = sana;
+                                    var hakusana = hakusanat[i];
+                                    sana.hakusana = hakusana.hakusana;
+
+                                    var selitys = selityksetMap[hakusana.selitys];
+                                    if (!selitys) {
+                                        console.log(hakusana);
+                                        console.log(hakusana.selitys);
+                                        console.log(i);
+                                    }
+                                    sana.selitys = lyhentaja.lisaaLyhenne(selitys.selitys);
+                                    var linkit = linkitSelitykseen[selitys.id];
+                                    if (!linkit) {
+                                        continue;
+                                    }
+                                    var linkittaja = new linkittajaClass(linkit, hakusanatMap);
+                                    sana.selitys = linkittaja.linkita(sana.selitys);
+                                }
+
+                                sanatEsiteltava = res;
+                                jsonres = JSON.stringify(res);
+                                sessionStorage.setItem('sanalista', jsonres);
+                                console.timeEnd('linkitys');
+                                mainPromise = null;
+                                resolve(res);
+                            })
+                            .error(function (error) {
+                                console.log('Yhteyttä ei saada palvelimeen: ' + error);
+                                reject(error);
+                            });
+                }
+            });
+            if (resolved === false) {
+                mainPromise = main;
+            }
+            return main;
+        }
+    };
+});
+
+function lyhentajaClass() {
 
     var lyhenteet = [
         'Vat II', 'Sacrosanctum Concilium Oecumenicum Vaticanum Secundum, Constitutiones, decreta, declarationes, 1966',
@@ -177,7 +284,7 @@ function lyhentaja() {
         return '<span class="lyhenne" title="' + selitys + '">' + lyhenne + '</span>';
     }
 
-    this.lisaaLyhenne = function (str) {
+    lyhentajaClass.prototype.lisaaLyhenne = function (str) {
         var currentString = '';
         var extraLength = 0;
         var beforeStartCharacter = '';
@@ -208,4 +315,79 @@ function lyhentaja() {
     };
 }
 
-module.exports.lyhentaja = lyhentaja;
+function linkittajaClass(linkit, hakusanat) {
+    var linkit = linkit;
+    var hakusanat = hakusanat;
+
+    var linkkiSanat = {};
+
+    for (var i = 0, max = linkit.length; i < max; i++) {
+        var linkki = linkit[i];
+        var lsana = linkki.linkkisana;
+        var curr = '';
+        for (var k = 0, maxK = lsana.length - 1; k < maxK; k++) {
+            curr += lsana.charAt(k);
+            if (linkkiSanat[curr] === undefined) {
+                linkkiSanat[curr] = true;
+            }
+        }
+        linkkiSanat[lsana] = linkki;
+    }
+
+    var LISA_PITUUS = toHref('', '').length;
+
+    function toHref(linkkiSana, hakusana) {
+        return '<a href="/#/sanat/' + hakusana + '">' + linkkiSana + '</a>';
+    }
+
+    function replaceString(origin, start, end, what) {
+        return origin.substring(0, start) + what + origin.substring(end);
+    }
+
+    linkittajaClass.prototype.linkita = function (selitys) {
+
+        var openTag = false;
+        var closeTag = false;
+
+        function setTags(value) {
+            if (openTag === value) {
+                openTag = !value;
+            } else {
+                closeTag = !value;
+            }
+            currSana = '';
+        }
+
+        var extraLength = 0;
+        var currSana = '';
+        for (var i = 0, max = selitys.length; i < max; i++) {
+            var realPosition = i + extraLength;
+            var currChar = selitys.charAt(realPosition);
+            if (currChar === '<') {
+                setTags(false);
+            } else if (currChar === '>') {
+                setTags(true);
+            }
+            if (openTag === true || closeTag === true) {
+                continue;
+            }
+            currSana += currChar;
+            var linkki = linkkiSanat[currSana];
+            if (linkki !== true) {
+                if (linkki !== undefined) {
+                    var alku = realPosition - currSana.length + 1;
+                    var loppu = realPosition + 1;
+                    var lyhenne = currSana;
+                    var hakusana = hakusanat[linkki.hakusana].hakusana;
+
+                    selitys = replaceString(selitys, alku, loppu,
+                            toHref(lyhenne, hakusana));
+                    var pituusKasvu = LISA_PITUUS + hakusana.length;
+                    extraLength += pituusKasvu;
+                }
+                currSana = '';
+            }
+        }
+        return selitys;
+    };
+}

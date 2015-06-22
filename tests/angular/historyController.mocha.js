@@ -1,12 +1,14 @@
+'use strict';
+
 describe('historyController: ', function () {
-    var controller, scope;
+    var scope = null;
 
     beforeEach(function () {
         module('sanakirjaApp');
 
         inject(function ($controller, $rootScope) {
             scope = $rootScope.$new();
-            controller = $controller('historyController', {
+            $controller('historyController', {
                 $scope: scope
             });
         });
@@ -18,6 +20,10 @@ describe('historyController: ', function () {
     
     after(function() {
         sessionStorage.removeItem('historia');
+    });
+
+    afterEach(function () {
+        sessionStorage.clear();
     });
 
     it('tallentaa yhden sanan historiaan ', function () {

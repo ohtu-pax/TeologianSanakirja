@@ -1,14 +1,19 @@
 'use strict';
 
 describe('hakuKenttaController: ', function () {
-    var controller, scope, location;
+
+    var scope = null, location = null;
 
     beforeEach(function () {
         module('sanakirjaApp');
 
         inject(function ($controller, $rootScope, $location, _$q_) {
-            location = $location,
-                    scope = $rootScope.$new();
+            location = $location;
+            scope = $rootScope.$new();
+            var sanatMock = {};
+            sanatMock.sanalista = function () {
+                return init(_$q_);
+            };
             var api = {};
             api.isLoggedIn = function () {
                 var defer = _$q_.defer();
@@ -16,25 +21,19 @@ describe('hakuKenttaController: ', function () {
                 return defer.promise;
             };
 
+
             api.getSanalista = function () {
                 return _$q_.defer().promise;
             };
 
-            controller = $controller('hakuKenttaController', {
+            $controller('hakuKenttaController', {
                 $scope: scope,
                 location: location,
                 $routeParams: {sana: 'kissa'},
+                sanatService: sanatMock,
                 sanakirjaAPIservice: api
             });
         });
-
-        var sanat = [{hakusana: 'lammas', selitys: 'lihoo'}];
-        sessionStorage.setItem('sanalista', JSON.stringify(sanat));
-
-    });
-
-    after(function () {
-        sessionStorage.clear();
     });
 
     it('tyhjentaa hakukentan kun painetaan tyhjenna hakukentta painiketta', function () {
@@ -51,6 +50,6 @@ describe('hakuKenttaController: ', function () {
     it('lisää sanat-urliin satunnaisen sanan', function () {
         scope.getRandom();
         scope.$apply();
-        expect(location.url()).to.eql('/sanat/lammas');
+        expect(location.url()).to.eql('/sanat/koira');
     });
 });
