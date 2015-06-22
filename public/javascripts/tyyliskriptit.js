@@ -9,13 +9,13 @@ else if(window.innerWidth < 768){
     }
 }
 else {
-    navLinkit[navLinkit.length-2].className = "ei-oikeaa-reunaa";
+    navLinkit[navLinkit.length-3].className += " ei-oikeaa-reunaa";
 }
 
 //sisalto-divin korkeus
 function resize()   {
     var heights = window.innerHeight;
-    document.getElementsByClassName("container-fluid sisalto")[0].style.height = heights - 300 + "px";
+    document.getElementsByClassName("container-fluid sisalto")[0].style.height = heights - 250 + "px";
 }
 resize();
 window.onresize = function() {
