@@ -63,7 +63,7 @@ body {
     .page-header{
         margin-bottom: 0px;
         padding-top: 5px;
-        background-image: -webkit-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -webkit-linear-gradient(bottom, #a6897e 2%, rgba(166,141,94,0.3));
         background-image: -moz-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
         background-image: -o-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
         background-image: -ms-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
@@ -216,7 +216,8 @@ body {
 }
 
 .sailio {
-
+    border: none;
+    width: 100%;
 }
 
 #etusivu header .etusivu > a {
