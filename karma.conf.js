@@ -16,6 +16,7 @@ module.exports = function (config) {
             'public/components/angular-cookies/angular-cookies.js',
             "public/components/angular-strap/dist/angular-strap.js",
             "public/components/angular-strap/dist/angular-strap.tpl.js",
+            "public/components/angular-xeditable/dist/js/xeditable.js",
             "public/components/angular-animate/angular-animate.js",
             'node_modules/angular-mocks/angular-mocks.js',
             'node_modules/karma-sinon-chai/bower_components/sinonjs/sinon.js',
