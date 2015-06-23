@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 var HAKUSANAT_KYSELY = 'SELECT * FROM hakusanat';
 var SELITYKSET_KYSELY = 'SELECT * FROM selitykset';
 var LINKIT_KYSELY = 'SELECT * FROM linkit';
-var ESIPUHE_KYSELY = 'SELECT * FROM tekstit WHERE id=1';
+var ESIPUHE_KYSELY = 'SELECT * FROM tekstit WHERE id=10';
 
 var res = null;
 router.get('/api/data/esipuhe', function (req,response){
@@ -33,15 +33,14 @@ router.get('/api/sanatuusi', function (req, response) {
     }
 });
 
+
+router.post('/api/data/esipuhe', function(req, res) {
+    database.postEsipuhe(req);
+    res.sendStatus(200);
+});
+
+
 router.get('/api/sanat', function (req, response) {
-    //Supertestia varten
-    /*if (results === null) {
-     loadDatabase(function () {
-     end(response);
-     });
-     } else {
-     end(response);
-     }*/
     end(response);
 });
 

@@ -1,15 +1,15 @@
-sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservice) {
+sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservice, $http) {
     if (sessionStorage.getItem('esipuhe') === null) {
         var servicePromise = sanakirjaAPIservice.getEsipuhe();
 
         servicePromise.then(function (result) {
-            $scope.esipuhe = result; 
+            $scope.esipuhe = result[0].nimi;
         }).catch(function (error) {
             console.log("Error at getController: " + error);
         });
     } else {
         var esipuhe = JSON.parse(sessionStorage.getItem('esipuhe'));
-         $scope.esipuhe = esipuhe[0].nimi; 
+        $scope.esipuhe = esipuhe[0].nimi;
     }
 
     if ($scope.tila === undefined) {
@@ -21,4 +21,13 @@ sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservi
         $scope.tila.sisalla = res;
         console.log('Ollaan kirjauduttu sisään: ' + res);
     });
+
+    $scope.sendPost = function () {
+        var data = {
+            esipuhe: $scope.esipuhe
+            };
+        $http.post("/api/data/esipuhe", data).success(function (data, status) {
+            $scope.hello = data;
+        });
+    };
 });

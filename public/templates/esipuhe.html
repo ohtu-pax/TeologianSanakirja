@@ -1,9 +1,10 @@
 
-
+<span ng-show="tila.sisalla">Klikkaa laatikkoa muokataksesi esipuhetta <br/><br/>
+    
+</span>
 <a href="#" editable-textarea="esipuhe" e-rows="7" e-cols="40"
-   ng-show="tila.sisalla">
+   ng-show="tila.sisalla" onaftersave="sendPost()">
+    
     <pre>{{esipuhe}}</pre>
   </a>
-
-
-{{esipuhe}}
+<span ng-hide="tila.sisalla">{{esipuhe}}</span>
