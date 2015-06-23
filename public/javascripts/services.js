@@ -13,6 +13,19 @@ sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
                     });
         });
     };
+        this.getOhjeet = function( ){
+         return $q(function (resolve, reject) {
+            $http.get('api/data/ohjeet')
+                    .success(function (data) {
+                        sessionStorage.setItem('ohjeet', JSON.stringify(data));
+                        resolve(data);
+                    })
+                    .error(function (error) {
+                        console.log('Error at services.js at getSanalista: ' + error);
+                        reject(error);
+                    });
+        });
+    };
     
 
     this.isLoggedIn = function () {

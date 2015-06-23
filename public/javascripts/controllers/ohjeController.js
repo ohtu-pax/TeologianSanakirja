@@ -1,15 +1,15 @@
-sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservice, $http) {
-    if (sessionStorage.getItem('esipuhe') === null) {
-        var servicePromise = sanakirjaAPIservice.getEsipuhe();
+sanakirjaApp.controller('ohjeController', function ($scope, sanakirjaAPIservice, $http) {
+    if (sessionStorage.getItem('ohjeet') === null) {
+        var servicePromise = sanakirjaAPIservice.getOhjeet();
 
         servicePromise.then(function (result) {
-            $scope.esipuhe = result[0].nimi;
+            $scope.ohjeet = result[0].nimi;
         }).catch(function (error) {
             console.log("Error at getController: " + error);
         });
     } else {
-        var esipuhe = JSON.parse(sessionStorage.getItem('esipuhe'));
-        $scope.esipuhe = esipuhe[0].nimi;
+        var ohjeet = JSON.parse(sessionStorage.getItem('ohjeet'));
+        $scope.ohjeet = ohjeet[0].nimi;
     }
 
     if ($scope.tila === undefined) {
@@ -24,8 +24,8 @@ sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservi
 
     $scope.sendPost = function () {
         var data = {
-            data: $scope.esipuhe
+            data: $scope.ohjeet
             };
-        $http.post("/api/data/esipuhe", data);
+        $http.post("/api/data/ohjeet", data);
     };
 });

@@ -29,25 +29,20 @@ function queryWithValuesAndReturn(queryString, values, onend) {
         }
     });
 }
-function postEsipuhe(req) {
-    console.log(req.body.esipuhe);
-    var data = {esipuhe: req.body.esipuhe};
 
-    // Get a Postgres client from the connection pool
-    pg.connect(connectionString, function(err, client) {
+function updateTeksti(req, id) {
+    var data = {data: req.body.data};
+    pg.connect(connectionString, function (err, client) {
 
-        // SQL Query > Insert Data
-        client.query("UPDATE tekstit SET nimi = '" + data.esipuhe +  "' WHERE id = 10");
+        client.query("UPDATE tekstit SET nimi = '" + data.data + "' WHERE id =" + id);
 
-        if(err) {
-          console.log("virhe");
+        if (err) {
+            console.log(err);
         }
-
     });
 }
-
 module.exports.queryWithValuesAndReturn = queryWithValuesAndReturn;
 module.exports.queryWithReturn = function (queryString, onend) {
     queryWithValuesAndReturn(queryString, null, onend);
 };
-module.exports.postEsipuhe = postEsipuhe;
+module.exports.updateTeksti = updateTeksti;

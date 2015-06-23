@@ -12,14 +12,10 @@ var HAKUSANAT_KYSELY = 'SELECT * FROM hakusanat';
 var SELITYKSET_KYSELY = 'SELECT * FROM selitykset';
 var LINKIT_KYSELY = 'SELECT * FROM linkit';
 var ESIPUHE_KYSELY = 'SELECT * FROM tekstit WHERE id=10';
+var OHJE_KYSELY = 'SELECT * FROM tekstit WHERE id=11';
 
 var res = null;
-router.get('/api/data/esipuhe', function (req,response){
-    database.queryWithReturn(ESIPUHE_KYSELY,function(esipuhe){
-        var data = esipuhe;
-        response.send(data);
-    });
-});
+
 
 
 router.get('/api/sanatuusi', function (req, response) {
@@ -32,10 +28,24 @@ router.get('/api/sanatuusi', function (req, response) {
         end(response);
     }
 });
-
+router.get('/api/data/esipuhe', function (req,response){
+    database.queryWithReturn(ESIPUHE_KYSELY,function(data){
+        response.send(data);
+    });
+});
 
 router.post('/api/data/esipuhe', function(req, res) {
-    database.postEsipuhe(req);
+    database.updateTeksti(req, 10);
+    res.sendStatus(200);
+});
+router.get('/api/data/ohjeet', function (req,response){
+    database.queryWithReturn(OHJE_KYSELY,function(data){
+        response.send(data);
+    });
+});
+
+router.post('/api/data/ohjeet', function(req, res) {
+    database.updateTeksti(req, 11);
     res.sendStatus(200);
 });
 

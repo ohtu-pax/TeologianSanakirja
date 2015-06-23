@@ -30,6 +30,10 @@ sanakirjaApp.config(function ($routeProvider) {
                 controller: 'esipuheController',
                 templateUrl: '/templates/esipuhe.html'
             })
+              .when('/ohjeet', {
+                controller: 'ohjeController',
+                templateUrl: '/templates/ohjeet.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });
