@@ -16,6 +16,8 @@ else {
 function resize()   {
     var heights = window.innerHeight;
     document.getElementsByClassName("container-fluid sisalto")[0].style.height = heights - 250 + "px";
+    console.log(window.innerWidth);
+    console.log("header: " + document.getElementsByTagName('header')[0].offsetHeight);
 }
 resize();
 window.onresize = function() {
