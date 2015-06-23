@@ -1,23 +1,13 @@
 
 sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, $location, sanakirjaAPIservice, sanatService) {
-    if (sessionStorage.getItem('sanalista') === null) {
-        var servicePromise = sanakirjaAPIservice.getSanalista();
-
-
-        servicePromise.then(function (result) {
-            $scope.sanalista = result;
-        }).catch(function (error) {
-            console.log("Error at getController: " + error);
-        });
-    } else {
-        var sanalista = JSON.parse(sessionStorage.getItem('sanalista'));
-        $scope.sanalista = sanalista;
-    }
+    sanatService.sanalista().then(function (sanat) {
+        $scope.sanalista = sanat;
+    });
 
     if ($scope.hakuKentta === undefined) {
         $scope.hakuKentta = {};
     }
-    
+
     if ($routeParams) {
         $scope.hakuKentta.sana = $routeParams.sana;
     }
@@ -25,12 +15,12 @@ sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, 
     $scope.tyhjennahaku = function () {
         $scope.hakuKentta.sana = "";
     };
-    
-    $scope.naytaLista = function() {
+
+    $scope.naytaLista = function () {
         //jos ei olla juuressa tai /sanat-osoitteessa, tiedetään ettei lista-template ole esillä. siirrytään siihen.
-      if ($location.path() !== '/' || $location.path().substring(0, 7) !== '/sanat')  {
-          $location.path('/');
-      }
+        if ($location.path() !== '/' || $location.path().substring(0, 7) !== '/sanat') {
+            $location.path('/');
+        }
     };
 
     $scope.getRandom = function () {

@@ -27,14 +27,16 @@ describe('Käyttäjä haluaa nähdä hakuhistorian', function () {
     });
 
     it('Hakuhistoria avaa hakuhistorian kun sitä painetaan ja hakuhistoriassa on linkkejä', function (done) {
-        hakukentta.sendKeys('aamen');
-        hakukentta.clear();
-        hakukentta.sendKeys('pax').then(function () {
-            element(by.linkText('Hakuhistoria')).click().then(function () {
-                historiaLinkit = element.all(by.css('.historiaLinkit'));
-                historiaLinkit.getText().then(function (linkit) {
-                    expect(linkit).toEqual(['pax', 'aamen']);
-                    done();
+        hakukentta.sendKeys('aamen').then(function () {
+            hakukentta.clear().then(function () {
+                hakukentta.sendKeys('pax').then(function () {
+                    element(by.linkText('Hakuhistoria')).click().then(function () {
+                        historiaLinkit = element.all(by.css('.historiaLinkit'));
+                        historiaLinkit.getText().then(function (linkit) {
+                            expect(linkit).toEqual(['pax', 'aamen']);
+                            done();
+                        });
+                    });
                 });
             });
         });

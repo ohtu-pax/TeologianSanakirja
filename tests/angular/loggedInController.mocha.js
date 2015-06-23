@@ -6,7 +6,8 @@ describe('loggedInController: ', function () {
 
     var rootscope = null;
     var localScope = null;
-
+    var mockService = null;
+    
     function initialize(isLoggedIn) {
         inject(function (_$controller_, $rootScope, _$q_) {
             rootscope = $rootScope;
@@ -17,12 +18,16 @@ describe('loggedInController: ', function () {
                 defer.resolve(isLoggedIn ? '1' : '0');
                 return defer.promise;
             };
-            api.isLoggedIn = loggednInf;
-            api.getSanalista = function () {
-                return _$q_.defer().promise;
+            mockService = {};
+
+            mockService.sanalista = function () {
+                return init(_$q_);
             };
+            api.isLoggedIn = loggednInf;
+
             _$controller_('hakuKenttaController', {
                 $scope: localScope,
+                sanatService: mockService,
                 sanakirjaAPIservice: api
             });
         });

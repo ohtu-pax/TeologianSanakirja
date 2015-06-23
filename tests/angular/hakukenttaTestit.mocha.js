@@ -22,10 +22,6 @@ describe('hakuKenttaController: ', function () {
             };
 
 
-            api.getSanalista = function () {
-                return _$q_.defer().promise;
-            };
-
             $controller('hakuKenttaController', {
                 $scope: scope,
                 location: location,
