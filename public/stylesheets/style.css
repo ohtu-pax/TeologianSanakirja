@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'Kenyan Coffee';
     local: 'Kenyan Coffee';
-    src: url('../fonts/kenyan coffee rg.ttf')
-        format('truetype');
+    src: url('../fonts/kenyan coffee rg.ttf') format('truetype'),
+        url('../fonts/kenyan coffee rg.woff') format('woff');
 }
 
 html    {
@@ -31,7 +31,6 @@ body {
         margin: 3% 3% 3% 3%;
         padding: 0px 0px 0px 0px;
         overflow-x: hidden;
-        overflow-y: hidden;
         background: none;
     }
 }
@@ -42,14 +41,14 @@ body {
         padding-top: 5px;
         padding-left: 5px;
         padding-right: 5px;
-        background-image: -webkit-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
-        background-image: -moz-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
-        background-image: -o-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
-        background-image: -ms-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -webkit-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+        background-image: -moz-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+        background-image: -o-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+        background-image: -ms-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
         border-bottom-style: none;
         position: relative;
         z-index: 10;
-        height: 180px;
+        height: 200px;
         border: solid;
         border-width: 1px;
         border-top-color: rgba(255,255,255,0.3);
@@ -63,16 +62,16 @@ body {
     .page-header{
         margin-bottom: 0px;
         padding-top: 5px;
-        background-image: -webkit-linear-gradient(bottom, #a6897e 2%, rgba(166,141,94,0.3));
-        background-image: -moz-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
-        background-image: -o-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
-        background-image: -ms-linear-gradient(bottom, #dfd381 2%, rgba(166,141,94,0.3));
+        background-image: -webkit-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+        background-image: -moz-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+        background-image: -o-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+        background-image: -ms-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
         border-bottom-style: none;
         position: relative;
         z-index: 10;
-        height: 200px;
+        height: 230px;
         border: solid;
-        border-width: 2px;
+        border-width: 1px;
         border-top-color: rgba(255,255,255,0.3);
         border-left-color: rgba(255,255,255,0.3);
         border-style: outset;
@@ -80,9 +79,33 @@ body {
     }
 }
 
-@media  (max-width: 520px)  {
+@media  (max-width: 1190px)  {
+    .page-header    {
+        height: 280px;
+    }
+}
+
+@media  (max-width: 830px)  {
     .page-header    {
         height: 300px;
+    }
+}
+
+@media  (max-width: 525px)  {
+    .page-header    {
+        height: 340px;
+    }
+}
+
+@media  (max-width: 517px)  {
+    .page-header    {
+        height: 370px;
+    }
+}
+
+@media  (max-width: 422px)  {
+    .page-header    {
+        height: 460px;
     }
 }
 
@@ -105,19 +128,17 @@ body {
         border: none;
         color: #000;
     }
-}
-
-.navbar .nav li a   {
-    color: #000;
-    padding-top: 0px;
-}
-
-@media (min-width: 768px)   {
+    
     .navbar .nav li a   {
         color: #000;
         padding-top: 15px;
         border: none;
     }
+}
+
+.navbar .nav li a   {
+    color: #000;
+    padding-top: 0px;
 }
 
 .navbar .nav li a:hover   {
@@ -197,9 +218,44 @@ body {
         padding-left: 3%;
     }
 }
+
+
+@media (max-width: 767px)  {
+    #haku   {
+        padding-left: 1px;
+        float: left;
+        clear: left;
+    }
+    
+    .navbar-nav {
+        margin-bottom: 0px;
+    }
+}
+
+@media (min-width: 768px) {
+    #haku   {
+        padding-left: 3%;
+        padding-top: 10px;
+    }
+}
+
+@media  (max-width: 522px)  {
+    #haku   {
+        padding-left: 1px;
+        padding-top: 10px;
+        float: left;
+        clear: left;
+    }
+    
+    #tyhjennaHaku   {
+        margin-left: 35px;
+    }
+}
+
 .sisalto    {
     overflow: auto;
     padding: 3%;
+    padding-top: 2%;
     margin-left: 0px;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
@@ -218,6 +274,10 @@ body {
 .sailio {
     border: none;
     width: 100%;
+}
+
+.container-fluid    {
+    border-top: none;
 }
 
 #etusivu header .etusivu > a {
@@ -287,4 +347,25 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
 
 fieldset input, #tekijaInput  {
     width: 25em;
+}
+
+#login  {
+    padding: 10px;
+}
+
+#loginname  {
+    padding-right: 50px;
+}
+
+#loginpassword  {
+    padding-right: 22px;
+}
+
+.sisallaViesti  {
+    text-align: right;
+    margin-right: 10px;
+}
+
+.hakusana   {
+    font-weight: bold;
 }
