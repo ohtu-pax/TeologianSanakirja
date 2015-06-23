@@ -1,14 +1,27 @@
-sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, $location, sanakirjaAPIservice, sanatService) {
 
-    //Funktio filtterin putsaamiseen
+sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, $location, sanakirjaAPIservice, sanatService) {
+    sanatService.sanalista().then(function (sanat) {
+        $scope.sanalista = sanat;
+    });
+
+    if ($scope.hakuKentta === undefined) {
+        $scope.hakuKentta = {};
+    }
+
+    if ($routeParams) {
+        $scope.hakuKentta.sana = $routeParams.sana;
+    }
+
     $scope.tyhjennahaku = function () {
-        $scope.hakuKentta = "";
+        $scope.hakuKentta.sana = "";
     };
 
-    //Asetetaan hakukenttaan sana jos sellainen on routeParamssissa
-    if ($routeParams) {
-        $scope.hakuKentta = $routeParams.sana;
-    }
+    $scope.naytaLista = function () {
+        //jos ei olla juuressa tai /sanat-osoitteessa, tiedetään ettei lista-template ole esillä. siirrytään siihen.
+        if ($location.path() !== '/' || $location.path().substring(0, 7) !== '/sanat') {
+            $location.path('/');
+        }
+    };
 
     $scope.getRandom = function () {
         sanatService.sanalista().then(function (sanalista) {
