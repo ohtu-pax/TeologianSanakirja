@@ -1,16 +1,17 @@
-sanakirjaApp.controller('historyController', function ($scope) {
+sanakirjaApp.controller('kirjainHistoryController', function ($scope) {
 
-    $scope.$watch('hakuKentta', function (newVal, oldVal) {
+    $scope.$watch('kirjainHakuKentta', function (newVal, oldVal) {
         var historia = [];
 
-        if (newVal.sana !== undefined && newVal.sana !== '') {
+        if (newVal !== undefined && newVal !== '' ) {
 
             if (sessionStorage.getItem('historia')) {
                 historia = JSON.parse(sessionStorage.getItem('historia'));
             }
 
-            historia.push(newVal.sana);
+            historia.push(newVal);
             sessionStorage.setItem('historia', JSON.stringify(historia));
         }
-    }, true); 
+    }, true);
+   
 });

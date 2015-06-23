@@ -1,21 +1,15 @@
-'use strict';
-
-describe('historyController: ', function () {
-    var scope = null;
+describe('kirjainHistoryController: ', function () {
+    var controller, scope;
 
     beforeEach(function () {
         module('sanakirjaApp');
 
         inject(function ($controller, $rootScope) {
             scope = $rootScope.$new();
-            $controller('historyController', {
+            controller = $controller('kirjainHistoryController', {
                 $scope: scope
             });
         });
-
-        if (scope.hakuKentta === undefined) {
-            scope.hakuKentta = {};
-        }
     });
     
     after(function() {
@@ -23,17 +17,17 @@ describe('historyController: ', function () {
     });
 
     it('tallentaa yhden sanan historiaan ', function () {
-        scope.hakuKentta.sana = 'koira';
+        scope.kirjainHakuKentta = 'koira';
         scope.$apply();
 
         expect(JSON.parse(sessionStorage.getItem('historia'))).to.deep.equal(["koira"]);
     });
 
     it('tallentaa kolme peräkkäistä hakusanaa historiaan', function () {
-        scope.hakuKentta.sana = 'kissa';
+        scope.kirjainHakuKentta = 'kissa';
         scope.$apply();
 
-        scope.hakuKentta.sana = 'lehmä';
+        scope.kirjainHakuKentta = 'lehmä';
         scope.$apply();
 
         expect(JSON.parse(sessionStorage.getItem('historia'))).to.deep.equal(["koira", "kissa", "lehmä"]);

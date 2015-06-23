@@ -27,6 +27,7 @@ var PALVELIN_OSOITE = 'http://localhost:3000';
 describe('Haku testaus', function () {
     var hakusanat = element.all(by.css('.hakusana'));
     var selitykset = element.all(by.css('.selitys'));
+    var hakukentta =  element(by.model('hakuKentta.sana'));
 
     beforeEach(function () {
         browser.ignoreSynchronization = true;
@@ -39,7 +40,7 @@ describe('Haku testaus', function () {
     });
 
     it('löytää kaikkien sanojen kolmannen sanan oikein', function (done) {
-        element(by.model('hakuKentta')).sendKeys('pax').then(function () {
+        hakukentta.sendKeys('pax').then(function () {
             function tarkistaOikeellisuusKaikki(sanat, odotetutSanat) {
                 sanat.each(function (element, index) {
                     expect(element.getText()).toEqual(odotetutSanat[index]);
@@ -60,7 +61,7 @@ describe('Haku testaus', function () {
     }
 
     it('ei löydä mitään sanoja kahdella painalluksella', function (done) {
-        element(by.model('hakuKentta')).sendKeys('aa').then(function () {
+        hakukentta.sendKeys('aa').then(function () {
 
             tarkistaDisplay(hakusanat);
             tarkistaDisplay(selitykset);
@@ -70,7 +71,7 @@ describe('Haku testaus', function () {
     });
 
     it('löytää täydellisellä osumalla vain yhden sanan', function (done) {
-        element(by.model('hakuKentta')).sendKeys('aamen').then(function () {
+        hakukentta.sendKeys('aamen').then(function () {
 
             function filteroiTeksti(elements, expected) {
                 return elements.filter(function (elem) {
@@ -91,7 +92,7 @@ describe('Haku testaus', function () {
     });
 
     it('linkittää sanan oikein', function (done) {
-        element(by.model('hakuKentta')).sendKeys('abyssos').then(function () {
+        hakukentta.sendKeys('abyssos').then(function () {
             element(by.linkText('deus absconditus')).click().then(function () {
 
                 var hakusana = element(by.css('.hakusana'));
@@ -105,8 +106,8 @@ describe('Haku testaus', function () {
         });
     });
 
-    it('tyhjentää hakupalki oikein', function (done) {
-        element(by.model('hakuKentta')).sendKeys('aamen').then(function () {
+    it('tyhjentää hakupalkin oikein', function (done) {
+        hakukentta.sendKeys('aamen').then(function () {
             element(by.buttonText('Tyhjennä haku')).click().then(function () {
 
                 tarkistaDisplay(hakusanat);
@@ -118,7 +119,7 @@ describe('Haku testaus', function () {
     });
 
     it('näyttää dropdownissa oikein sanat', function (done) {
-        element(by.model('hakuKentta')).sendKeys('aa').then(function () {
+        hakukentta.sendKeys('aa').then(function () {
             browser.sleep(500).then(function () {
                 element.all(by.css('.ng-binding')).filter(function (elem, index) {
                     return elem.getAttribute('role').then(function (text) {
