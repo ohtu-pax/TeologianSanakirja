@@ -3,7 +3,7 @@
 var PALVELIN_OSOITE = 'http://localhost:3000';
 
 describe('Käyttäjä haluaa hakea satunnaisen sanan', function () {
-    var hakukentta = element(by.model('hakuKentta'));
+    var hakukentta = element(by.model('hakuKentta.sana'));
 
     beforeEach(function () {
         browser.ignoreSynchronization = true;

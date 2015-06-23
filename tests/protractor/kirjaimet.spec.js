@@ -13,15 +13,15 @@ describe('Kirjaimet testaus', function () {
     beforeEach(function () {
         browser.ignoreSynchronization = true;
         browser.get(PALVELIN_OSOITE);
-        
+
         //kaatuu nykybuidlissa TODO jos ehtii. 
         /**
-        //alle oleva rivi hakee 'B':n AAKKOSET listasta ja clickkaa sitä, vaadittu koska ng-repeat. 
-        element.all(by.repeater('kirjain in AAKKOSET')).then(function (kirjain) {
-            kirjain[1].click();
-          
-        });
-  */
+         //alle oleva rivi hakee 'B':n AAKKOSET listasta ja clickkaa sitä, vaadittu koska ng-repeat. 
+         element.all(by.repeater('kirjain in AAKKOSET')).then(function (kirjain) {
+         kirjain[1].click();
+         
+         });
+         */
 
     });
 
@@ -41,7 +41,7 @@ describe('Kirjaimet testaus', function () {
     });
 
     it('Ei löydä mitään haettaessa täydelistä A:lla alkavaa sanaa', function (done) {
-        element(by.model('hakuKentta')).sendKeys('aamen').then(function () {
+        element(by.model('kirjainHakuKentta')).sendKeys('aamen').then(function () {
 
             var toivottuHakuSana = filteroiTeksti(hakusanat, AAMEN_HAKUSANA);
             var toivottuSelitys = filteroiTeksti(selitykset, AAMEN_SELITYS);
@@ -52,9 +52,10 @@ describe('Kirjaimet testaus', function () {
             done();
         });
     });
-
+    
     it('Löytää oikein yhden B:llä alkavan sanat', function (done) {
-        element(by.model('hakuKentta')).sendKeys('baasis').then(function () {
+        element(by.model('kirjainHakuKentta')).sendKeys('baasis').then(function () {
+
 
             var toivottuHakuSana = filteroiTeksti(hakusanat, BAASIS_HAKUSANA);
             var toivottuSelitys = filteroiTeksti(selitykset, BAASIS_SELITYS);
