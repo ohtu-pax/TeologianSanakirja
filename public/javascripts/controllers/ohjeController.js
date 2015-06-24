@@ -1,6 +1,6 @@
 sanakirjaApp.controller('ohjeController', function ($scope, sanakirjaAPIservice, $http) {
     if (sessionStorage.getItem('ohjeet') === null) {
-        var servicePromise = sanakirjaAPIservice.getOhjeet();
+        var servicePromise = sanakirjaAPIservice.getTekstit("ohjeet");
 
         servicePromise.then(function (result) {
             $scope.ohjeet = result[0].nimi;

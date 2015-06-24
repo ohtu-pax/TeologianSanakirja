@@ -1,6 +1,6 @@
 sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservice, $http) {
     if (sessionStorage.getItem('esipuhe') === null) {
-        var servicePromise = sanakirjaAPIservice.getEsipuhe();
+        var servicePromise = sanakirjaAPIservice.getTekstit("esipuhe");
 
         servicePromise.then(function (result) {
             $scope.esipuhe = result[0].nimi;
