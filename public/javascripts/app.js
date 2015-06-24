@@ -14,9 +14,8 @@ sanakirjaApp.config(function ($routeProvider) {
                 templateUrl: '/templates/kirjaimet.html'
             })
             .when('/history', {
-                controller: 'historyController',
+                controller: 'historyItemsController',
                 templateUrl: '/templates/history.html'
-
             })
             .when('/admin', {
                 controller: 'adminController',

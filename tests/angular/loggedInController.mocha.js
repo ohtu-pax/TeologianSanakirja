@@ -1,12 +1,13 @@
 'use strict';
 
 describe('loggedInController: ', function () {
-    
+
     beforeEach(module('sanakirjaApp'));
 
     var rootscope = null;
     var localScope = null;
-
+    var mockService = null;
+    
     function initialize(isLoggedIn) {
         inject(function (_$controller_, $rootScope, _$q_) {
             rootscope = $rootScope;
@@ -17,9 +18,16 @@ describe('loggedInController: ', function () {
                 defer.resolve(isLoggedIn ? '1' : '0');
                 return defer.promise;
             };
+            mockService = {};
+
+            mockService.sanalista = function () {
+                return init(_$q_);
+            };
             api.isLoggedIn = loggednInf;
+
             _$controller_('hakuKenttaController', {
                 $scope: localScope,
+                sanatService: mockService,
                 sanakirjaAPIservice: api
             });
         });
