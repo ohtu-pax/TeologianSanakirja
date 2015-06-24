@@ -2,7 +2,7 @@
     <!--sana.hakusana for sana in sanalista -->
     <div class="sanaSelitys" ng-controller="historyController" ng-repeat="sanat in sanalista | filter:{hakusana:hakuKentta.sana}:true | limitTo:1" ng-show="hakuKentta.sana.length > 0">
         <br/>
-        Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
+        <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
         <p class="selitys" ng-bind-html="sanat.selitys | unsafe_html"></p>
     </div>
 

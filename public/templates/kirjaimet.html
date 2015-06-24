@@ -6,7 +6,7 @@
 <div class="sanaSelitys" ng-controller="kirjainHistoryController" ng-repeat="sanat in sanalista| filter:kirjainFilter | filter: {hakusana:kirjainHakuKentta}:true"
      ng-show="kirjainHakuKentta.length > 0">
     <br/>
-    Sana:  <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
+    <a class="hakusana" href="/#/sanat/{{sanat.hakusana}}">{{sanat.hakusana}}</a>
     <p class="selitys" ng-bind-html="sanat.selitys">  Selitys: {{sanat.selitys}}</p>
 </div>
 

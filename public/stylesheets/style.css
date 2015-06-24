@@ -308,6 +308,10 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
     //    display: inline-block;
 }
 
+#adminSanaSet   {
+    width: 10px;
+}
+
 .adminSana {
     display: list-item;
 }
@@ -320,7 +324,7 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
 #adminSelitys {
     margin-top: 2em;
     margin-bottom: 2em;
-    width: 80em;
+    width: 80%;
     height: 30em;
     display: inline-block;
     vertical-align: top;
@@ -338,15 +342,29 @@ input + .typeahead.ng-hide { display: block !important; visibility: hidden !impo
 #admin input[type="button"] {
     margin-right: 1.6em;
     margin-top: 2em;
+    margin-bottom: 10px;
+}
+
+fieldset input, #tekijaInput  {
+    width: 35em;
+}
+
+@media (max-width: 480px) {
+    #admin input[type="button"] {
+        margin-left: 1px;
+        margin-top: 5px;
+        float: left;
+        margin-right: 100%;
+    }
+    
+    fieldset input, #tekijaInput  {
+    width: 15em;
+}
 }
 
 #adminSanaSet {
     display: inline;
     margin-top: 3%;
-}
-
-fieldset input, #tekijaInput  {
-    width: 25em;
 }
 
 #login  {
@@ -368,4 +386,21 @@ fieldset input, #tekijaInput  {
 
 .hakusana   {
     font-weight: bold;
+}
+
+button  {
+    background-color: #ECE3AB;
+    border-color: #AA9160;
+    padding: 5px;
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px; 
+    border-radius: 3px;
+}
+
+input   {
+    border-color: #AA9160;
+    padding: 5px;
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px; 
+    border-radius: 3px;
 }

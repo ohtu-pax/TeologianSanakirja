@@ -58,7 +58,7 @@
                     <li ng-show="tila.sisalla" id="adminLinkki" class="adminLinkki">
                         <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
                     </li>
-                    <li ng-hide="!tila.sisalla" ng-show="tila.sisalla" class="logout">
+                    <li ng-show="tila.sisalla" class="logout ei-oikeaa-reunaa">
                         <a href ="" ng-click="logout()">Kirjaudu ulos</a>
                     </li>
                 </ul>
@@ -71,7 +71,7 @@
             </div>
             <div id="haku">
                 <label>Etsi: <input ng-change="naytaLista()" class="dropdown up" ng-model="hakuKentta.sana" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta.sana} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
-                <button id="tyhjennaHaku" type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
+                <button id="tyhjennaHaku" type="buon" ng-click="tyhjennahaku()">Tyhjennä haku</button>
             </div>
             <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
         </header>
