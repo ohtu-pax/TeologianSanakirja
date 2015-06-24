@@ -39,6 +39,7 @@ function loadDatabase(onDone) {
                 tulos.hakusanat = hakusanat;
                 tulos.selitykset = selitykset;
                 res = JSON.stringify(tulos);
+                console.log('Tietokanta välimuistissa');
                 onDone();
             });
         });

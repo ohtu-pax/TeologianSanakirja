@@ -21,16 +21,22 @@ function doQuery(defaultStatus, query, stringParam, intParam, res) {
     if (typeof stringParam === 'string') {
         var trimmed = stringParam.trim();
         if (trimmed.length > 2 && isInt(intParam)) {
-            database.queryWithValues(query, [trimmed, intParam],
-                    function (result) {
-                        if (result.rowCount !== 1) {
-                            status = 400;
-                        }
-                        res.sendStatus(status);
-                        res.end();
-                    }, function (err) {
-                status = 403;
-            });
+            try {
+                database.queryWithValues(query, [trimmed, parseInt(intParam)],
+                        function (result) {
+                            if (result.rowCount !== 1) {
+                                status = 400;
+                            } else {
+                                res.sendStatus(status);
+                                res.end();
+                            }
+                        }, function (err) {
+                    status = 403;
+                });
+            } catch (e) {
+                console.error(e);
+                end(500);
+            }
         }
         return;
     }
@@ -41,22 +47,29 @@ function doQuery(defaultStatus, query, stringParam, intParam, res) {
 
 router.delete('/', function (req, res) {
     var id = req.body.id;
-    var status = 204;
 
-    if (isInt(id) === true) {
-        database.queryWithValues("DELETE FROM hakusanat WHERE id=($1)", [id], function (result) {
-            if (result.rowCount !== 1) {
-                status = 400;
-            }
-            res.sendStatus(status);
-            res.end();
-        }, function (err) {
-            status = 403;
-        });
-    } else {
-        status = 403;
+    function end(status) {
         res.sendStatus(status);
         res.end();
+    }
+
+    if (isInt(id) === true) {
+        try {
+            database.queryWithValues("DELETE FROM hakusanat WHERE id=($1)", [parseInt(id)], function (result) {
+                if (result.rowCount !== 1) {
+                    end(400);
+                } else {
+                    end(204);
+                }
+            }, function (err) {
+                end(403);
+            });
+        } catch (e) {
+            console.error(e);
+            end(500);
+        }
+    } else {
+        end(403);
     }
 }
 );

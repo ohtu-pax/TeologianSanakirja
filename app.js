@@ -17,6 +17,8 @@ var conf = require('./config.js').conf;
 
 var routes = require('./routes/index');
 var login = require('./routes/login');
+var hakusana = require('./routes/hakusana');
+var selitys = require('./routes/selitys');
 
 var app = express();
 
@@ -43,6 +45,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/api/admin', login);
 
+var suojattu = '/api/sana/';
+
+app.use(function (req, res, next) {
+    if (!req.user && req.path.indexOf(suojattu) === 0)
+    {
+        res.sendStatus(401);
+        res.end();
+    } else {
+        next();
+    }
+});
+
+app.use(suojattu + 'hakusana', hakusana);
+app.use(suojattu + 'selitys', selitys);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -56,11 +73,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (ser, done) {
-    if (ser === true) {
-        done(null, true);
-    } else {
-        done(null, false);
-    }
+    done(null, !!ser);
 });
 
 passport.use(new localStrategy({},
@@ -74,7 +87,7 @@ passport.use(new localStrategy({},
 
 //app.get('env') === 'development'
 app.use(function (err, req, res, next) {
-    if (err.eurl.indexOf('favicon') === -1) {
+    if (typeof err.eurl === 'string' && err.eurl.indexOf('favicon') === -1) {
         console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);
     }
     if (res.headersSent) {

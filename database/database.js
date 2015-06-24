@@ -4,15 +4,22 @@ var pg = require('pg');
 var config = require('../config').conf;
 var connectionString = config.connectionString;
 
-module.exports.queryWithValues = function (queryString, values, onend) {
+function queryWithValues(queryString, values, onend, onerror) {
     pg.connect(connectionString, function (err, client) {
         var query = client.query(queryString, values);
-        query.on('end', onend);
+        if (typeof onend === "function") {
+            query.on('end', onend);
+        }
         if (err) {
+            if (typeof onerror === "function") {
+                onerror(err);
+            }
             console.log(err);
         }
     });
-};
+}
+
+module.exports.queryWithValues = queryWithValues;
 
 function queryWithValuesAndReturn(queryString, values, onend) {
     var results = [];

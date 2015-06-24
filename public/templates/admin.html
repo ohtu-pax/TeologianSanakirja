@@ -4,24 +4,24 @@
 
         <fieldset id="adminSanaSet">
             <input id="adminSanahaku" class="dropdown up" ng-change="hallinnoiRiveja({{adminSanat[0].id}}); sanaSelitys()" ng-model="adminSanat[0].hakusana" 
-                   bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:adminSanahaku} "
+                   bs-options="sana.hakusana as sana.hakusana for sana in sanalista.hakusanat | filter:{hakusana:adminSanahaku} "
                    placeholder="Etsi sanan perusteella" bs-typeahead>
             <input ng-repeat="adminSana in adminSanat" id="adminSana{{adminSana.id}}" type='text' class="adminSana" ng-show="!$first" ng-model="adminSana.hakusana" ng-change="hallinnoiRiveja({{adminSana.id}})" placeholder='Lisää hakusana'>
         </fieldset>
         <br/>
 
         <label id="adminSelitysLabel">Selitys: </label>
-        <textarea id="adminSelitys" ng-model="adminSelitys">{{adminSelitys}}</textarea>
+        <textarea id="adminSelitys" ng-model="adminSelitys.selitys">{{adminSelitys.selitys}}</textarea>
 
         <br/>
-        
+
         <label id='tekijaLabel'>Tekijä: </label>
         <input id='tekijaInput' type="text" ng-model="tekijaInput" placeholder="Lisää tekijä"/>
-        
+
         <br />
-        
-        <input id="adminTallenna" type="button" ng-click="" value="Tallenna" title="Tallenna muutokset tai uusi sana" />
-        <input id="adminPoista" type="button" ng-click="" value="Poista" title="Poista sana ja selitys sanakirjasta" />
+
+        <input id="adminTallenna" type="button" ng-click="tallennaSelitys()" value="Tallenna selitys" title="Tallenna muutokset tai uusi sana" />
+        <input id="adminPoista" type="button" ng-click="poistaSelitys()" value="Poista selitys" title="Poista sana ja selitys sanakirjasta" />
         <input id="adminTyhjenna" type="button" ng-click="tyhjenna()" value="Tyhjennä kentät" title="Tyhjennä lomake" />
     </form>
 </div>    
