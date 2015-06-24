@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Teologian Sanakirja</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css"> 
+        <link href="stylesheets/style.css" rel="stylesheet">
+
+
+        <!-- Angularin lähdekoodit -->
+        <script src="/components/angular/angular.js"></script>
+        <script src="/components/angular-route/angular-route.min.js"></script>
+        <script src="/components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="/components/angular-animate/angular-animate.min.js"></script>
+        <script src="/components/cheet.js/cheet.js" type="text/javascript"></script>
+
+        <!--AngularStrapin lähdekoodit!-->
+        <script src="/components/angular-strap/dist/angular-strap.min.js"></script>
+        <script src="/components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+        <script src="/components/jquery/dist/jquery.js"></script>
+
+        <!--Oman sovelluksen koodit -->
+        <script src="javascripts/app.js"></script>
+        <script src="javascripts/controllers/getController.js"></script>
+        <script src="javascripts/controllers/kirjainController.js"></script> 
+
+        <script src="javascripts/controllers/hakuKenttaController.js"></script>
+        <script src="javascripts/controllers/historyController.js"></script>
+        <script src="javascripts/controllers/kirjainHistoryController.js"></script>
+        <script src="javascripts/controllers/historyItemsController.js"></script>
+        <script src="javascripts/controllers/adminController.js"></script> 
+        <script src="javascripts/controllers/loginController.js"></script>
+        <script src="javascripts/services.js"></script>
+        <script src="javascripts/sanatService.js"></script>
+        
+        <script type="text/javascript">
+            if (screen.hight > 550) {
+                window.location = "/views/index.html";
+            }
+        </script>
+
+    </head>
+    <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
+        <div class="container-fluid sisalto">
+            <nav class="navbar navbar-default">             
+                <ul class="nav navbar-nav">
+                    <li class="etusivu" >
+                        <a href ="/#/">Etusivu</a>
+                    </li>
+                    <li class="random">
+                        <a href ="" ng-click="getRandom()">Satunnainen sana</a>
+                    </li>
+                    <li class="historia">
+                        <a href="/#/history">Hakuhistoria</a>
+                    </li>
+                    <li class="palaute">
+                        <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
+                           title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
+                    </li>
+                    <li class="esipuhe">
+                        <a href="/#/">Esipuhe</a>
+                    </li>
+                    <li ng-show="tila.sisalla" id="adminLinkki" class="adminLinkki">
+                        <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
+                    </li>
+                    <li ng-show="tila.sisalla" class="logout ei-oikeaa-reunaa">
+                        <a href ="" ng-click="logout()">Kirjaudu ulos</a>
+                    </li>
+                </ul>
+            </nav>    
+            <h1>  Teologian Sanakirja </h1>
+            <div id="haku">
+                <label>Etsi: <input ng-change="naytaLista()" class="dropdown up" ng-model="hakuKentta.sana" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta.sana} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
+                <button id="tyhjennaHaku" type="buon" ng-click="tyhjennahaku()">Tyhjennä haku</button>
+            </div>
+            <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
+            <div class="sailio">
+                <div ng-view></div>
+            </div>
+            <script>
+                        cheet("o h t u p a x", function () {
+                            $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
+                        });</script>
+            <script>
+                        cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
+                            $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
+                        });
+            </script>
+        </div>
+        <!--tyyleihin liittyvät scriptit-->
+        <script src="javascripts/tyyliskriptit.js"></script>
+    </body>
+</html>
