@@ -72,26 +72,26 @@ passport.use(new localStrategy({},
         }
 ));
 
-//app.get('env') === 'development'
+app.get('env') === 'development'
 
-//app.use(function (err, req, res, next) {
-//    if (err.eurl.indexOf('favicon') === -1) {
-//        console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);
-//    }
-//    if (res.headersSent) {
-//        console.log('Viesti lähetetty, ei yritetä uudestaan...');
-//        if (next) {
-//            next();
-//        }
-//    } else {
-//        res.status(err.status || 500);
-//        res.render('error', {
-//            message: err.message,
-//            error: {}
-//            //error: err
-//        });
-//    }
-//});
+app.use(function (err, req, res, next) {
+    if (err.eurl.indexOf('favicon') === -1) {
+        console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);
+    }
+    if (res.headersSent) {
+        console.log('Viesti lähetetty, ei yritetä uudestaan...');
+        if (next) {
+            next();
+        }
+    } else {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: {}
+            //error: err
+       });
+    }
+});
 
 
 module.exports = app;
