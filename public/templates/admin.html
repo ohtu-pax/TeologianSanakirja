@@ -3,15 +3,15 @@
         <label id="adminSanaLabel">Sana: </label>
 
         <fieldset id="adminSanaSet">
-            <input id="adminSanahaku" class="dropdown up" ng-change="hallinnoiRiveja({{adminSanat[0].id}}); sanaSelitys()" ng-model="adminSanat[0].hakusana" 
+            <input id="adminSanahaku" class="dropdown up" ng-change="hae()" ng-model="haku"
                    bs-options="sana.hakusana as sana.hakusana for sana in sanalista.hakusanat | filter:{hakusana:adminSanahaku} "
                    placeholder="Etsi sanan perusteella" bs-typeahead>
-            <input ng-repeat="adminSana in adminSanat" id="adminSana{{adminSana.id}}" type='text' class="adminSana" ng-show="!$first" ng-model="adminSana.hakusana" ng-change="hallinnoiRiveja({{adminSana.id}})" placeholder='Lisää hakusana'>
+            <input ng-repeat="hakusana in muutos().hakusanat()" type='text' ng-if="!$first" ng-model="hakusana.muutettu" ng-change="tarkistaKenttienMaara()" class="adminSana" value="{{hakusana.muutettu}}" placeholder='Lisää hakusana'>
         </fieldset>
         <br/>
 
         <label id="adminSelitysLabel">Selitys: </label>
-        <textarea id="adminSelitys" ng-model="adminSelitys.selitys">{{adminSelitys.selitys}}</textarea>
+        <textarea id="adminSelitys" ng-model="muutos().uusiSelitys">{{muutos().uusiSelitys}}</textarea>
 
         <br/>
 

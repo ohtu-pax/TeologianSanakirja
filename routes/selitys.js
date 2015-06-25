@@ -18,8 +18,10 @@ router.post('/', function (req, res) {
         var trimmed = selitys.trim();
         if (trimmed.length > 2 && isInt(id) && isInt(tekija)) {
             try {
-                database.queryWithValues('UPDATE selitykset SET selitys = $1, tekija = $2 WHERE id = $3'
-                        , [selitys, tekija, parseInt(id)], function (result) {
+                database.queryWithValues('UPDATE selitykset SET selitys = $1 WHERE id = $2'
+                        , [selitys, parseInt(id)], function (result) {
+                    /*database.queryWithValues('UPDATE selitykset SET selitys = $1, tekija = $2 WHERE id = $3'
+                     , [selitys, tekija, parseInt(id)], function (result) {*/
                     if (result.rowCount !== 1) {
                         end(400);
                     } else {

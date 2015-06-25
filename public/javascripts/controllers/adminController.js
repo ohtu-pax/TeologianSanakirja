@@ -10,113 +10,261 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
         return;
     }
 
-    var oikeaSelitys = null;
+    $scope.muutos = function () {
+        return muutos;
+    };
+
+    function Muutos(alkuSelitys, alkuperainenTekija, alkuHakusana) {
+
+        if (alkuSelitys === null) {
+            this.uusiSelitys = '';
+            this.alkuSelitys = null;
+        } else {
+            this.alkuSelitys = alkuSelitys;
+            this.uusiSelitys = alkuSelitys.selitys;
+        }
+
+        this.alkuperainenTekija = alkuperainenTekija;
+        this.alkuperaisetHakusanat = [];
+        this.nykyisetHakusanat = [];
+
+        //this.alkuperaisetLinkit = [];
+
+        this.lisaaAlkuHakusana(new Muutettava(0, alkuHakusana));
+    }
+
+    Muutos.prototype.lisaaAlkuHakusana = function (val) {
+        this.alkuperaisetHakusanat.push(val);
+        this.nykyisetHakusanat.push(val);
+    };
+
+    Muutos.prototype.lisaaHakusana = function (val) {
+        this.nykyisetHakusanat.push(val);
+    };
+
+    Muutos.prototype.hakusanat = function () {
+        return this.nykyisetHakusanat;
+    };
+
+    Muutos.prototype.onUusi = function () {
+        return this.alkuSelitys === null;
+    };
+
+    Muutos.prototype.poistaHakusana = function (val) {
+        var index = this.nykyisetHakusanat.indexOf(val);
+        this.nykyisetHakusanat.splice(index, 1);
+    };
+
+    var muutos = null;
+
+    function Muutettava(paikka, alkuperainen) {
+        this.paikka = paikka;
+
+        if (alkuperainen === null) {
+            this.alkuperainen = null;
+            this.muutettu = '';
+        } else {
+            this.alkuperainen = alkuperainen;
+            this.muutettu = alkuperainen.hakusana;
+            if (this.muutettu === undefined) {
+                console.error('UNDEF ' + String(alkuperainen));
+                console.dir(alkuperainen);
+            }
+        }
+    }
+
+    Muutettava.prototype.poistaAlkuperainen = function () {
+        this.alkuperainen = null;
+    };
+
+    Muutettava.prototype.hakusana = function () {
+        return this.muutettu;
+    };
+
+    Muutettava.prototype.onUusi = function () {
+        return this.alkuperainen === null;
+    };
+
+    Muutettava.prototype.muutettuSana = function () {
+        var trimmed = this.muutettu.trim();
+        if (trimmed.length === 0) {
+            return null;
+        }
+        return trimmed;
+    };
 
     sanatService.muokkaamatonSanalista().then(function (result) {
         $scope.sanalista = result;
     });
 
-    $scope.adminSanat = [{id: '1', hakusana: '', uusiSana: true}];
+    tyhjenna();
 
-    $scope.hallinnoiRiveja = function (id) {
-        //jos toiseksi viimeinen ja se on tyhjä ja sitä seuraava tyhjä, poistetaan vika tyhä
-        if (id === $scope.adminSanat.length - 1 && $scope.adminSanat[id - 1].hakusana === '' && $scope.adminSanat[id].hakusana === '') {
-            $scope.adminSanat.pop();
+    $scope.hae = function () {
+        var eka = $scope.haku;
+        muutos.hakusanat()[0].muutettu = eka;
 
-            //jos viimeinen sana lisätään tyhjä rivi
-        } else if (id === $scope.adminSanat.length) {
-            var uusiSana = {id: $scope.adminSanat.length + 1 + "", hakusana: '', uusiSana: true};
-            $scope.adminSanat.push(uusiSana);
-        }
-    };
-
-    /*function valittuSelitys() {
-     var hakusana = $filter('filter')($scope.sanalista.hakusanat, $scope.adminSanat[0].hakusana, true);
-     return $filter('filter')($scope.sanalista.selitykset, {id: hakusana[0].selitys}, true);
-     }*/
-
-    $scope.sanaSelitys = function () {
-        var ensimmainen = $scope.adminSanat[0];
-        var tulos = $filter('filter')($scope.sanalista.hakusanat, ensimmainen.hakusana, true);
+        var tulos = $filter('filter')($scope.sanalista.hakusanat, {hakusana: eka}, true);
         if (tulos.length === 1) {
-            var selitys = $filter('filter')($scope.sanalista.selitykset, {id: tulos[0].selitys}, true);
-            ensimmainen.uusiSana = false;
-            oikeaSelitys = selitys[0];
-            $scope.adminSelitys = {id: oikeaSelitys.id, selitys: oikeaSelitys.selitys, tekija: oikeaSelitys.tekija};
-        } else {
-            ensimmainen.uusiSana = true;
-            $scope.adminSelitys = null;
-            oikeaSelitys = null;
+            var selitys = $filter('filter')($scope.sanalista.selitykset, {id: tulos[0].selitys}, true)[0];
+
+            var ekaHakusana = {};
+            ekaHakusana.id = tulos[0].id;
+            ekaHakusana.hakusana = tulos[0].hakusana;
+            ekaHakusana.selitys = tulos[0].selitys;
+
+            muutos = new Muutos(selitys, null, ekaHakusana);
+
+            var kaikkiHakusanat = $filter('filter')($scope.sanalista.hakusanat, {selitys: selitys.id}, true);
+            for (var i = 0, max = kaikkiHakusanat.length; i < max; i++) {
+                var curr = kaikkiHakusanat[i];
+                if (curr.hakusana !== eka) {
+                    muutos.lisaaAlkuHakusana(new Muutettava(1 + i, curr));
+                }
+            }
+        } else if (muutos.hakusanat().length > 0 && eka.length > 0) {
+            muutos.hakusanat()[0].poistaAlkuperainen();
         }
+        tarkistaKenttienMaara();
     };
 
-    $scope.tyhjenna = function () {
-        $scope.adminSanat = [{id: '1', hakusana: ''}];
-        $scope.adminSelitys = {selitys: ''};
-        $scope.tekijaInput = '';
-        oikeaSelitys = null;
-    };
+    $scope.tarkistaKenttienMaara = tarkistaKenttienMaara;
 
-    $scope.tallennaSelitys = function () {
-        var tekija = $scope.tekijaInput;
-        var selitys = $scope.adminSelitys;
-        if (!selitys || !selitys.selitys || !tekija) {
-            console.log('epäkelpo');
+    function tarkistaKenttienMaara() {
+        var hs = muutos.hakusanat();
+        var poistettavat = [];
+        for (var i = 0, max = hs.length - 1; i < max; i++) {
+            var curr = hs[i];
+            if (curr.hakusana() === '') {
+                poistettavat.push(curr);
+                console.log('poistetaan ' + i + ' ' + curr.hakusana());
+            } else {
+                console.log('ei poisteta ' + curr.hakusana());
+            }
+            if (i === 0) {
+                $scope.haku;
+            }
+        }
+        for (var i = 0, max = poistettavat.length; i < max; i++) {
+            muutos.poistaHakusana(poistettavat[i]);
+        }
+        hs = muutos.hakusanat();
+        var ekaSana = hs[0].hakusana();
+        if (ekaSana !== $scope.haku) {
+            $scope.haku = ekaSana;
+        }
+
+        if (hs.length === 0) {
             return;
         }
 
+        var l = hs.length - 1;
+        if (hs.length === 1 || hs[l].hakusana() !== '') {
+            console.log('Uusi hakusana');
+            muutos.lisaaHakusana(new Muutettava(-1, null));
+        }
+    }
 
-        var id = $scope.adminSelitys.id;
-        var sanaOnUusi = id === undefined;
+    function tyhjenna() {
+        muutos = new Muutos(null, '', null);
+        $scope.haku = '';
+    }
 
-        if (sanaOnUusi === true) {
-            console.log('uusi');
-            luoUusi(selitys.selitys, tekija);
+    $scope.tyhjenna = tyhjenna;
+
+    $scope.poistaSelitys = function () {
+        if (muutos.alkuSelitys !== null) {
+            sanatService.poistaSelitys(muutos.alkuSelitys.id);
+        }
+        tyhjenna();
+        $location.path('/admin');
+    };
+
+    $scope.tallennaSelitys = function () {
+        if (muutos.onUusi()) {
+            tallennaUusiSelitys();
         } else {
-            console.log('vanha');
-            paivita($scope.adminSelitys, selitys.selitys, tekija);
+            paivitaVanhaSelitys();
         }
     };
 
-    function luoUusi(selitys, tekija) {
-        //tekija
-        sanatService.lisaaSelitys(selitys, 1).then(function (id) {
-            tallennaHakusanat(id, 0);
+    function tallennaUusiSelitys() {
+        sanatService.lisaaSelitys(muutos.uusiSelitys, 1).then(function (id) {
+            var hs = muutos.hakusanat();
+            for (var i = 0, max = hs.length; i < max; i++) {
+                lisaaHakusana(id, hs[i]);
+            }
         });
     }
 
-    function tallennaHakusanat(id, i) {
-        var hakusanat = $scope.adminSanat;
-        for (var max = hakusanat.length; i < max; i++) {
-            var curr = hakusanat[i].hakusana.trim();
-            if (curr.length > 2) {
-                sanatService.lisaaHakusana(curr, id);
+    function paivitaHakusana(hakusanaID, hakusana) {
+        var muutettu = hakusana.muutettuSana();
+        if (muutettu !== null) {
+            sanatService.muokkaaHakusana(hakusanaID, muutettu);
+        }
+    }
+
+    function lisaaHakusana(selitysID, hakusana) {
+        var muutettu = hakusana.muutettuSana();
+        if (muutettu !== null) {
+            sanatService.lisaaHakusana(muutettu, selitysID);
+        }
+    }
+
+    function poistaHakusana(hakusanaID) {
+        sanatService.poistaHakusana(hakusanaID);
+    }
+
+    function paivitaVanhaSelitys() {
+        var selitysID = muutos.alkuSelitys.id;
+        sanatService.muokkaaSelitys(selitysID, muutos.uusiSelitys, 1);
+        var hs = muutos.hakusanat();
+
+        var muutetut = {};
+
+        lisaaUudetJaMuokatutHakusanat();
+        poistaVanhatHakusanat();
+
+        function lisaaUudetJaMuokatutHakusanat() {
+            for (var i = 0, max = hs.length - 1; i < max; i++) {
+                var curr = hs[i];
+                var muutettu = curr.muutettuSana();
+
+                if (muutettu === null) {
+                    continue;
+                }
+                if (!curr.onUusi()) {
+                    muutetut[curr.alkuperainen.id] = true;
+                }
+                if (curr.onUusi()) {
+                    lisaaHakusana(selitysID, curr);
+                } else {
+                    paivitaHakusana(curr.alkuperainen.id, curr);
+                }
             }
         }
-    }
 
-    function paivita(selitysAlkuperainen, selitys, tekija) {
-        var vanhaSelitys = oikeaSelitys.selitys;
-        var uusiSelitys = selitys.trim();
-
-        if (uusiSelitys !== vanhaSelitys) {
-            sanatService.muokkaaSelitys(oikeaSelitys.id, uusiSelitys, 1);
+        function poistaVanhatHakusanat() {
+            var alku = muutos.alkuperaisetHakusanat;
+            for (var i = 0, max = alku.length; i < max; i++) {
+                var curr = alku[i];
+                if (!muutetut[curr.alkuperainen.id] && !contains(curr)) {
+                    console.log('pois ' + curr.hakusana());
+                    poistaHakusana(curr.alkuperainen.id);
+                } else {
+                    console.log(!muutetut[curr.alkuperainen.id]);
+                    console.log(!contains(curr));
+                    console.log(!contains(curr) && !muutetut[curr.alkuperainen.id]);
+                }
+            }
         }
 
-        paivitaHakusana($scope.adminSanat[0]);
-        tallennaHakusanat(selitysAlkuperainen.id, 1);
-    }
-
-    function paivitaHakusana(hakusana) {
-        var alkuperainenHakusana = $filter('filter')($scope.sanalista.hakusanat, {hakusana: hakusana.hakusana}, true);
-        var uusi = hakusana.hakusana.trim();
-        if (alkuperainenHakusana.hakusana !== uusi) {
-            sanatService.muokkaaHakusana(alkuperainenHakusana.id, uusi);
+        function contains(value) {
+            for (var i = 0, max = hs.length - 1; i < max; i++) {
+                if (hs[i].hakusana() === value.hakusana()) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
-
-    $scope.poistaSelitys = function () {
-        sanatService.poistaSelitys($scope.adminSelitys.id);
-        $location.path('/admin');
-    };
 });

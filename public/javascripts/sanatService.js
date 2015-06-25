@@ -120,7 +120,7 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
         }
     };
 
-    var HAKUSANA_URL = 'api/sana/hakusana';
+    var HAKUSANA_URL = 'api/sana/hakusana/';
 
     function virhe(err) {
         console.log('Virhe: ' + err);
@@ -145,7 +145,7 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
     };
 
     this.poistaHakusana = function (id) {
-        $http.delete(HAKUSANA_URL, {id: id})
+        $http.delete(HAKUSANA_URL + id)
                 .success(function () {
                     console.log('Poisto onnistui');
                 })

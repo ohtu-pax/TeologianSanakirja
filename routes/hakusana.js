@@ -17,7 +17,16 @@ router.put('/', function (req, res) {
 });
 
 function doQuery(defaultStatus, query, stringParam, intParam, res) {
-    var status = defaultStatus;
+
+    function end(status) {
+        res.sendStatus(status);
+        res.end();
+    }
+
+    console.log(stringParam + ' ' + intParam);
+    console.dir(stringParam);
+    console.log(String(stringParam));
+
     if (typeof stringParam === 'string') {
         var trimmed = stringParam.trim();
         if (trimmed.length > 2 && isInt(intParam)) {
@@ -25,13 +34,12 @@ function doQuery(defaultStatus, query, stringParam, intParam, res) {
                 database.queryWithValues(query, [trimmed, parseInt(intParam)],
                         function (result) {
                             if (result.rowCount !== 1) {
-                                status = 400;
+                                end(400);
                             } else {
-                                res.sendStatus(status);
-                                res.end();
+                                end(defaultStatus);
                             }
                         }, function (err) {
-                    status = 403;
+                    end(403);
                 });
             } catch (e) {
                 console.error(e);
@@ -40,13 +48,11 @@ function doQuery(defaultStatus, query, stringParam, intParam, res) {
         }
         return;
     }
-    status = 403;
-    res.sendStatus(status);
-    res.end();
+    end(403);
 }
 
-router.delete('/', function (req, res) {
-    var id = req.body.id;
+router.delete('/:id', function (req, res) {
+    var id = req.params.id;
 
     function end(status) {
         res.sendStatus(status);
@@ -64,7 +70,8 @@ router.delete('/', function (req, res) {
             }, function (err) {
                 end(403);
             });
-        } catch (e) {
+        }
+        catch (e) {
             console.error(e);
             end(500);
         }
