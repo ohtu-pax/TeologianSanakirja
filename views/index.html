@@ -36,7 +36,6 @@
 
     </head>
     <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
-
         <header class="page-header navbar-fixed-top">
             <nav class="navbar navbar-default">             
                 <ul class="nav navbar-nav">
@@ -53,15 +52,17 @@
                         <a href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
                            title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
                     </li>
+                    <li class="esipuhe">
+                        <a href="/#/">Esipuhe</a>
+                    </li>
                     <li ng-show="tila.sisalla" id="adminLinkki" class="adminLinkki">
                         <a href ="/#/admin" >Tee muutoksia sanakirjaan</a>
                     </li>
-                    <li ng-show="tila.sisalla" class="logout">
+                    <li ng-show="tila.sisalla" class="logout ei-oikeaa-reunaa">
                         <a href ="" ng-click="logout()">Kirjaudu ulos</a>
                     </li>
                 </ul>
             </nav>    
-            <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
             <h1>  Teologian Sanakirja </h1>
             <div class="aakkoset" ng-controller="kirjainController">
                 <ul class="nav navbar-nav">
@@ -70,12 +71,12 @@
             </div>
             <div id="haku">
                 <label>Etsi: <input ng-change="naytaLista()" class="dropdown up" ng-model="hakuKentta.sana" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta.sana} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
-                <button type="button" ng-click="tyhjennahaku()">Tyhjennä haku</button>
+                <button id="tyhjennaHaku" type="buon" ng-click="tyhjennahaku()">Tyhjennä haku</button>
             </div>
-
+            <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
         </header>
         <div class="container-fluid sisalto">
-            <div>
+            <div class="sailio">
                 <div ng-view></div>
             </div>
             <script>
