@@ -9,8 +9,8 @@ exports.config = {
     jasmineNodeOpts: {
         defaultTimeoutInterval: 25000
     },
+    
     //olettavasti historian tulee olla esimmäinen, testit eivät nulla historiaa välissä
-
     specs: [
         'historia.spec.js',
         'haku.spec.js',

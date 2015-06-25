@@ -14,7 +14,10 @@ valiviivat();
 function resize() {
     var heights = window.innerHeight;
     console.log(window.innerWidth);
-    document.getElementsByClassName("container-fluid sisalto")[0].style.height = heights - 290 + "px";
+    
+    if(heights < 768)   {
+        document.getElementsByClassName("container-fluid sisalto")[0].style.height = "auto";
+    }
 }
 resize();
 window.onresize = function () {

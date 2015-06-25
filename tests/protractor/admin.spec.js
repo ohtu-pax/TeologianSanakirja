@@ -8,7 +8,7 @@ describe('Admin: ', function () {
     var name = element(by.css('.loginName'));
     var password = element(by.css('.loginPassword'));
     var loginInput = element(by.css('.loginClick'));
-    var adminLinkki = element(by.linkText('Tee muutoksia sanakirjaan'));
+    var menuLinkki = element(by.css('.valikkoNappi'));
 
     var ADMIN_USERNAME = conf.adminName;
     var ADMIN_PASSWORD = conf.adminPassword;
@@ -19,7 +19,9 @@ describe('Admin: ', function () {
         browser.get(PALVELIN_OSOITE + "/login");
 
         kirjauduSisaan(ADMIN_USERNAME, ADMIN_PASSWORD);
-        adminLinkki.click();
+        menuLinkki.click().then(function () {
+            element(by.linkText('Tee muutoksia sanakirjaan')).click();
+        });
     });
 
     function kirjauduSisaan(names, passwords) {
@@ -80,17 +82,17 @@ describe('Admin: ', function () {
 
     it('jos yritetään siirtyä osoiteriviltä admin-näkymään, kun käyttäjä ei ole kirjautuneena sisään, \n\
         siirrytään etusivulle eikä admin-templatea näytetä', function (done) {
-        element(by.linkText('Kirjaudu ulos')).click().then(function () {
-            browser.get(PALVELIN_OSOITE + "/admin").then(function () {
+            element(by.linkText('Kirjaudu ulos')).click().then(function () {
+                browser.get(PALVELIN_OSOITE + "/admin").then(function () {
 
-                browser.getCurrentUrl().then(function (url) {
-                    var osoitteenKolmeVikaaMerkkia = url.substr(url.length - 3)
-                    expect(osoitteenKolmeVikaaMerkkia).toEqual('/#/');
-                })
+                    browser.getCurrentUrl().then(function (url) {
+                        var osoitteenKolmeVikaaMerkkia = url.substr(url.length - 3)
+                        expect(osoitteenKolmeVikaaMerkkia).toEqual('/#/');
+                    })
 
-                expect(element(by.css("#admin")).isPresent()).toBe(false);
-            });
+                    expect(element(by.css("#admin")).isPresent()).toBe(false);
+                });
         });
-        done();
+       done(); 
     });
 });

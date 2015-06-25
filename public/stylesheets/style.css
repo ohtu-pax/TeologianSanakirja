@@ -6,110 +6,70 @@
 }
 
 html    {
+    background: url('/images/pergament.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-color: rgb(242,229,178);
-}
-
-@media (min-width: 992px)   {
-    html    {
-        background: url('/images/pergament.jpg') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        background-color: rgb(242,229,178);
-    }
+    height: 100%;
 }
 
 body {
-    margin: 3% 3% 3% 3%;
+    margin: 0% 0% 0% 0%;
     padding: 0px 0px 0px 0px;
+    overflow-x: hidden;
     background: none;
+    height: 100%;
 }
 
-@media (min-width: 768px)   {
+.page-header{
+    margin-bottom: 0px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-image: -webkit-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+    background-image: -moz-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+    background-image: -o-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+    background-image: -ms-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
+    border-bottom-style: none;
+    position: relative;
+    z-index: 10;
+    border: solid;
+    border-width: 2px;
+    border-top-color: rgba(255,255,255,0.3);
+    border-left-color: rgba(255,255,255,0.3);
+    border-style: outset;
+    border-bottom: none;
+}
+
+.navbar  {
+    padding-left: 2.5%;
+    margin-bottom: 0px;
+    background: none;
+    border: none;
+    color: #000;
+}
+
+.navbar .nav li a   {
+    color: #000;
+    padding-top: 15px;
+    border: none;
+}
+
+@media (max-width: 767px)   {
+
+    html    {
+        background-image: none;
+    }
+
     body {
         margin: 3% 3% 3% 3%;
         padding: 0px 0px 0px 0px;
-        overflow-x: hidden;
         background: none;
+        overflow-x: auto;
     }
-}
 
-@media (max-width: 767px)   {
-    .page-header{
-        margin-bottom: 0px;
-        padding-top: 5px;
-        padding-left: 5px;
-        padding-right: 5px;
-        background-image: -webkit-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        background-image: -moz-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        background-image: -o-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        background-image: -ms-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        border-bottom-style: none;
-        position: relative;
-        z-index: 10;
-        height: 200px;
-        border: solid;
-        border-width: 1px;
-        border-top-color: rgba(255,255,255,0.3);
-        border-left-color: rgba(255,255,255,0.3);
-        border-style: outset;
-        border-bottom: none;
-    }
-}
-
-@media (min-width: 768px) {
-    .page-header{
-        margin-bottom: 0px;
-        padding-top: 5px;
-        background-image: -webkit-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        background-image: -moz-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        background-image: -o-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        background-image: -ms-linear-gradient(bottom, #a68d5e 2%, rgba(166,141,94,0.3));
-        border-bottom-style: none;
-        position: relative;
-        z-index: 10;
-        height: 230px;
-        border: solid;
-        border-width: 1px;
-        border-top-color: rgba(255,255,255,0.3);
-        border-left-color: rgba(255,255,255,0.3);
-        border-style: outset;
-        border-bottom: none;
-    }
-}
-
-@media  (max-width: 1190px)  {
-    .page-header    {
-        height: 280px;
-    }
-}
-
-@media  (max-width: 830px)  {
-    .page-header    {
-        height: 300px;
-    }
-}
-
-@media  (max-width: 525px)  {
-    .page-header    {
-        height: 340px;
-    }
-}
-
-@media  (max-width: 517px)  {
-    .page-header    {
-        height: 370px;
-    }
-}
-
-@media  (max-width: 422px)  {
-    .page-header    {
-        height: 460px;
-    }
-}
-
-@media (max-width: 767px)   {
     .navbar  {
         padding-left: 0px;
         background: none;
@@ -118,21 +78,21 @@ body {
         display: inline-block;
         float: left;                                             
     }
-}
 
-@media (min-width: 768px)   {
-    .navbar  {
-        padding-left: 2.5%;
-        margin-bottom: 0px;
-        background: none;
-        border: none;
-        color: #000;
+    .page-header    {
+        min-height: 50px;
     }
-    
-    .navbar .nav li a   {
-        color: #000;
-        padding-top: 15px;
-        border: none;
+
+    .navbar-collapse    {
+        background-color: white;
+        border-color: #AA9160;
+        -webkit-border-radius: 3px; 
+        -moz-border-radius: 3px; 
+        border-radius: 3px;
+    }
+
+    .navbar-collapse #hakukentta    {
+        display:none;
     }
 }
 
@@ -159,33 +119,17 @@ body {
     text-align: right;
 }
 
-@media (max-width: 767px)  {
-    .page-header h1  {
-        padding-right: 3%;
-        font-family: 'Kenyan Coffee';
-        font-size: 3em;
-        font-weight: lighter;
-        text-align: right;
-        padding-right: 10px;
-    }
+.page-header h1  {
+    padding-left: 3%;
+    font-family: 'Kenyan Coffee';
+    font-size: 4.3em;
+    font-weight: lighter;
+    display: inline-block;
 }
 
-@media (min-width: 768px) {
-    .page-header h1  {
-        padding-left: 3%;
-        font-family: 'Kenyan Coffee';
-        font-size: 4.3em;
-        font-weight: lighter;
-        display: inline-block;
-    }
-}
-
-@media  (max-width: 522px)  {
-    .page-header h1    {
-        clear: left;
-        text-align: left;
-        padding-left: 2px;
-    }
+#haku   {
+    padding-left: 3%;
+    padding-top: 10px;
 }
 
 .aakkoset .navbar-nav li a  {
@@ -209,33 +153,39 @@ body {
 }
 
 .aakkoset   {
-    display: none;
+    display: inline-block;
+    padding-left: 3%;
 }
-
-@media (min-width: 768px) {
-    .aakkoset   {
-        display: inline-block;
-        padding-left: 3%;
-    }
-}
-
 
 @media (max-width: 767px)  {
-    #haku   {
-        padding-left: 1px;
-        float: left;
-        clear: left;
+    .page-header h1  {
+        padding-right: 3%;
+        font-family: 'Kenyan Coffee';
+        font-size: 2em;
+        font-weight: lighter;
+        text-align: right;
+        margin-top: 9px;
     }
-    
-    .navbar-nav {
-        margin-bottom: 0px;
+
+    .navbar-header  {
+        margin-top: 3px;
+    }
+
+    .aakkoset   {
+        display: none;
+    }
+
+    #haku   {
+        float: right;
     }
 }
 
-@media (min-width: 768px) {
-    #haku   {
-        padding-left: 3%;
-        padding-top: 10px;
+@media  (max-width: 522px)  {
+    .page-header h1    {
+        clear: left;
+        text-align: left;
+        padding-left: 2px;
+        margin-top: 9px;
     }
 }
 
@@ -246,7 +196,7 @@ body {
         float: left;
         clear: left;
     }
-    
+
     #tyhjennaHaku   {
         margin-left: 35px;
     }
@@ -262,6 +212,8 @@ body {
     display: flex;
     position: relative;
     width: 100%;
+    min-height: 70%;
+    height: 70%;
     background-color: #fff;
     border-left: solid;
     border-bottom: solid;
@@ -274,10 +226,13 @@ body {
 .sailio {
     border: none;
     width: 100%;
+    padding: 2%;
 }
 
 .container-fluid    {
     border-top: none;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 #etusivu header .etusivu > a {
@@ -356,10 +311,10 @@ fieldset input, #tekijaInput  {
         float: left;
         margin-right: 100%;
     }
-    
+
     fieldset input, #tekijaInput  {
-    width: 15em;
-}
+        width: 15em;
+    }
 }
 
 #adminSanaSet {
@@ -395,6 +350,35 @@ button  {
     -webkit-border-radius: 3px; 
     -moz-border-radius: 3px; 
     border-radius: 3px;
+}
+
+.navbar-default .navbar-toggle  {
+    background-color: #ECE3AB;
+    border-color: #AA9160;
+    padding: 5px;
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px; 
+    border-radius: 3px;
+}
+
+.navbar-default .navbar-toggle:focus   {
+    background-color: #424242;
+}
+
+.navbar-default .navbar-toggle:visited   {
+    background-color: #424242;  
+}
+
+.navbar-default .navbar-toggle:hover   {
+    background-color: #424242;
+}
+
+.navbar-default .navbar-toggle:active   {
+    background-color: #424242;
+}
+
+.valikkoNappi   {
+    float: left;
 }
 
 input   {
