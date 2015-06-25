@@ -38,6 +38,7 @@ function loadDatabase(onDone) {
                 tulos.linkit = linkit;
                 tulos.hakusanat = hakusanat;
                 tulos.selitykset = selitykset;
+                tulos.tekijat = [{id: 1, tekija: 'Seppo A. Teinonen'}, {id: 2, tekija: 'Olli Hallamaa'}];
                 res = JSON.stringify(tulos);
                 console.log('Tietokanta välimuistissa');
                 onDone();

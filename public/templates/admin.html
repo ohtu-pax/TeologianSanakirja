@@ -16,7 +16,7 @@
         <br/>
 
         <label id='tekijaLabel'>Tekijä: </label>
-        <input id='tekijaInput' type="text" ng-model="tekijaInput" placeholder="Lisää tekijä"/>
+        <select ng-model="muutos().nykyinenTekija" ng-options="tekija.tekija for tekija in sanalista.tekijat"></select>
 
         <br />
 

@@ -5,13 +5,17 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
     var mainPromise = null;
     var sanatEsiteltava = null;
     var muokkaamatonData = null;
-    var selitysLinkit = null;
-    var tekijat = null;
-    var hakusanat = null;
-    var selitykset = null;
-    this.sanalista = haeSanalista;
-    function haeSanalista() {
-        if (mainPromise !== null) {
+
+    this.sanalista = function () {
+        return haeSanalista(false);
+    };
+
+    this.forceReload = function () {
+        return haeSanalista(true);
+    };
+
+    function haeSanalista(forceReload) {
+        if (forceReload === false && mainPromise !== null) {
             var promise = $q(function (resolve, reject) {
                 mainPromise.then(function () {
                     resolve(sanatEsiteltava);
@@ -20,6 +24,9 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
             return promise;
         } else {
             var resolved = false;
+            mainPromise = null;
+            muokkaamatonData = null;
+            sanatEsiteltava = null;
             var main = $q(function (resolve, reject) {
                 if (sanatEsiteltava !== null) {
                     resolved = true;
@@ -30,10 +37,10 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
                                 console.time('linkitys');
                                 muokkaamatonData = data;
                                 console.log(data);
-                                selitysLinkit = data.linkit;
-                                hakusanat = data.hakusanat;
-                                tekijat = data.tekijat;
-                                selitykset = data.selitykset;
+
+                                var selitysLinkit = data.linkit;
+                                var hakusanat = data.hakusanat;
+                                var selitykset = data.selitykset;
                                 var linkitSelitykseen = new Array(selitysLinkit.length);
 
                                 for (var i = 0; i < selitysLinkit.length; i++) {
