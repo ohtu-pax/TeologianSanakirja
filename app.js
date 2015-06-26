@@ -87,7 +87,8 @@ passport.use(new localStrategy({},
         }
 ));
 
-//app.get('env') === 'development'
+app.get('env') === 'development'
+
 app.use(function (err, req, res, next) {
     if (typeof err.eurl === 'string' && err.eurl.indexOf('favicon') === -1) {
         console.log(err.status + ' when requested (' + err.eurl + '): ' + err.message + '\n' + err.stack);
@@ -103,7 +104,7 @@ app.use(function (err, req, res, next) {
             message: err.message,
             error: {}
             //error: err
-        });
+       });
     }
 });
 

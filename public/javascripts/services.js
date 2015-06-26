@@ -1,5 +1,19 @@
 
 sanakirjaApp.service('sanakirjaAPIservice', function ($http, $q) {
+    this.getTekstit = function (nimi) {
+        return $q(function (resolve, reject) {
+            $http.get('api/data/' + nimi)
+                    .success(function (data) {
+                        sessionStorage.setItem(nimi, JSON.stringify(data));
+                        resolve(data);
+                    })
+                    .error(function (error) {
+                        console.log('Error at services.js at getSanalista: ' + error);
+                        reject(error);
+                    });
+        });
+    };
+
 
     this.isLoggedIn = function () {
         return $q(function (resolve, reject) {
