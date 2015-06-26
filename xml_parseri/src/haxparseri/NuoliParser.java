@@ -13,9 +13,9 @@ public final class NuoliParser extends Parser {
 
     @Override
     protected void process(char next) {
-        if (next == '➞') {
+        /*if (next == '➞') {
             selitys.appendSelitys('➞');
-        }
+        }*/
     }
 
     @Override

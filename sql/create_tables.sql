@@ -3,6 +3,11 @@ CREATE TABLE tekijat (
     nimi            TEXT NOT NULL CONSTRAINT epatyhja_tekijan_nimi CHECK (length(nimi) > 0)
 );
 
+CREATE TABLE esipuheOhje (
+    id              SERIAL PRIMARY KEY,
+    teksti          TEXT NOT NULL CONSTRAINT epatyhja_teksti CHECK (length(teksti) > 0)
+);
+
 CREATE TABLE selitykset (
     id              SERIAL PRIMARY KEY,
     selitys         TEXT NOT NULL,
