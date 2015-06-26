@@ -72,7 +72,7 @@ public final class MainParser {
 
         sb.append("INSERT INTO tekijat (nimi) VALUES ('Seppo A. Teinonen');\n");
 
-        sb.append("INSERT INTO selitykset (selitys) VALUES \n");
+        sb.append("INSERT INTO selitykset (selitys, tekija) VALUES \n");
         for (int i = 0; i < selityksetJarjestyksesa.size(); i++) {
             Selitys s = selityksetJarjestyksesa.get(i);
             sb.append("('")
