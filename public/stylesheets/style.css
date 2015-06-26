@@ -404,3 +404,8 @@ input   {
     -moz-border-radius: 3px; 
     border-radius: 3px;
 }
+
+.adminLinkit {
+    overflow: hidden;
+    white-space: nowrap;
+}

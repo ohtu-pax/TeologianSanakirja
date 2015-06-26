@@ -1,7 +1,6 @@
 'use strict';
 
 var router = require('express').Router();
-var passport = require('passport');
 var database = require('../database/database');
 
 router.post('/', function (req, res) {
@@ -23,10 +22,6 @@ function doQuery(defaultStatus, query, stringParam, intParam, res) {
         res.end();
     }
 
-    console.log(stringParam + ' ' + intParam);
-    console.dir(stringParam);
-    console.log(String(stringParam));
-
     if (typeof stringParam === 'string') {
         var trimmed = stringParam.trim();
         if (trimmed.length > 2 && isInt(intParam)) {
@@ -45,8 +40,8 @@ function doQuery(defaultStatus, query, stringParam, intParam, res) {
                 console.error(e);
                 end(500);
             }
+            return;
         }
-        return;
     }
     end(403);
 }
@@ -80,10 +75,6 @@ router.delete('/:id', function (req, res) {
     }
 }
 );
-
-function isDefined(value) {
-    return value !== undefined && value !== null;
-}
 
 function isInt(value) {
     return !isNaN(value)

@@ -110,10 +110,6 @@ router.delete('/:id', function (req, res) {
 }
 );
 
-function isDefined(value) {
-    return value !== undefined && value !== null;
-}
-
 function isInt(value) {
     return !isNaN(value)
             && parseInt(Number(value), 10) == value

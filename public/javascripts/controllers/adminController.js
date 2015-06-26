@@ -38,7 +38,12 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
         this.alkuperaisetHakusanat = [];
         this.nykyisetHakusanat = [];
 
+        this.alkuperaisetLinkit = [];
+        this.nykyisetLinkit = [];
+
         this.lisaaAlkuHakusana(new Muutettava(alkuHakusana));
+
+        this.lisaaLinkki({linkkisana: '', hakusana: ''});
     }
 
     Muutos.prototype.lisaaAlkuHakusana = function (val) {
@@ -61,6 +66,31 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
     Muutos.prototype.poistaHakusana = function (val) {
         var index = this.nykyisetHakusanat.indexOf(val);
         this.nykyisetHakusanat.splice(index, 1);
+    };
+
+    Muutos.prototype.linkit = function () {
+        return this.nykyisetLinkit;
+    };
+
+    Muutos.prototype.lisaaAlkuLinkki = function (val) {
+        this.alkuperaisetLinkit.push(val);
+        this.nykyisetLinkit.push(val);
+    };
+
+    Muutos.prototype.poistaLinkki = function (val) {
+        var index = this.nykyisetLinkit.indexOf(val);
+        this.nykyisetLinkit.splice(index, 1);
+    };
+
+    Muutos.prototype.lisaaLinkki = function (val) {
+        this.nykyisetLinkit.push(val);
+    };
+
+    Muutos.prototype.katkaiseYhteys = function () {
+        this.alkuperaisetLinkit = [];
+        this.alkuperaisetHakusanat = [];
+        this.alkuSelitys = null;
+        this.alkuperainenTekija = null;
     };
 
     var muutos = null;
@@ -109,7 +139,7 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
         muutos.hakusanat()[0].muutettu = eka;
 
         var tulos = $filter('filter')($scope.sanalista.hakusanat, {hakusana: eka}, true);
-        if (tulos.length === 1) {
+        if (tulos.length > 0) {
             var selitys = $filter('filter')($scope.sanalista.selitykset, {id: tulos[0].selitys}, true)[0];
 
             var ekaHakusana = {};
@@ -128,10 +158,26 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
                     muutos.lisaaAlkuHakusana(new Muutettava(curr));
                 }
             }
-        } else if (muutos.hakusanat().length > 0 && eka.length > 0) {
-            muutos.hakusanat()[0].poistaAlkuperainen();
+
+            var linkitSelitykseen = $filter('filter')($scope.sanalista.linkit, {selitys: selitys.id}, true);
+            for (var i = 0, max = linkitSelitykseen.length; i < max; i++) {
+                var curr = linkitSelitykseen[i];
+
+                var linkki = {};
+                linkki.id = curr.id;
+                linkki.linkkisana = curr.linkkisana;
+                var kohde = $filter('filter')($scope.sanalista.hakusanat, {id: curr.hakusana}, true)[0];
+                linkki.hakusana = kohde.hakusana;
+                linkki.hakusanaID = kohde.id;
+
+                muutos.lisaaAlkuLinkki(linkki);
+            }
+
+        } else {
+            muutos.katkaiseYhteys();
         }
         tarkistaKenttienMaara();
+        tarkistaLinkkienMaara();
     };
 
     $scope.tarkistaKenttienMaara = tarkistaKenttienMaara;
@@ -144,9 +190,6 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
             if (curr.hakusana() === '') {
                 poistettavat.push(curr);
             }
-            if (i === 0) {
-                $scope.haku;
-            }
         }
         for (var i = 0, max = poistettavat.length; i < max; i++) {
             muutos.poistaHakusana(poistettavat[i]);
@@ -157,13 +200,32 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
             $scope.haku = ekaSana;
         }
 
-        if (hs.length === 0) {
-            return;
+        if (hs.length === 1 || hs[hs.length - 1].hakusana() !== '') {
+            muutos.lisaaHakusana(new Muutettava(null));
+        }
+    }
+
+    $scope.tarkistaLinkkienMaara = tarkistaLinkkienMaara;
+
+    function tarkistaLinkkienMaara() {
+        var linkit = muutos.linkit();
+        var poistettavat = [];
+        for (var i = 0, max = linkit.length - 1; i < max; i++) {
+            var curr = linkit[i];
+            if (curr.linkkisana === '' && curr.hakusana === '') {
+                poistettavat.push(curr);
+            }
+        }
+        for (var i = 0, max = poistettavat.length; i < max; i++) {
+            muutos.poistaLinkki(poistettavat[i]);
         }
 
-        var l = hs.length - 1;
-        if (hs.length === 1 || hs[l].hakusana() !== '') {
-            muutos.lisaaHakusana(new Muutettava(null));
+        var vika = linkit[linkit.length - 1];
+        if (vika.linkkisana !== '' || vika.hakusana !== '') {
+            var linkki = {};
+            linkki.linkkisana = '';
+            linkki.hakusana = '';
+            muutos.lisaaLinkki(linkki);
         }
     }
 
@@ -196,6 +258,11 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
             for (var i = 0, max = hs.length; i < max; i++) {
                 lisaaHakusana(id, hs[i]);
             }
+            var linkit = muutos.linkit();
+            for (var i = 0, max = linkit.length; i < max; i++) {
+                var curr = linkit[i];
+                lisaaLinkki(id, curr);
+            }
             sanatService.forceReload();
         });
     }
@@ -218,15 +285,30 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
         sanatService.poistaHakusana(hakusanaID);
     }
 
+    function lisaaLinkki(selitysID, linkki) {
+        sanatService.lisaaLinkki(selitysID, linkki.linkkisana, linkki.hakusanaID);
+    }
+
+    function poistaLinkki(linkkiID) {
+        sanatService.poistaLinnki(linkkiID);
+    }
+
+    function paivitaLinkki(linkkiID, selitysID, linkkiSana, hakusanaID) {
+        sanatService.muokkaaLinkki(linkkiID, hakusanaID, selitysID, linkkiSana);
+    }
+
     function paivitaVanhaSelitys() {
         var selitysID = muutos.alkuSelitys.id;
         sanatService.muokkaaSelitys(selitysID, muutos.uusiSelitys, 1);
         var hs = muutos.hakusanat();
 
         var muutetut = {};
+        var muutetutLinkit = {};
 
         lisaaUudetJaMuokatutHakusanat();
         poistaVanhatHakusanat();
+        lisaaUudetLinkit();
+        poistaVanhatLinkit();
 
         sanatService.forceReload();
 
@@ -238,13 +320,12 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
                 if (muutettu === null) {
                     continue;
                 }
-                if (!curr.onUusi()) {
-                    muutetut[curr.alkuperainen.id] = true;
-                }
                 if (curr.onUusi()) {
                     lisaaHakusana(selitysID, curr);
                 } else {
-                    paivitaHakusana(curr.alkuperainen.id, curr);
+                    var id = curr.alkuperainen.id;
+                    muutetut[id] = true;
+                    paivitaHakusana(id, curr);
                 }
             }
         }
@@ -262,6 +343,46 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
         function contains(value) {
             for (var i = 0, max = hs.length - 1; i < max; i++) {
                 if (hs[i].hakusana() === value.hakusana()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function lisaaUudetLinkit() {
+            var linkit = muutos.linkit();
+            for (var i = 0, max = linkit.length; i < max; i++) {
+                var curr = linkit[i];
+                var linkkiOnUusi = curr.id === undefined;
+                if (linkkiOnUusi) {
+                    var hakusana = $filter('filter')($scope.sanalista.hakusanat, {hakusana: curr.hakusana}, true)[0];
+                    if (hakusana) {
+                        var linkki = {linkkisana: curr.linkkisana, hakusanaID: hakusana.id};
+                        lisaaLinkki(selitysID, linkki);
+                    }
+                } else {
+                    muutetutLinkit[curr.id] = true;
+                    paivitaLinkki(curr.id, selitysID, curr.linkkisana, curr.hakusanaID);
+                }
+            }
+        }
+
+        function poistaVanhatLinkit() {
+            var alkuLinkit = muutos.alkuperaisetLinkit;
+            for (var i = 0, max = alkuLinkit.length; i < max; i++) {
+                var curr = alkuLinkit[i];
+
+                if (!containsLinkki(curr) && !muutetutLinkit(curr.id)) {
+                    poistaLinkki(curr.id);
+                }
+            }
+        }
+
+        function containsLinkki(value) {
+            var linkit = muutos.linkit();
+            for (var i = 0, max = linkit.length - 1; i < max; i++) {
+                if (linkit[i].linkkisana === value.linkkisana &&
+                        linkit[i].hakusana === value.hakusana) {
                     return true;
                 }
             }

@@ -6,15 +6,22 @@ var connectionString = config.connectionString;
 
 function queryWithValues(queryString, values, onend, onerror) {
     pg.connect(connectionString, function (err, client) {
+        if (err) {
+            console.log(err);
+            return;
+        }
         var query = client.query(queryString, values);
         if (typeof onend === "function") {
             query.on('end', onend);
         }
-        if (err) {
-            if (typeof onerror === "function") {
-                onerror(err);
-            }
-            console.log(err);
+        if (typeof onerror === "function") {
+            //console.log('ERRORING');
+            query.on('error', onerror);
+            //onerror(err);
+        } else {
+            query.on('error', function (err) {
+                console.error(err);
+            });
         }
     });
 }
@@ -24,6 +31,10 @@ module.exports.queryWithValues = queryWithValues;
 function queryWithValuesAndReturn(queryString, values, onend) {
     var results = [];
     pg.connect(connectionString, function (err, client) {
+        if (err) {
+            console.error(err);
+            return;
+        }
         var query = values ? client.query(queryString, values) : client.query(queryString);
         query.on('row', function (row) {
             results.push(row);
@@ -31,9 +42,9 @@ function queryWithValuesAndReturn(queryString, values, onend) {
         query.on('end', function () {
             onend(results);
         });
-        if (err) {
-            console.log(err);
-        }
+        query.on('error', function (err) {
+            console.error(err);
+        });
     });
 }
 

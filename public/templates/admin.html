@@ -6,8 +6,21 @@
             <input id="adminSanahaku" class="dropdown up" ng-change="hae()" ng-model="haku"
                    bs-options="sana.hakusana as sana.hakusana for sana in sanalista.hakusanat | filter:{hakusana:adminSanahaku} "
                    placeholder="Etsi sanan perusteella" bs-typeahead>
-            <input ng-repeat="hakusana in muutos().hakusanat()" type='text' ng-if="!$first" ng-model="hakusana.muutettu" ng-change="tarkistaKenttienMaara()" class="adminSana" value="{{hakusana.muutettu}}" placeholder='Lisää hakusana'>
+            <input ng-repeat="hakusana in muutos().hakusanat()" type='text' ng-if="!$first"
+                   ng-model="hakusana.muutettu" ng-change="tarkistaKenttienMaara()" class="adminSana"
+                   value="{{hakusana.muutettu}}" placeholder='Lisää hakusana'>
         </fieldset>
+        <br/>
+        <br/>
+
+        <label>Linkit: </label>
+        <div class="adminLinkit" ng-repeat="linkki in muutos().linkit()" >
+            <input type='text' ng-model="linkki.linkkisana" ng-change="tarkistaLinkkienMaara()"
+                   value="{{linkki.linkkisana}}" placeholder='Linkkisana'>
+            <input type='text' ng-model="linkki.hakusana" ng-change="tarkistaLinkkienMaara()"
+                   value="{{linkki.hakusana}}" placeholder='Hakusana'>
+        </div>
+
         <br/>
 
         <label id="adminSelitysLabel">Selitys: </label>

@@ -187,6 +187,33 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
                 })
                 .error(virhe);
     };
+
+    var LINKIT_URL = 'api/sana/linkki/';
+
+    this.muokkaaLinkki = function (id, hakusana, selitys, linkkisana) {
+        console.log({id: id, hakusana: hakusana, selitys: selitys, linkkisana: linkkisana});
+        $http.post(LINKIT_URL, {id: id, hakusana: hakusana, selitys: selitys, linkkisana: linkkisana})
+                .success(function () {
+                    console.log('Päivitys onnistui');
+                })
+                .error(virhe);
+    };
+
+    this.lisaaLinkki = function (selitys, linkkisana, hakusana) {
+        $http.put(LINKIT_URL, {selitys: selitys, linkkisana: linkkisana, hakusana: hakusana})
+                .success(function (res) {
+                    console.log('Lisays onnistui');
+                })
+                .error(virhe);
+    };
+
+    this.poistaLinkki = function (id) {
+        $http.delete(LINKIT_URL + id)
+                .success(function () {
+                    console.log('Poisto onnistui');
+                })
+                .error(virhe);
+    };
 });
 function lyhentajaClass() {
 
