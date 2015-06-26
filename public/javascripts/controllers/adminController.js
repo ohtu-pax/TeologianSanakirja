@@ -261,7 +261,11 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
             var linkit = muutos.linkit();
             for (var i = 0, max = linkit.length; i < max; i++) {
                 var curr = linkit[i];
-                lisaaLinkki(id, curr);
+                var hakusana = $filter('filter')($scope.sanalista.hakusanat, {hakusana: curr.hakusana}, true)[0];
+                if (hakusana) {
+                    var linkki = {linkkisana: curr.linkkisana, hakusanaID: hakusana.id};
+                    lisaaLinkki(id, linkki);
+                }
             }
             sanatService.forceReload();
         });
