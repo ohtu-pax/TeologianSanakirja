@@ -3,13 +3,13 @@ sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservi
         var servicePromise = sanakirjaAPIservice.getTekstit("esipuhe");
 
         servicePromise.then(function (result) {
-            $scope.esipuhe = result[0].nimi;
+            $scope.esipuhe = result[0].teksti;
         }).catch(function (error) {
             console.log("Error at getController: " + error);
         });
     } else {
         var esipuhe = JSON.parse(sessionStorage.getItem('esipuhe'));
-        $scope.esipuhe = esipuhe[0].nimi;
+        $scope.esipuhe = esipuhe[0].teksti;
     }
 
     if ($scope.tila === undefined) {

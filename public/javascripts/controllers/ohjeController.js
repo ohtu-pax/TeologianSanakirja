@@ -3,13 +3,13 @@ sanakirjaApp.controller('ohjeController', function ($scope, sanakirjaAPIservice,
         var servicePromise = sanakirjaAPIservice.getTekstit("ohjeet");
 
         servicePromise.then(function (result) {
-            $scope.ohjeet = result[0].nimi;
+            $scope.ohjeet = result[0].teksti;
         }).catch(function (error) {
             console.log("Error at getController: " + error);
         });
     } else {
         var ohjeet = JSON.parse(sessionStorage.getItem('ohjeet'));
-        $scope.ohjeet = ohjeet[0].nimi;
+        $scope.ohjeet = ohjeet[0].teksti;
     }
 
     if ($scope.tila === undefined) {
