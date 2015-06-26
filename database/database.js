@@ -57,7 +57,7 @@ function queryWithValuesAndReturn(queryString, values, onend) {
 function updateTeksti(req, id) {
     var data = {data: req.body.data};
     pg.connect(connectionString, function (err, client, done) {
-
+console.log(data.data);
         client.query("UPDATE esipuheOhje SET teksti = '" + data.data + "' WHERE id =" + id, function () {
             done();
         });
