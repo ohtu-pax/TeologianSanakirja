@@ -26,6 +26,6 @@ sanakirjaApp.controller('ohjeController', function ($scope, sanakirjaAPIservice,
         var data = {
             data: $scope.ohjeet
             };
-        $http.post("/api/data/ohjeet", data);
+        $http.post("/api/sana/ohjeet", data);
     };
 });

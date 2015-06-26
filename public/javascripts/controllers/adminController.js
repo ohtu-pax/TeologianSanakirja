@@ -253,22 +253,37 @@ sanakirjaApp.controller('adminController', function ($scope, sanatService, $filt
     };
 
     function tallennaUusiSelitys() {
-        sanatService.lisaaSelitys(muutos.uusiSelitys, 1).then(function (id) {
-            var hs = muutos.hakusanat();
-            for (var i = 0, max = hs.length; i < max; i++) {
-                lisaaHakusana(id, hs[i]);
-            }
-            var linkit = muutos.linkit();
-            for (var i = 0, max = linkit.length; i < max; i++) {
-                var curr = linkit[i];
-                var hakusana = $filter('filter')($scope.sanalista.hakusanat, {hakusana: curr.hakusana}, true)[0];
-                if (hakusana) {
-                    var linkki = {linkkisana: curr.linkkisana, hakusanaID: hakusana.id};
-                    lisaaLinkki(id, linkki);
+        var tekijat = $filter('filter')($scope.sanalista.tekijat, {tekija: muutos.nykyinenTekija.nimi}, true);
+        if (tekijat.length > 0) {
+            console.log(muutos.nykyinenTekija.nimi + ' : ' + tekijat[0].id);
+            tallenSelitys(tekijat[0].id);
+        } else {
+            console.log(muutos.nykyinenTekija.nimi);
+            sanatService.lisaaTekija(muutos.nykyinenTekija.nimi).then(function (res) {
+                console.log(res);
+                tallenSelitys(parseInt(res, 10));
+            });
+        }
+
+        function tallenSelitys(tekijaID) {
+            console.log(tekijaID);
+            sanatService.lisaaSelitys(muutos.uusiSelitys, tekijaID).then(function (id) {
+                var hs = muutos.hakusanat();
+                for (var i = 0, max = hs.length; i < max; i++) {
+                    lisaaHakusana(id, hs[i]);
                 }
-            }
-            sanatService.forceReload();
-        });
+                var linkit = muutos.linkit();
+                for (var i = 0, max = linkit.length; i < max; i++) {
+                    var curr = linkit[i];
+                    var hakusana = $filter('filter')($scope.sanalista.hakusanat, {hakusana: curr.hakusana}, true)[0];
+                    if (hakusana) {
+                        var linkki = {linkkisana: curr.linkkisana, hakusanaID: hakusana.id};
+                        lisaaLinkki(id, linkki);
+                    }
+                }
+                sanatService.forceReload();
+            });
+        }
     }
 
     function paivitaHakusana(hakusanaID, hakusana) {

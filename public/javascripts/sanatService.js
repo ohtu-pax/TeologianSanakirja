@@ -216,6 +216,19 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
                 })
                 .error(virhe);
     };
+    
+    var TEKIJA_URL = 'api/sana/tekija/';
+
+    this.lisaaTekija = function (tekija) {
+        return $q(function (resolve, reject) {
+            $http.put(TEKIJA_URL, {tekija: tekija})
+                    .success(function (res) {
+                        console.log('Lisays onnistui');
+                        resolve(res);
+                    })
+                    .error(reject);
+        });
+    };
 });
 function lyhentajaClass() {
 

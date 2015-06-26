@@ -54,10 +54,8 @@ router.put('/', function (req, res) {
         var trimmed = selitys.trim();
         if (trimmed.length > 2 && isInt(tekija)) {
             try {
-                database.queryWithValuesAndReturn('INSERT INTO selitykset (selitys) VALUES ($1) RETURNING id'
-                        //database.queryWithValuesAndReturn('INSERT INTO selitykset (selitys, tekija) VALUES ($1, $2) RETURNING id'
-                        //, [selitys, parseInt(tekija)], function (result) {
-                        , [selitys], function (result) {
+                database.queryWithValuesAndReturn('INSERT INTO selitykset (selitys, tekija) VALUES ($1, $2) RETURNING id'
+                        , [selitys, parseInt(tekija)], function (result) {
                     if (result.length !== 1) {
                         end(400);
                     } else {

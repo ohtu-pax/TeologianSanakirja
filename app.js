@@ -20,6 +20,7 @@ var login = require('./routes/login');
 var hakusana = require('./routes/hakusana');
 var selitys = require('./routes/selitys');
 var linkki = require('./routes/linkki');
+var tekija = require('./routes/tekija');
 
 var app = express();
 
@@ -61,6 +62,7 @@ app.use(function (req, res, next) {
 app.use(suojattu + 'hakusana', hakusana);
 app.use(suojattu + 'selitys', selitys);
 app.use(suojattu + 'linkki', linkki);
+app.use(suojattu + 'tekija', tekija);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -104,7 +106,7 @@ app.use(function (err, req, res, next) {
             message: err.message,
             error: {}
             //error: err
-       });
+        });
     }
 });
 

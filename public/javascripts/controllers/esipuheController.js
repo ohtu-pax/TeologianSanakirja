@@ -26,6 +26,6 @@ sanakirjaApp.controller('esipuheController', function ($scope, sanakirjaAPIservi
         var data = {
             data: $scope.esipuhe
             };
-        $http.post("/api/data/esipuhe", data);
+        $http.post("/api/sana/esipuhe", data);
     };
 });

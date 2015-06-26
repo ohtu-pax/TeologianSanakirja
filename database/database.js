@@ -7,7 +7,7 @@ var connectionString = config.connectionString;
 function queryWithValues(queryString, values, onend, onerror) {
     pg.connect(connectionString, function (err, client) {
         if (err) {
-            console.log(err);
+            console.error(err);
             return;
         }
         var query = client.query(queryString, values);
@@ -15,9 +15,7 @@ function queryWithValues(queryString, values, onend, onerror) {
             query.on('end', onend);
         }
         if (typeof onerror === "function") {
-            //console.log('ERRORING');
             query.on('error', onerror);
-            //onerror(err);
         } else {
             query.on('error', function (err) {
                 console.error(err);

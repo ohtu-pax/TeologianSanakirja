@@ -29,7 +29,9 @@
         <br/>
 
         <label id='tekijaLabel'>Tekijä: </label>
-        <select ng-model="muutos().nykyinenTekija" ng-options="tekija.tekija for tekija in sanalista.tekijat"></select>
+        <!--<select ng-model="muutos().nykyinenTekija" ng-options="tekija.tekija for tekija in sanalista.tekijat"></select>-->
+        <input type='text' ng-model="muutos().nykyinenTekija.nimi"
+               value="{{muutos().nykyinenTekija.nimi}}" placeholder='Tekijä'>
 
         <br />
 
