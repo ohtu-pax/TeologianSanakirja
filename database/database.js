@@ -5,12 +5,14 @@ var config = require('../config').conf;
 var connectionString = config.connectionString;
 
 function queryWithValues(queryString, values, onend, onerror) {
-    pg.connect(connectionString, function (err, client) {
+    pg.connect(connectionString, function (err, client, done) {
         if (err) {
             console.error(err);
             return;
         }
-        var query = client.query(queryString, values);
+        var query = client.query(queryString, values, function () {
+            done();
+        });
         if (typeof onend === "function") {
             query.on('end', onend);
         }
@@ -28,12 +30,16 @@ module.exports.queryWithValues = queryWithValues;
 
 function queryWithValuesAndReturn(queryString, values, onend) {
     var results = [];
-    pg.connect(connectionString, function (err, client) {
+    pg.connect(connectionString, function (err, client, done) {
         if (err) {
             console.error(err);
             return;
         }
-        var query = values ? client.query(queryString, values) : client.query(queryString);
+        var query = values ? client.query(queryString, values, function () {
+            done();
+        }) : client.query(queryString, function () {
+            done();
+        });
         query.on('row', function (row) {
             results.push(row);
         });
@@ -48,9 +54,11 @@ function queryWithValuesAndReturn(queryString, values, onend) {
 
 function updateTeksti(req, id) {
     var data = {data: req.body.data};
-    pg.connect(connectionString, function (err, client) {
+    pg.connect(connectionString, function (err, client, done) {
 
-        client.query("UPDATE esipuheOhje SET teksti = '" + data.data + "' WHERE id =" + id);
+        client.query("UPDATE esipuheOhje SET teksti = '" + data.data + "' WHERE id =" + id, function () {
+            done();
+        });
 
         if (err) {
             console.log(err);
