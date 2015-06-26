@@ -41,74 +41,74 @@
 
     </head>
     <body ng-app="sanakirjaApp" ng-controller="hakuKenttaController">
-        
+
         <header class="page-header navbar-fixed-top">
             <div class="container-fluid">
-            <nav class="navbar navbar-default">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle valikkoNappi" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Valikko</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="etusivu" >
-                            <a data-toggle="collapse" data-target=".navbar-collapse" href ="/#/">Etusivu</a>
-                        </li>
-                        <li class="random">
-                            <a data-toggle="collapse" data-target=".navbar-collapse" href ="" ng-click="getRandom()">Satunnainen sana</a>
-                        </li>
-                        <li class="historia">
-                            <a data-toggle="collapse" data-target=".navbar-collapse" href="/#/history">Hakuhistoria</a>
-                        </li>
-                        <li class="palaute">
-                            <a data-toggle="collapse" data-target=".navbar-collapse" href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
-                               title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
-                        </li>
-                        <li class="esipuhe">
-                            <a data-toggle="collapse" data-target=".navbar-collapse" href="/#/">Esipuhe</a>
-                        </li>
-                        <li ng-show="tila.sisalla" id="adminLinkki" class="adminLinkki">
-                            <a data-toggle="collapse" data-target=".navbar-collapse" href ="/#/admin" >Tee muutoksia sanakirjaan</a>
-                        </li>
-                        <li ng-show="tila.sisalla" class="logout ei-oikeaa-reunaa">
-                            <a data-toggle="collapse" data-target=".navbar-collapse" href ="" ng-click="logout()">Kirjaudu ulos</a>
-                        </li>
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle valikkoNappi" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Valikko</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="etusivu" >
+                                <a data-toggle="collapse" data-target=".navbar-collapse" href ="/#/">Etusivu</a>
+                            </li>
+                            <li class="random">
+                                <a data-toggle="collapse" data-target=".navbar-collapse" href ="" ng-click="getRandom()">Satunnainen sana</a>
+                            </li>
+                            <li class="historia">
+                                <a data-toggle="collapse" data-target=".navbar-collapse" href="/#/history">Hakuhistoria</a>
+                            </li>
+                            <li class="palaute">
+                                <a data-toggle="collapse" data-target=".navbar-collapse" href="https://docs.google.com/forms/d/10f_5PExTvSiYeUitiBTGzBy8vPXSjaWIviLLGoXXvOA/viewform"
+                                   title="Aukeaa uuteen ikkunaan" target="blank">Anna palautetta tai ehdota muutoksia sanakirjaan</a>
+                            </li>
+                            <li class="esipuhe">
+                                <a data-toggle="collapse" data-target=".navbar-collapse" href="/#/">Esipuhe</a>
+                            </li>
+                            <li ng-show="tila.sisalla" id="adminLinkki" class="adminLinkki">
+                                <a data-toggle="collapse" data-target=".navbar-collapse" href ="/#/admin" >Tee muutoksia sanakirjaan</a>
+                            </li>
+                            <li ng-show="tila.sisalla" class="logout ei-oikeaa-reunaa">
+                                <a data-toggle="collapse" data-target=".navbar-collapse" href ="" ng-click="logout()">Kirjaudu ulos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>    
+                <h1>  Teologian Sanakirja </h1>
+                <div class="aakkoset" ng-controller="kirjainController">
+                    <ul class="nav navbar-nav">
+                        <li class="kirjaimet" ng-repeat="kirjain in AAKKOSET"><a href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a></li>
                     </ul>
                 </div>
-            </nav>    
-            <h1>  Teologian Sanakirja </h1>
-            <div class="aakkoset" ng-controller="kirjainController">
-                <ul class="nav navbar-nav">
-                    <li class="kirjaimet" ng-repeat="kirjain in AAKKOSET"><a href="/#/lista/{{kirjain}}">{{kirjain}}&nbsp;</a></li>
-                </ul>
-            </div>
-            <div id="haku">
-                <label>Etsi: <input ng-change="naytaLista()" class="dropdown up" ng-model="hakuKentta.sana" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta.sana} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
-                <button id="tyhjennaHaku" type="buon" ng-click="tyhjennahaku()">Tyhjennä haku</button>
-            </div>
-            <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
+                <div id="haku">
+                    <label>Etsi: <input ng-change="naytaLista()" class="dropdown up" ng-model="hakuKentta.sana" bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:hakuKentta.sana} " placeholder="Etsi sanan perusteella" bs-typeahead></label>
+                    <button id="tyhjennaHaku" type="buon" ng-click="tyhjennahaku()">Tyhjennä haku</button>
                 </div>
+                <p class="sisallaViesti" ng-show="tila.sisalla"><small>Pääkäyttäjä</small></p>
+            </div>
 
         </header>
-    <div class="container-fluid sisalto">
-        <div class="sailio">
-            <div ng-view></div>
+        <div class="container-fluid sisalto">
+            <div class="sailio">
+                <div ng-view></div>
+            </div>
+            <script>
+                        cheet("o h t u p a x", function () {
+                            $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($(".sailio"));
+                        });</script>
+            <script>
+                        cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
+                            $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($(".sailio"));
+                        });
+            </script>
         </div>
-        <script>
-            cheet("o h t u p a x", function () {
-                $('<iframe class="miska" width="620" height="349" src="https://www.youtube.com/embed/dZXWk_reqWU" frameborder="0" style="margin-bottom: 40px;" allowfullscreen></iframe>').appendTo($("body"));
-            });</script>
-        <script>
-            cheet("↑ ↑ ↓ ↓ ← → ← → b a", function () {
-                $('<EMBED src="http://www.flash-gamer.eu/flash/Tetris-7.swf" width=360 height=430 quality=high></EMBED><br>Game found @ <A HREF="http://www.flash-gamer.eu">www.flash-gamer.eu</A>').appendTo($("body"));
-            });
-        </script>
-    </div>
-    <!--tyyleihin liittyvät scriptit-->
-    <script src="javascripts/tyyliskriptit.js"></script>
-</body>
+        <!--tyyleihin liittyvät scriptit-->
+        <script src="javascripts/tyyliskriptit.js"></script>
+    </body>
 </html>
