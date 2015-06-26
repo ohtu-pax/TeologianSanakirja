@@ -38,13 +38,11 @@ sanakirjaApp.controller('hakuKenttaController', function ($scope, $routeParams, 
     sanakirjaAPIservice.isLoggedIn().then(function (data) {
         var res = !!parseInt(data, 10);
         $scope.tila.sisalla = res;
-        console.log('Ollaan kirjauduttu sisään: ' + res);
     });
 
     $scope.logout = function () {
         sanakirjaAPIservice.logout().then(function (data) {
             var kirjauduttuUlos = !!data;
-            console.log('Uloskirjautuminen onnistui: ' + kirjauduttuUlos);
             if (kirjauduttuUlos === true) {
                 $scope.tila.sisalla = false;
                 $location.path('/');

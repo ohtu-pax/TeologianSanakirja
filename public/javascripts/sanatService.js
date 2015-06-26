@@ -25,8 +25,10 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
         } else {
             var resolved = false;
             mainPromise = null;
-            muokkaamatonData = null;
-            sanatEsiteltava = null;
+            if (forceReload === true) {
+                muokkaamatonData = null;
+                sanatEsiteltava = null;
+            }
             var main = $q(function (resolve, reject) {
                 if (sanatEsiteltava !== null) {
                     resolved = true;
