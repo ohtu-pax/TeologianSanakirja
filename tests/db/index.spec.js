@@ -10,18 +10,20 @@ app.use('/', routes);
 var START_TIMEOUT = 6000;
 var TIMEOUT = 6000;
 
-describe('api/sanat', function () {
+var API_PATH = '/api/sanatuusi';
+
+describe(API_PATH + ': ', function () {
     before(function (done) {
         this.timeout(START_TIMEOUT);
         request(app)
-                .get('/api/sanat')
+                .get(API_PATH)
                 .set('Accept', 'application/json')
                 .end(done);
     });
     it('Palautuu JSON muodossa', function (done) {
         this.timeout(TIMEOUT);
         request(app)
-                .get('/api/sanat')
+                .get(API_PATH)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)

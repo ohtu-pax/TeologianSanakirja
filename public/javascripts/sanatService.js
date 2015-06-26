@@ -2,20 +2,20 @@
 
 sanakirjaApp.service('sanatService', function ($http, $q) {
 
-    var jsonres = null;
-
     var mainPromise = null;
-
     var sanatEsiteltava = null;
-
-    var selitysLinkit = null;
-
-    var tekijat = null;
-    var hakusanat = null;
-    var selitykset = null;
+    var muokkaamatonData = null;
 
     this.sanalista = function () {
-        if (mainPromise !== null) {
+        return haeSanalista(false);
+    };
+
+    this.forceReload = function () {
+        return haeSanalista(true);
+    };
+
+    function haeSanalista(forceReload) {
+        if (forceReload === false && mainPromise !== null) {
             var promise = $q(function (resolve, reject) {
                 mainPromise.then(function () {
                     resolve(sanatEsiteltava);
@@ -24,6 +24,11 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
             return promise;
         } else {
             var resolved = false;
+            mainPromise = null;
+            if (forceReload === true) {
+                muokkaamatonData = null;
+                sanatEsiteltava = null;
+            }
             var main = $q(function (resolve, reject) {
                 if (sanatEsiteltava !== null) {
                     resolved = true;
@@ -32,13 +37,14 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
                     $http.get('api/sanatuusi')
                             .success(function (data) {
                                 console.time('linkitys');
-                                selitysLinkit = data.linkit;
-                                hakusanat = data.hakusanat;
-                                tekijat = data.tekijat;
-                                selitykset = data.selitykset;
+                                muokkaamatonData = data;
+                                console.log(data);
 
-
+                                var selitysLinkit = data.linkit;
+                                var hakusanat = data.hakusanat;
+                                var selitykset = data.selitykset;
                                 var linkitSelitykseen = new Array(selitysLinkit.length);
+
                                 for (var i = 0; i < selitysLinkit.length; i++) {
                                     var curr = selitysLinkit[i];
                                     var linkitSelityksessa = linkitSelitykseen[curr.selitys];
@@ -60,7 +66,6 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
 
 
                                 var hakusanatMap = toMap(hakusanat);
-
                                 var selityksetMap = toMap(selitykset);
                                 var res = new Array(hakusanat.length);
                                 var lyhentaja = new lyhentajaClass();
@@ -70,7 +75,6 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
                                     res[i] = sana;
                                     var hakusana = hakusanat[i];
                                     sana.hakusana = hakusana.hakusana;
-
                                     var selitys = selityksetMap[hakusana.selitys];
                                     if (!selitys) {
                                         console.log(hakusana);
@@ -87,8 +91,6 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
                                 }
 
                                 sanatEsiteltava = res;
-                                jsonres = JSON.stringify(res);
-                                sessionStorage.setItem('sanalista', jsonres);
                                 console.timeEnd('linkitys');
                                 mainPromise = null;
                                 resolve(res);
@@ -104,9 +106,130 @@ sanakirjaApp.service('sanatService', function ($http, $q) {
             }
             return main;
         }
+    }
+
+    this.muokkaamatonSanalista = function () {
+        if (muokkaamatonData !== null) {
+            return $q(function (resolve, reject) {
+                resolve(muokkaamatonData);
+            });
+        }
+        else if (mainPromise === null) {
+            return haeSanalista().then(function (res) {
+                return $q(function (resolve, reject) {
+                    resolve(muokkaamatonData);
+                });
+            });
+        } else {
+            return $q(function (resolve, reject) {
+                mainPromise.then(function () {
+                    resolve(muokkaamatonData);
+                });
+            });
+        }
+    };
+
+    var HAKUSANA_URL = 'api/sana/hakusana/';
+
+    function virhe(err) {
+        console.log('Virhe: ' + err);
+    }
+
+    this.muokkaaHakusana = function (id, hakusana) {
+        var sana = {id: id, hakusana: hakusana};
+        $http.post(HAKUSANA_URL, sana)
+                .success(function () {
+                    console.log('Päivitys onnistui');
+                })
+                .error(virhe);
+    };
+
+    this.lisaaHakusana = function (hakusana, selitys) {
+        var sana = {hakusana: hakusana, selitys: selitys};
+        $http.put(HAKUSANA_URL, sana)
+                .success(function () {
+                    console.log('Lisays onnistui');
+                })
+                .error(virhe);
+    };
+
+    this.poistaHakusana = function (id) {
+        $http.delete(HAKUSANA_URL + id)
+                .success(function () {
+                    console.log('Poisto onnistui');
+                })
+                .error(virhe);
+    };
+
+    var SELITYS_URL = 'api/sana/selitys/';
+
+    this.muokkaaSelitys = function (id, selitys, tekija) {
+        $http.post(SELITYS_URL, {id: id, selitys: selitys, tekija: tekija})
+                .success(function () {
+                    console.log('Päivitys onnistui');
+                })
+                .error(virhe);
+    };
+
+    this.lisaaSelitys = function (selitys, tekija) {
+        return $q(function (resolve, reject) {
+            $http.put(SELITYS_URL, {selitys: selitys, tekija: tekija})
+                    .success(function (res) {
+                        console.log('Lisays onnistui');
+                        resolve(res);
+                    })
+                    .error(reject);
+        });
+    };
+
+    this.poistaSelitys = function (id) {
+        $http.delete(SELITYS_URL + id)
+                .success(function () {
+                    console.log('Poisto onnistui');
+                })
+                .error(virhe);
+    };
+
+    var LINKIT_URL = 'api/sana/linkki/';
+
+    this.muokkaaLinkki = function (id, hakusana, selitys, linkkisana) {
+        console.log({id: id, hakusana: hakusana, selitys: selitys, linkkisana: linkkisana});
+        $http.post(LINKIT_URL, {id: id, hakusana: hakusana, selitys: selitys, linkkisana: linkkisana})
+                .success(function () {
+                    console.log('Päivitys onnistui');
+                })
+                .error(virhe);
+    };
+
+    this.lisaaLinkki = function (selitys, linkkisana, hakusana) {
+        $http.put(LINKIT_URL, {selitys: selitys, linkkisana: linkkisana, hakusana: hakusana})
+                .success(function (res) {
+                    console.log('Lisays onnistui');
+                })
+                .error(virhe);
+    };
+
+    this.poistaLinkki = function (id) {
+        $http.delete(LINKIT_URL + id)
+                .success(function () {
+                    console.log('Poisto onnistui');
+                })
+                .error(virhe);
+    };
+    
+    var TEKIJA_URL = 'api/sana/tekija/';
+
+    this.lisaaTekija = function (tekija) {
+        return $q(function (resolve, reject) {
+            $http.put(TEKIJA_URL, {tekija: tekija})
+                    .success(function (res) {
+                        console.log('Lisays onnistui');
+                        resolve(res);
+                    })
+                    .error(reject);
+        });
     };
 });
-
 function lyhentajaClass() {
 
     var lyhenteet = [
@@ -273,7 +396,6 @@ function lyhentajaClass() {
     }
 
     var LISA_PITUUS = toSpan('', '').length;
-
     var isAlphanumeric = /^[a-zäåö]+$/i;
 
     function replaceString(origin, start, end, what) {
@@ -318,7 +440,6 @@ function lyhentajaClass() {
 function linkittajaClass(linkit, hakusanat) {
     var linkit = linkit;
     var hakusanat = hakusanat;
-
     var linkkiSanat = {};
 
     for (var i = 0, max = linkit.length; i < max; i++) {
@@ -348,7 +469,6 @@ function linkittajaClass(linkit, hakusanat) {
 
         var openTag = false;
         var closeTag = false;
-
         function setTags(value) {
             if (openTag === value) {
                 openTag = !value;
@@ -379,7 +499,6 @@ function linkittajaClass(linkit, hakusanat) {
                     var loppu = realPosition + 1;
                     var lyhenne = currSana;
                     var hakusana = hakusanat[linkki.hakusana].hakusana;
-
                     selitys = replaceString(selitys, alku, loppu,
                             toHref(lyhenne, hakusana));
                     var pituusKasvu = LISA_PITUUS + hakusana.length;

@@ -3,24 +3,40 @@
         <label id="adminSanaLabel">Sana: </label>
 
         <fieldset id="adminSanaSet">
-            <input id="adminSanahaku" class="dropdown up" ng-change="hallinnoiRiveja({{adminSanat[0].id}}); sanaSelitys()" ng-model="adminSanat[0].hakusana" 
-                   bs-options="sana.hakusana as sana.hakusana for sana in sanalista | filter:{hakusana:adminSanahaku} "
+            <input id="adminSanahaku" class="dropdown up" ng-change="hae()" ng-model="haku"
+                   bs-options="sana.hakusana as sana.hakusana for sana in sanalista.hakusanat | filter:{hakusana:adminSanahaku} "
                    placeholder="Etsi sanan perusteella" bs-typeahead>
-            <input ng-repeat="adminSana in adminSanat" id="adminSana{{adminSana.id}}" type='text' class="adminSana" ng-show="!$first" ng-model="adminSana.hakusana" ng-change="hallinnoiRiveja({{adminSana.id}})" placeholder='Lisää hakusana'>
+            <input ng-repeat="hakusana in muutos().hakusanat()" type='text' ng-if="!$first"
+                   ng-model="hakusana.muutettu" ng-change="tarkistaKenttienMaara()" class="adminSana"
+                   value="{{hakusana.muutettu}}" placeholder='Lisää hakusana'>
         </fieldset>
+        <br/>
+        <br/>
+
+        <label>Linkit: </label>
+        <div class="adminLinkit" ng-repeat="linkki in muutos().linkit()" >
+            <input type='text' ng-model="linkki.linkkisana" ng-change="tarkistaLinkkienMaara()"
+                   value="{{linkki.linkkisana}}" placeholder='Linkkisana'>
+            <input type='text' ng-model="linkki.hakusana" ng-change="tarkistaLinkkienMaara()"
+                   value="{{linkki.hakusana}}" placeholder='Hakusana'>
+        </div>
+
         <br/>
 
         <label id="adminSelitysLabel">Selitys: </label>
-        <textarea id="adminSelitys" ng-model="adminSelitys">{{adminSelitys}}</textarea>
+        <textarea id="adminSelitys" ng-model="muutos().uusiSelitys">{{muutos().uusiSelitys}}</textarea>
 
         <br/>
-        
+
         <label id='tekijaLabel'>Tekijä: </label>
-        <input id='tekijaInput' type="text" ng-model="tekijaInput" placeholder="Lisää tekijä" class='tekijaInput'/>
+        <!--<select ng-model="muutos().nykyinenTekija" ng-options="tekija.tekija for tekija in sanalista.tekijat"></select>-->
+        <input type='text' ng-model="muutos().nykyinenTekija.nimi"
+               value="{{muutos().nykyinenTekija.nimi}}" placeholder='Tekijä'>
+
         <br />
-        
-        <input id="adminTallenna" type="button" ng-click="" value="Tallenna" title="Tallenna muutokset tai uusi sana" />
-        <input id="adminPoista" type="button" ng-click="" value="Poista" title="Poista sana ja selitys sanakirjasta" />
+
+        <input id="adminTallenna" type="button" ng-click="tallennaSelitys()" value="Tallenna selitys" title="Tallenna muutokset tai uusi sana" />
+        <input id="adminPoista" type="button" ng-click="poistaSelitys()" value="Poista selitys" title="Poista sana ja selitys sanakirjasta" />
         <input id="adminTyhjenna" type="button" ng-click="tyhjenna()" value="Tyhjennä kentät" title="Tyhjennä lomake" />
     </form>
 </div>    
