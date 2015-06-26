@@ -50,7 +50,7 @@ function updateTeksti(req, id) {
     var data = {data: req.body.data};
     pg.connect(connectionString, function (err, client) {
 
-        client.query("UPDATE esipuheOhje SET nimi = '" + data.data + "' WHERE id =" + id);
+        client.query("UPDATE esipuheOhje SET teksti = '" + data.data + "' WHERE id =" + id);
 
         if (err) {
             console.log(err);
