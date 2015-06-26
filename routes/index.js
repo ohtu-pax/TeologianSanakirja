@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     res.render('index');
 });
 
-var HAKUSANAT_KYSELY = 'SELECT * FROM hakusanat';
+var HAKUSANAT_KYSELY = 'SELECT * FROM hakusanat ORDER BY hakusana';
 var SELITYKSET_KYSELY = 'SELECT * FROM selitykset';
 var LINKIT_KYSELY = 'SELECT * FROM linkit';
 var ESIPUHE_KYSELY = 'SELECT * FROM tekstit WHERE id=10';
