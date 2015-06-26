@@ -8,6 +8,7 @@ function queryWithValues(queryString, values, onend, onerror) {
     pg.connect(connectionString, function (err, client, done) {
         if (err) {
             console.error(err);
+            done();
             return;
         }
         var query = client.query(queryString, values, function () {
@@ -33,6 +34,7 @@ function queryWithValuesAndReturn(queryString, values, onend) {
     pg.connect(connectionString, function (err, client, done) {
         if (err) {
             console.error(err);
+            done();
             return;
         }
         var query = values ? client.query(queryString, values, function () {
@@ -61,6 +63,7 @@ function updateTeksti(req, id) {
         });
 
         if (err) {
+            done();
             console.log(err);
         }
     });
