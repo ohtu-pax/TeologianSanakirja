@@ -17,24 +17,30 @@ describe('Käyttäjä haluaa nähdä hakuhistorian', function () {
     });
 
     it('Hakuhistoria avaa hakuhistorian kun sitä painetaan ja hakuhistoria on tyhjä', function (done) {
-        element(by.linkText('Hakuhistoria')).click().then(function () {
-            historiaLinkit = element.all(by.css('.historiaLinkit'));
-            historiaLinkit.getText().then(function (linkit) {
-                expect(linkit).toEqual([]);
+
+        element(by.css('.valikkoNappi')).click().then(function () {
+            element(by.linkText('Hakuhistoria')).click().then(function () {
+                historiaLinkit = element.all(by.css('.historiaLinkit'));
+                historiaLinkit.getText().then(function (linkit) {
+                    expect(linkit).toEqual([]);
+                });
+                done();
             });
-            done();
         });
+
     });
 
     it('Hakuhistoria avaa hakuhistorian kun sitä painetaan ja hakuhistoriassa on linkkejä', function (done) {
         hakukentta.sendKeys('aamen').then(function () {
             hakukentta.clear().then(function () {
                 hakukentta.sendKeys('pax').then(function () {
-                    element(by.linkText('Hakuhistoria')).click().then(function () {
-                        historiaLinkit = element.all(by.css('.historiaLinkit'));
-                        historiaLinkit.getText().then(function (linkit) {
-                            expect(linkit).toEqual(['pax', 'aamen']);
-                            done();
+                    element(by.css('.valikkoNappi')).click().then(function () {
+                        element(by.linkText('Hakuhistoria')).click().then(function () {
+                            historiaLinkit = element.all(by.css('.historiaLinkit'));
+                            historiaLinkit.getText().then(function (linkit) {
+                                expect(linkit).toEqual(['pax', 'aamen']);
+                                done();
+                            });
                         });
                     });
                 });
@@ -46,11 +52,13 @@ describe('Käyttäjä haluaa nähdä hakuhistorian', function () {
         hakukentta.sendKeys('aamen');
         hakukentta.clear();
         hakukentta.sendKeys('koira').then(function () {
-            element(by.linkText('Hakuhistoria')).click().then(function () {
-                historiaLinkit = element.all(by.css('.historiaLinkit'));
-                historiaLinkit.getText().then(function (linkit) {
-                    expect(linkit).toEqual(['aamen']);
-                    done();
+            element(by.css('.valikkoNappi')).click().then(function () {
+                element(by.linkText('Hakuhistoria')).click().then(function () {
+                    historiaLinkit = element.all(by.css('.historiaLinkit'));
+                    historiaLinkit.getText().then(function (linkit) {
+                        expect(linkit).toEqual(['aamen']);
+                        done();
+                    });
                 });
             });
         });
@@ -58,12 +66,14 @@ describe('Käyttäjä haluaa nähdä hakuhistorian', function () {
 
     it('Kun klikataan hakuhistorian linkkiä, siirrytään sanan selitykseen', function (done) {
         hakukentta.sendKeys('aamen').then(function () {
-            element(by.linkText('Hakuhistoria')).click().then(function () {
-                historiaLinkit = element.all(by.css('.historiaLinkit'));
-                historiaLinkit.first().click().then(function () {
-                    browser.getCurrentUrl().then(function (url) {
-                        expect(url).toContain(['/#/sanat/aamen']);
-                        done();
+            element(by.css('.valikkoNappi')).click().then(function () {
+                element(by.linkText('Hakuhistoria')).click().then(function () {
+                    historiaLinkit = element.all(by.css('.historiaLinkit'));
+                    historiaLinkit.first().click().then(function () {
+                        browser.getCurrentUrl().then(function (url) {
+                            expect(url).toContain(['/#/sanat/aamen']);
+                            done();
+                        });
                     });
                 });
             });

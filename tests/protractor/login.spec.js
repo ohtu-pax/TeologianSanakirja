@@ -54,14 +54,16 @@ describe('Kirjautumistestaus: ', function () {
         name.sendKeys(ADMIN_USERNAME).then(function () {
             password.sendKeys(ADMIN_PASSWORD).then(function () {
                 loginInput.click().then(function () {
-                    element(by.linkText('Kirjaudu ulos')).click().then(function () {
-                        expect(sisallaViesti.getText()).toEqual('');
-                        browser.getCurrentUrl().then(function (url) {
-                            var kolmeVikaaMerkkia = url.substr(url.length - 3)
-                            expect(kolmeVikaaMerkkia).toEqual('/#/');
-                            done();
-                        });
+                    element(by.css('.valikkoNappi')).click().then(function () {
+                        element(by.linkText('Kirjaudu ulos')).click().then(function () {
+                            expect(sisallaViesti.getText()).toEqual('');
+                            browser.getCurrentUrl().then(function (url) {
+                                var kolmeVikaaMerkkia = url.substr(url.length - 3)
+                                expect(kolmeVikaaMerkkia).toEqual('/#/');
+                                done();
+                            });
 
+                        });
                     });
                 });
             });
